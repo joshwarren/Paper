@@ -23,6 +23,7 @@
 \usepackage{array} % For wrapping text in cell in tables
 % \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % centered wrapped text in tables
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} % 
+\newcommand{\bracket}[1]{[#1]} % to be able to use [] in arguments
 
 
 \title{An IFS study of Low-powered Radio Galaxies}
@@ -212,11 +213,84 @@ $^{3}$INAF - Istituto di Radioastronomia, Via P. Gobetti 101, 40129 Bologna, Ita
 
 		Finally, we trimmed all the MUSE cubes to the central $30\arcsec \times 30\arcsec$ ($150 \times 150$\,spaxels) only, to (a) avoid the regions used for the pseudo-sky spectrum and (b) reduce the computing resources required for spatial binning (see Section \ref{sec:analysis}). In any case, the bins would be so large in the outer parts as to be effectively useless (see Fig\,\ref{fig:egSNR}).
 
-		% As stated in section \ref{subsec:MUSE}, we used the supplied, reduced data product, however it was noted that the sky for both IC1459 and IC426 had been over subtracted leading to large apparent absorption features (often with negative fluxes). To remove this over-subtraction, our own pseudo-sky subtraction routine was developed. The median spectrum was taken from four 20x20 spaxel boxes taken from each corner of the observation. After checking that no stellar continuum could be fitted to the spectrum (i.e. there was very little light from the galaxy contaminating our pseudo-sky spectrum), this spectrum was subtracted from each spaxel in the cube. The data-cubes were then trimmed to the central 30"x30" (150x150 spaxels).
-
 \section{Data Analysis}
 	\label{sec:analysis}
-% 	The analysis was nearly identical for data from the two instruments. The only differences being that the MUSE cubes were binned to a high Signal to Noise ratio (S/N) and the emission lines kinematics were allowed to vary up to the fourth moment (i.e. $h_3$ and $h_4$ were allowed to vary), whilst emission line within the VIMOS data was only allow to vary to the second moment (i.e. $h_3 \, h_4 = 0$). 
+	From this point on, the VIMOS and MUSE datasets are treated almost identically, the only difference (other than the different spectral ranges and resolutions) being that the MUSE datacubes are spatially binned to a higher signal-to-noise ratio (S/N) using Voronoi binning\footnote{\url{http://www-astro.physics.ox.ac.uk/~mxc/software/}} \citep{Cappellari2003}. For our purposes, we define the `signal' and `noise' of each spaxel as the median value of its spectrum and noise spectrum, respectively. We require a S/N of 30 for all VIMOS datacubes and 50 for the IC 1459 and IC 4296 MUSE datacubes. The NGC 1316 and NGC 1399 MUSE datacubes were binned to a S/N of 50 for the analysis of the stellar kinematics and 100 for the analysis of the emission line kinematics and stellar populations.
+
+	% Identify the relevant stellar templates, by fitting the entire galaxy spectrum (obtained by summing all galaxy spectra) with all the templates from the Medium-resolution Issac Newton Telescope (INT) Library of Empirical Spectra (MILES) library, and hereafter using only the non-zero weight templates.
+
+	Next we implement a routine to find optimal initial guesses of the redshift and velocity dispersion for each galaxy, to be used when fitting individual bins, by means of iterative fits to the spatially collapsed (i.e. summed across both spatial dimensions of the datacube) spectrum. We use the penalized-fitting (\textsc{pPXF}) routine\footnote{\url{http://www-astro.physics.ox.ac.uk/~mxc/software/}} of \citet{Cappellari2004} and \citet{Cappellari2016a} with the Medium-resolution Issac Newton Telescope (INT) Library of Empirical Spectra (MILES) library \citep{Sanchez-Blazquez2006, Falcon-Barroso2011a} to find the best-fitting line-of-sight velocity distribution (LOSVD; as parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion). The final mean velocity of a given galaxy, is used as its precise spectroscopic redshift and is given in Table \ref{tab:sample}. Beyond this point, each bin is analysed independently.
+
+	\subsection{Stellar Kinematics}
+		\label{subsec:starKin}
+		% Find the best-fitting line-of-sight velocity distribution (LOSVD; as parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion) of the stellar and ionized gas components in each bin, using a Monte--Carlo method to estimate the uncertainties on the measurements.
+
+		% Each one is processed through \textsc{pPXF} using only the MILES templates with non-zero weights identified above, using the redshift and velocity dispersion estimates from the last step as initial guesses. Again, r
+
+		Each bin is fit independently again using \textsc{pPXF} with the MILES library. For the fit regions around potential emission lines are masked, and a fourth order polynomial additive continuum correction is used. A Monte--Carlo (MC) estimate of the uncertainties is used. 
+
+		%, with 1000 repetitions is used, whereby in each iteration (after the first), random noise is added to the best-fitting model from the first run, distributed with a Gaussian profile of width equal to the noise in the spectrum (as propagated through the data reduction pipeline). The standard deviation of the best-fitting parameters from these 1000 iterations are then adopted as the best-fitting uncertainties.
+
+
+	\subsection{Ionized Gas Distribution and Kinematics}
+		We fit the ionized gas fluxes and kinematics from the emission lines listed in Table \ref{tab:EmissionLine}, using Gaussian templates are used to independently fit emission lines from the interstellar medium (ISM), with a single LOSVDs, independently of the stellar kinematics. However, to minimize template mismatch, whereby emission lines are erroneously fitted to the edges of badly modeled and thus subtracted absorption features, we follow the method set out in \citet{Sarzi2005}, whereby the stellar component is first fitted as above with masked potential emission line regions, followed by the unmasking and fitting of the [\ion{O}{iii}] doublet which sets the kinematics for all the emission lines and finally the amplitude of the remaining emission lines. Some of the forbidden emission lines have the ratio of their amplitudes fixed (see Table \ref{tab:EmissionLine}, Col.\,4).
+
+		\begin{table}
+	 		\centering
+	 	\begin{threeparttable}
+	 		\caption{Emission lines considered in the \textsc{pPXF} fits.}
+	 		\label{tab:EmissionLine}
+	 		\begin{tabular}{l c c c}
+	 		\hline
+	 		\hline
+	 		Emission & Rest-frame & Doublet rest-frame & Amplitude  \\
+	 		Line & wavelength & wavelength & ratio \\
+	 		 & (\AA) & (\AA) \\
+	 		\hline
+	 		\bracket{\ion{O}{ii}} 	& 3726.03 & 3728.82 & Free \\
+	 		H\,$\delta$ 	& 4101.76 & -- & -- \\
+	 		H\,$\gamma$ 	& 4340.47 & -- & -- \\
+	 		H\,$\beta$ 		& 4861.33 & -- & -- \\
+	 		\bracket{\ion{O}{iii}}	& 4958.92 & 5006.84 & 0.35 \\
+	 		\bracket{\ion{N}{i}} 	& 5199.36 & 5201.86 & 0.65 \\
+	 		\bracket{\ion{O}{i}} 	& 6300.30 & 6363.67 & 0.33 \\
+	 		\bracket{\ion{N}{ii}} 	& 6548.03 & 6583.41 & 0.34 \\
+	 		H\,$\alpha$ 	& 6562.30 & -- & -- \\
+	 		\bracket{\ion{S}{ii}} 	& 6716.47 & 6730.85 & Free \\
+	 		\hline
+	 		\hline
+	 		\end{tabular}
+	 		\begin{tablenotes}
+	 		\note Col\,1: Emission line name. Col\,2: Emission line rest-frame wavelength. Col\,3: Doublet rest-frame wavelength for forbidden lines. Col\,4: The fixed ratio of the amplitudes of the lines within a doublet. `Free' indicates the amplitudes of both doublet constituents are fit independently of each other. 
+	 		\end{tablenotes}
+	 	\end{threeparttable}
+	 	\end{table}
+
+
+		
+
+	\subsection{Absorption Line Strengths and Stellar Populations}
+		\label{subsec:absorption}
+		Remove the fitted emission lines and measure the absorption line strengths in each bin. % include corrections
+
+
+
+
+		\subsubsection{Best-fitting Stellar Populations}
+			\label{subsubsec:stellarPop}
+			Identify the best-fitting stellar population model in each bin using the measured absorption line strengths.
+	
+	
+
+
+
+
+
+	For each galaxy (i.e.\ each combined cube), the data analysis process can summed up as follows, each step being detailed below.
+
+
+
+	
 
 
 % 	The cube was then spatially binned using Voronoi Binning technique \citep{Cappellari2003} to a uniform Signal to Noise ratio (S/N), defined to be the ratio of the medians of the spatially integrated cube and the spatially integrated noise spectrum, of 30 for VIMOS data and 60 for MUSE data. %Below about the calcium doublet, Ca4227, the observed spectrum tended to become unresponsive and so a hard cut lower cut was applied at 4200 \AA. 
