@@ -76,7 +76,7 @@ $^{3}$INAF - Istituto di Radioastronomia, Via P. Gobetti 101, 40129 Bologna, Ita
 	\begin{threeparttable}
 		\caption{Key sample characteristics of the Southern Sample galaxies.}
 		\label{tab:sample}
-		\begin{tabular}{l l r r r l}
+		\begin{tabular}{l c c c c l}
 			\hline
 			\hline
 			Host galaxy	& Radio source 	& Redshift	& $S_\text{1.4\,GHz}$	& $m_K$ & Dust morphology\\
@@ -84,14 +84,14 @@ $^{3}$INAF - Istituto di Radioastronomia, Via P. Gobetti 101, 40129 Bologna, Ita
 			\hline 
 			ESO 443-G024 & 1258-321 	& 0.01703	& $1387 \pm 45$		& 8.51 & no dust\tnote{a}	\\ 
 			IC 1459 	& 2254-367 		& 0.00565 	& $1280 \pm 45$		& 6.81 & dust lane\tnote{b}	\\
-			IC 1531 	& 0007-325 		& 0.02553 	& $388 \pm 12$		& 9.55 & --					\\
+			IC 1531 	& 0007-325 		& 0.02553 	& \leavevmode\phantom{0}$388 \pm 12$		& 9.55 & --					\\
 			IC 4296		& 1333-\leavevmode\phantom{0}33 		& 0.01248 	& $1342 \pm 41$		& 7.50 & edge-on disc\tnote{b} \\
-			NGC 612 	& 0131-\leavevmode\phantom{0}36 		& 0.02954 	& $585 \pm 18$		& 9.58 & dust lane\tnote{c}	\\
-			NGC 1316 	& 0320-\leavevmode\phantom{0}37 & 0.00591 	& $255 \pm 10$		& 5.59 & dust patches\tnote{b} \\
-			NGC 1399 	& 0336-\leavevmode\phantom{0}35 & 0.00472 	& $209 \pm \leavevmode\phantom{0}7$	& 6.31 & no dust\tnote{b}	\\
-			NGC 3100 	& 0958-314 		& 0.00879 	& $530 \pm 16$		& 8.08 & dust lane\tnote{d}	\\
-			NGC 3557 	& 1107-372 		& 0.01016 	& $484 \pm 16$		& 7.203 & face-on disc\tnote{b}\\
-			NGC 7075 	& 2128-388 		& 0.01819 	& $837 \pm 28$		& 9.56 & --					\\
+			NGC 612 	& 0131-\leavevmode\phantom{0}36 		& 0.02954 	& \leavevmode\phantom{0}$585 \pm 18$		& 9.58 & dust lane\tnote{c}	\\
+			NGC 1316 	& 0320-\leavevmode\phantom{0}37 & 0.00591 	& \leavevmode\phantom{0}$255 \pm 10$		& 5.59 & dust patches\tnote{b} \\
+			NGC 1399 	& 0336-\leavevmode\phantom{0}35 & 0.00472 	& \leavevmode\phantom{0}$209 \pm \leavevmode\phantom{0}7$	& 6.31 & no dust\tnote{b}	\\
+			NGC 3100 	& 0958-314 		& 0.00879 	& \leavevmode\phantom{0}$530 \pm 16$		& 8.08 & dust lane\tnote{d}	\\
+			NGC 3557 	& 1107-372 		& 0.01016 	& \leavevmode\phantom{0}$484 \pm 16$		& 7.20 & face-on disc\tnote{b}\\
+			NGC 7075 	& 2128-388 		& 0.01819 	& \leavevmode\phantom{0}$837 \pm 28$		& 9.56 & --					\\
 			--			& 0718-\leavevmode\phantom{0}34 		& 0.02897 	& $1119 \pm 41$		& 9.97 & dust patches\tnote{e} \\
 			\hline
 			\hline
@@ -198,122 +198,69 @@ $^{3}$INAF - Istituto di Radioastronomia, Via P. Gobetti 101, 40129 Bologna, Ita
 			\label{subsubsec:stellarPop}
 			In each bin, using the measured absorption line strengths, we identify the best-fitting single stellar population (SSP) model from the models of \citeauthor{Thomas2010} (\citeyear{Thomas2010}; hereafter \citetalias{Thomas2010}) using \textsc{emcee}, a \textsc{python}, affine-invariant Markov chain Monte--Carlo (MCMC) fitting package \citep{Foreman-Mackey2013}. The \citetalias{Thomas2010} models are chosen because they are based on high-resolution, flux-calibrated spectra and therefore not requiring absorption line strength measurement to be in the Lick/IDS system. 
 
-\section{Kinematics}
-	\label{sec:kine}
-	% The kinematics of the sample are classified according to the Regular-Rotator/Non Regular-Rotator (RR/NRR) regime given in \citet{Krajnovic2011}, Fast/Slow Rotator (FR/SR) regime given in \citet{Cappellari2016} (originally defined by \citet{Emsellem2011}, but later refined by \citet{Cappellari2016}). Beyond this attempts have been made to use the kinematic features as defined in \citet{Krajnovic2011}, however the quality of the data has meant that many have had to be classified by eye as the artifacts from the VIMOS quadrants confuse any ellipse fitting methods. 
+\section{Stellar Kinematics}
+	\label{sec:StarKine}
+	Using the methods above, we produce stellar kinematic maps for all datacubes (shown in Section \ref{sec:Maps}). Here we use these maps to classify each galaxy according to the Atlas$^\text{3D}$ regular/non-regular rotator and fast/slow rotator classification schemes of \citet{Krajnovic2006} and \citet{Cappellari2016}, respectively, as well as the qualitative kinematic classes of \citet{Krajnovic2011}. 
 
-	% The following briefly describe the observations and results of each of the sample. %It is also worth noting that many maps have been clipped in the color axis, to allow the more detailed structures to not be overwhelmed by the extremes. 
+	% Ellipticity is measured as the ellipticity of the best-fitting ellipse to the surface-brightness map with an mean radius $R_\mathrm{m}$, of 1 effective radius $R_\mathrm{e}$. Firstly the centre of the galaxy is found as the luminosity weighted centre using the \textsc{python} routine \textsc{find\_galaxy}, which is part of the \textsc{mge} package\footnote{\url{http://www-astro.physics.ox.ac.uk/\~mxc/software/}} by \citet{Cappellari2002}. This is then used as an input for the \textsc{idl} routine \textsc{kinemetry}\footnote{\url{http://davor.krajnovic.org/idl/}} by \citet{Krajnovic2006} which finds the best-fitting ellipses at a range of evenly spaced semi-major axes. This is achieved by performing harmonic expansion of maps along ellipses with a given semi-major axis and, when used for even moments (e.g.\ surface brightness, velocity dispersion, h$_4$ etc.), minimizing the amplitude of the first and second harmonics. The results include the ellipticity, $\epsilon$ and position angle $PA_\text{phot}$ of the best-fitting ellipse for each semi-major axis. The fit is repeated for increasing semi-major axis until $<$75\% of the ellipse is not contained within the field of view.
 
-	% \textbf{IC 1459} is known to contain a KDC. This is clearly seen in both the VIMOS and MUSE velocity maps (Fig. \ref{fig:stellar_vel}, \ref{fig:MUSEstellar_vel}). It is also known to have ionized gas counter rotating to the decoupled core. This is again seen by comparing Fig. \ref{fig:stellar_vel} with \ref{fig:gas_vel} and \ref{fig:MUSEstellar_vel} with \ref{fig:MUSEgas_vel}. From the MUSE velocity maps it can be seen that the gas is not coupled to the outer parts of the galaxy either. The KDC appears to be embedded in a slow rotator, though the KDC contaminates the $\lambda_{Re}$ measurement such that it is classified as a Fast Rotator. This is consistent with Section \ref{subsec:KDCsize}.
+	% In reality, the field of view does not always contain 1 $R_\mathrm{e}$. Where this is the case, we follow the method by \citet{Emsellem2007}, were $R_\mathrm{m}$ is redefined as $R_\mathrm{m} \equiv \sqrt{A_\mathrm{s}/\pi}$, where $A_\mathrm{s}$ is the area of the ellipse contained within the field of view. For a given galaxy, we fit ellipses as described above, up to $R_\mathrm{m} = R_\mathrm{max}$, where $A_\mathrm{s}$ reaches a maximum difference if 15\% to the area of the fitted ellipse, $A_\text{ellipse}$. The value $\epsilon_\mathrm{e}$, the ellipticity at 1 $R_\mathrm{e}$ or $R_\text{max}$, whichever is smallest, is given in Table \ref{tab:classify}. 
 
-	% \textbf{IC 1531} seems to contain a KT. This galaxy has a very limited detection of ionized gas concentrated in the center (with the exception of [NI] (Fig. \ref{fig:NI_eqW}), which is more dispersed).
 
-	% \textbf{IC 4296} appears to have KT, though this may be a quadrant feature. There is potentially 2 peaks in all of the gas intensity maps, one at the center of the galaxy and one to the south-east which is not seen in the image (total flux/collapsed cube).
 
-	% \textbf{NGC 0612} has a large dust lane to the east of the apparent center of the galaxy perpendicular to the axis of rotation. The dust lane is also seen as a lower velocity dispersion (Fig \ref{fig:stellar_sigma}). Dust lanes generally imply a disky galaxy: indeed this seems to be the case here as the dust lane is aligned with the plane of the disk. The kinematic maps show NF. The dust lane also contains large amounts of gas. 
 
-	% \textbf{NGC1316} (Fornax A) was not observed with VIMOS, however the MUSE maps show it to have a clear rotation signature (Fig. \ref{fig:MUSEstellar_vel}), though disturbed kinematics (e.g. Fig. \ref{fig:MUSEstellar_sigma}). The ionized gas is very clumpy and has no rotation (Fig. \ref{fig:MUSEgas_vel}).
+	% Misalignment
 
-	% \textbf{NGC 1399}, the central galaxy of the Fornax Cluster \citep{Jordan2007}, is known to have kinematic twist (see MUSE map in \citet{Zieleniewski2017}) on the scale of our MUSE field of view (reduced to 30"). Very little ionized gas was detected. 
+	All other measurements (e.g. the specific angular momentum parapmeter $\lambda_\mathrm{R_e}$) and the classifications are made using the methods and critia described in the referenced literature above, with the results shown in Table \ref{tab:classify}.
 
-	% \textbf{NGC 3100} is has NF in the stellar kinematics, however there is significant amount of ionized gas, which seems to be split into two clouds. This is most obviously seen in Fig. \ref{fig:Hbeta_eqW}. The gas also seems to have a non-standard rotation, possibly linked to its spacial distribution. 
+	\begin{table*}
+		\centering
+	\begin{threeparttable}
+		\caption{Kinematic classifications}
+		\label{tab:classify}
+		\begin{tabular}{l c c c c c c c}
+			\hline
+			\hline
+			Galaxy		& $\lambda_\mathrm{R_e}$ & $\epsilon_\mathrm{e}$  & $\Gamma_\text{kin}$ & FR/SR 	& RR/NRR 	& Feature & Group 	\\
+			 & & & (deg) \\
+			\hline 
+			ESO 443-G024 & 0.048 & 0.35 & $-18\pm\leavevmode\phantom{0}2$	& SR & NRR & KDC & c \\
+			IC 1459 	& 0.125 & 0.24 & \leavevmode\phantom{0}$-3\pm\leavevmode\phantom{0}1$ & SR & NRR & KDC & c \\
+			IC 1531 	& 0.101 & 0.08 & $-54\pm25$	& FR & NRR & LV & a \\
+			IC 4296		& 0.034 & 0.03 & \leavevmode\phantom{$-0$}$8\pm12$ & SR &\leavevmode\phantom{N}RR & -- & e \\
+			NGC 612 	& 0.655 & 0.36 & \leavevmode\phantom{$-$}$12\pm\leavevmode\phantom{0}6$	& FR &\leavevmode\phantom{N}RR & -- & e \\
+			NGC 1316 	& 0.100 & 0.39 & \leavevmode\phantom{$-0$}$6\pm\leavevmode\phantom{0}2$ & FR & NRR & -- & f \\
+			NGC 1399 	& 0.090 & 0.12 & $-74\pm\leavevmode\phantom{0}5$ & SR & NRR & LV & a \\
+			NGC 3100 	& 0.354 & 0.24 & \leavevmode\phantom{0}$-8\pm\leavevmode\phantom{0}2$ & FR &\leavevmode\phantom{N}RR & -- & e \\
+			NGC 3557 	& 0.312 & 0.20 & \leavevmode\phantom{$-$}$16\pm\leavevmode\phantom{0}5$ & FR &\leavevmode\phantom{N}RR & -- & e\\
+			NGC 7075 	& 0.068 & 0.04 & \leavevmode\phantom{$-$}$36\pm50$ & SR & NRR & -- & b \\
+			PKS 718-34  & 0.159 & 0.17 & \leavevmode\phantom{$-$}$15\pm25$ & FR & NRR & KDC\tnote{a} & b\\
+			\hline
+			\hline
+		\end{tabular}
+		\begin{tablenotes}
+		\footnotesize
+		\note Col.\,1: Galaxy name. Col.\,2: $\lambda_\mathrm{R}$ evaluated at $R_\mathrm{e}$. Col.\,3: Ellipticity at $R_\mathrm{e}$. Col.\,4: Misalignment angle between the kinematic and photometric position angles. Col.\,5: Fast-/slow-rotator (FR/SR) classification. Col.\,6: Regular-rotator (RR) or non-regular-rotator (NRR). Col.\,7: Kinematic features. Col.\,8: Kinematic group.
+		\item [a] Tentative classification. A higher signal-to-noise ratio (S/N) in the outer regions of the field of view is required for confirmation.
+		\end{tablenotes}
+	\end{threeparttable}
+	\end{table*}
 
-	% \textbf{NGC 3557} is known to be FR with very high velocities, especially considering it's size, with NF. In our maps, there some significant quadrant effects. NGC 3557 also has a very dispersed, non-centrally concentrated H$_\mathrm{\beta}$ distribution. 
 
-	% \textbf{NGC 7075} appears to have NF, though with quite slow velocities. There is some H$_\mathrm{\beta}$ detected at the very center of the galaxy. 
 
-	% \textbf{PKS 0718-34} is a KDC, though S/N issues mean that as in IC 1459, the galaxy cannot be seen beyond the core. It has very little gas detected, though the often faint $H_\mathrm{\delta}$ line is detected. [NI] is redshifted out of the VIMOS spectral range.
 
-	% \textbf{ESO 443-G024} is consistent with a NR. It has a very dispersed H$_\mathrm{\beta}$ (similar to NGC 3557 (Fig. \ref{fig:Hbeta_eqW})).
 
-	% \subsection{In/Out-flows}
-	% 	\label{subsec:inflows}
 
+
+
+	
 
 \section{Absorption Line Strengths and Stellar Populations}
 	\label{sec:stellarPop}
-	% Absorption line strengths were measured using \textsc{python} code developed by \_\_\_\_\_\_. We use the bandpasses defined in \_\_\_\_\_\_. 
-
-	% We measure the line strengths in several steps:
-	% \begin{enumerate}
-	% 	\item Firstly we subtracted any fitted emission lines from the spectra and de-redshift to the rest frame. This included removing emission lines that we did not consider a detection. The spectrum is then convolved to a FWHM of 8.4\AA in order to match the LIS system \citep{Vazdekis2010}. The absorption line strengths of this stellar-only spectra was measured. This is the principle observation, $EW_{i,obs}$.
-	% 	\item From the reported weightings of the stellar templates (and multiplicative polynomials) we built a spectra that is unconvolved with the LOSVD, which we measure the line strength for. This is the unconvolved bestfit and the measured line strengths are $EW_{i,unc}$.
-	% 	\item We measure the line strengths for the best-fitting spectrum (with emission lines subtracted and de-redshifted). This is the convolved bestfit with line strengths being $EW_{i,con}$.
-	% 	\item Finally, we use the ratio of the line strengths of the unconvolved and convolved bestfits as a correction factor for velocity dispersion. 
-	% \end{enumerate}
-	% The final value is therefore:
-	% \begin{equation}
-	% EW_i = \frac{EW_{i, unc}}{EW_{i, con}} EW_{i, obs}
-	% \end{equation}
-
-	% To test the routine we measured the absorption line strength for the SAURON project \citep{Kuntschner2006} galaxies within a radius of $R_e/8$ and compare to the measurements found by \citet{Vazdekis2010}. We found a mean difference of 0.29 \AA and a spread of 0.61 \AA between our measurements and \citet{Vazdekis2010}.
-
-	% \begin{table}
-	% 	\caption{Comparisons to the literature}
-	% 	\label{tab:litAbsorption}
-	% 	\begin{tabular}{c c c c}
-	% 		\hline
-	% 		\hline
-	% 		Index 		& N$_{gals}	& Offset 	& Dispersion \\
-	% 					& 			& $\AA$		& $\AA$ \\
-	% 		\hline
-	% 		\multicolumn{4}{c}{\citet{Vazdekis2010}} \\
-	% 		\hline
-	% 		H$_\beta$ 	& 46		& -0.02		& 0.25	\\
-	% 		Fe5015		& 46		& 0.66		& 0.34	\\
-	% 		Mg$_b$ 		& 46		& 0.06		& 0.33	\\
-	% 		\hline
-	% 		\multicolumn{4}{c}{\citet{Rampazzo2005} (VIMOS)}
-	% 		\hline
-	% 		G4300 		& 3 		& 			& \\
-	% 		Fe4383 		& 3 		& 			& \\
-	% 		Ca4455 		& 3 		& 			& \\
-	% 		Fe4531 		& 3 		& 			& \\
-	% 		H$_\beta$ 	& 3 		& 			& \\
-	% 		Fe5015 		& 3 		& 			& \\
-	% 		Mg$_b$ 		& 3 		& 			& \\
-	% 		\hline
-	% 		\multicolumn{4}{c}{\citet{Rampazzo2005} (MUSE)}
-	% 		\hline
-
-	% 		\hline
-	% 	\end{tabular}
-	% \end{table}
+	
 
 
 
-% \section{Discussion}
-% 	\label{sec:discuss}
-% 	\subsection{Selection Bias}
-% 	\label{subsec:bias}
-% 	It was originally intended that this sample should be volume limited, however the selection criteria for the parent sample \citep{Ekers1989} are based on apparent qualities rather than absolute (radio flux density and apparent V-band apparent magnitude). The effect is shown as redshift bias in figure \ref{fig:redshift_bias}. This shows a clear redshift dependence in $P_\mathrm{2.7 GHz}$ as well as (with the exception of NGC 612, a known radio galaxy anomaly) a bias towards low redshift for higher $\lambda_{Re}$. Interestingly, though $M_k$ is well spread in redshift. 
-
-% 	\subsection{BPT}
-% 	\label{subsec:BPT}
-% 	The BPT diagrams can be useful diagnostics for the dominant source of ionization. In the age of the IFU, the diagrams can be used in a spatially resolved manner to produce maps of ionizing source. 
-
-% 	It is worth taking a moment to 
-
-% 	Much of the current literature use the BPT diagram as an absolute diagnostic tool, were everything below the \_\_\_\_\_\_\_\_\_\_ line is assumed to be entirely due to star formation, while everything above both the \_\_\_\_\_\_ and the \_\_\_\_\_ lines is due to a Seyfert 2 type AGN, and the remaining region is due to a LINER type AGN. This is not how it was originally intended to be used. In fact the \_\_\_\_\_\_\_\_ line marks the upper limit of where star formation \textit{could} be the sole source of ionization. Above the \_\_\_\_\_ line is where an AGN \textit{could} be the sole source of ionization. The region between is where is were either \textit{could} be the sole source of ionization. 
-
-
-
-
-
-
-
-% 	\subsection{KDC stellar populations}
-% 	\label{subsec:KDCsize}
-% 	The relationship between the size of a KDC, it's age and the properties of the host galaxy was first set out in \citet{McDermid2006}. Here is was found that two populations of KDCs existed: the first was very small, but could be any age, and was typically embedded in a fast rotator host. The second was any size, but old, and was embedded in a slow rotator.  
-
-
-% 	Figure \ref{fig:KDCsize} shows all KDCs in our sample fit the relationship found by the SAURON group: they are all large and old. This adds weight to the suggestion that they are embedded in intrinsically slow rotators. Given the distance of our objects, we lack the resolution to properly resolve the small KDCs with in the fast rotators, despite the fast rotators being biased to be observed at a lower redshift.
-
-
-
-% \section{Conclusion}
-% 	\label{sec:conc}
-% 	We have presented the VIMOS and MUSE observations of our sample of low-powered radio galaxies. We find a diverse range of kinematic features and classifications as well as varying detection rates in both brightness and extent. 
 
 
 
@@ -330,7 +277,16 @@ $^{3}$INAF - Istituto di Radioastronomia, Via P. Gobetti 101, 40129 Bologna, Ita
 \bibliography{refs}{}
 
 \appendix
+\section{Maps}
+	\label{sec:Maps}
 
-% \input{appendix.tex}
+
+
+
+
+
+
+
+
 
 \end{document}
