@@ -46,10 +46,10 @@
 
 \usepackage[flushleft, referable]{threeparttablex} % Adding notes under tables
 \usepackage{mhchem} 	% typeset chemistry symbols
-\usepackage{multicol} 	% Multi-column entries in tables
+% \usepackage{multicol} 	% Multi-column entries in tables
 % \usepackage{natbib} % references in text to look like MNRAS/ApJ/A&A
 % \usepackage{multirow} % for multirow command
-% \usepackage{array} % For wrapping text in cell in tables
+\usepackage{array} % For wrapping text in cell in tables with multicolumntype
 
 
 
@@ -62,7 +62,7 @@
 % overwriting existing commands. Example:
 %\newcommand{\pcm}{\,cm$^{-2}$}	% per cm-squared
 \defcitealias{Thomas2010}{TMJ} % TMJ alias
-% \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} % 
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} % Multi-column entries in tables with text wrapping 
 \newcommand{\bracket}[1]{[#1]} % to be able to use [] in arguments
 
 
@@ -326,7 +326,7 @@ No references should appear in the abstract.
 			PKS 718-34  & 0.159 & 0.17 & \leavevmode\phantom{$-$}$15\pm25$ & FR & NRR & KDC\tnote{a} & b\\
 			\hline
 			\hline
-			\multicolumn{8}{l}{$^{a}$Tentative classification. A higher signal-to-noise ratio (S/N) in the outer regions of the field of view is required for confirmation.}
+			\multicolumn{8}{L{.7\linewidth}}{$^{a}$Tentative classification. A higher signal-to-noise ratio (S/N) in the outer regions of the field of view is required for confirmation.}
 
 		\end{tabular}
 	% 	\begin{tablenotes}
@@ -562,9 +562,9 @@ No references should appear in the abstract.
 			PKS 718-34  & $< 5.08$	 		& -- 		& -- & Passive \\
 			\hline
 			\hline
-			\multicolumn{4}{l}{$^{a}$The VIMOS flux calibration and thus the derived gas masses are only approximate (see Section \ref{sec:obs} for more detail on the flux calibration)}.
-			\multicolumn{4}{l}{$^{b}$Both H$\alpha$ and H$\beta$ are not detected with A/N $>2.5$, so no information can be gained.}
-			\multicolumn{8}{l}{$^{c}$H$\beta$ is not detected with A/N $> 2.5$, so the fit is unreliable (hence an upper limit).}
+			\multicolumn{5}{L{.7\linewidth}}{$^{a}$The VIMOS flux calibration and thus the derived gas masses are only approximate (see Section \ref{sec:obs} for more detail on the flux calibration).} \\
+			\multicolumn{5}{L{.7\linewidth}}{$^{b}$Both H$\alpha$ and H$\beta$ are not detected with A/N $>2.5$, so no information can be gained.} \\
+			\multicolumn{5}{L{.7\linewidth}}{$^{c}$H$\beta$ is not detected with A/N $> 2.5$, so the fit is unreliable (hence an upper limit).}
 		\end{tabular}
 	% 	\begin{tablenotes}
 	% 	\footnotesize
@@ -685,14 +685,14 @@ No references should appear in the abstract.
 			\begin{figure}
 				\centering
 				\includegraphics[width=\columnwidth]{Hbeta_profile.png}
-				\caption[VIMOS H$\beta$ radial profiles]{H$\beta$ flux radial profiles derived from the VIMOS datacubes. Solid red lines show $F(\mathrm{H\beta}) \propto r^{-2}$.}
+				\caption{H$\beta$ flux radial profiles derived from the VIMOS datacubes. Solid red lines show $F(\mathrm{H\beta}) \propto r^{-2}$.}
 				\label{fig:Hb_profile_VIMOS}
 			\end{figure}
 
 			\begin{figure}
 				\centering
 				\includegraphics[width=0.73\columnwidth]{Halpha_profile.png}
-				\caption[MUSE H$\alpha$ radial profiles]{H$\alpha$ flux radial profiles derived from the MUSE datacubes. Solid red lines show $F(\mathrm{H\alpha}) \propto r^{-2}$.}
+				\caption{H$\alpha$ flux radial profiles derived from the MUSE datacubes. Solid red lines show $F(\mathrm{H\alpha}) \propto r^{-2}$.}
 				\label{fig:Ha_profile_MUSE}
 			\end{figure}
 			
@@ -705,56 +705,39 @@ No references should appear in the abstract.
 			\label{subsubsec:MEx}
 			\begin{figure}
 				\includegraphics[width=\columnwidth]{nuclear_MEx.png}
-				\caption[Nuclear mass\,--\,excitation plot]{Nuclear MEx plot, allowing to classify the sources of the ionizing radiation within the central 3\arcsec. Data points derived from the VIMOS and MUSE datacubes are in red and blue, respectively. Crosses mark galaxies with [\ion{O}{iii}]$\lambda$5007 equivalent width $> 0.8$\,\AA, while filled circles show galaxies with [\ion{O}{iii}]$\lambda$5007 equivalent width $\leqslant 0.8$\,\AA. The VIMOS and MUSE data points of IC 1459 are linked with a black dashed line. Classification boundaries are from \citet{Nyland2016}.}
+				\caption{Nuclear MEx plot, allowing to classify the sources of the ionizing radiation within the central 3\arcsec. Data points derived from the VIMOS and MUSE datacubes are in red and blue, respectively. Crosses mark galaxies with [\ion{O}{iii}]$\lambda$5007 equivalent width $> 0.8$\,\AA, while filled circles show galaxies with [\ion{O}{iii}]$\lambda$5007 equivalent width $\leqslant 0.8$\,\AA. The VIMOS and MUSE data points of IC 1459 are linked with a black dashed line. Classification boundaries are from \citet{Nyland2016}.}
 				\label{fig:MEx}
 			\end{figure}
 
 			The mass\,--\,excitation (MEx) plot of \citet{Juneau2011} is useful to classify galaxies with intermediate excitation levels ($0.5 < \mathrm{[\ion{O}{iii}]/H\beta} < 8.0$), particularly as it does not depend on faint lines such as the [\ion{N}{I}] doublet. We use here the calibrations by \citet{Nyland2016}, including an attempt to separate LINERs powered by AGN from those powered by pAGB stars (the former have [\ion{O}{iii}] equivalent widths $>0.8$\,\AA). We use an aperture of 3\arcsec\ to plot the nuclear MEx for our Southern Sample galaxies, and the resulting diagnostic plot is shown in Fig.\,\ref{fig:MEx}. 
 
 
+\section{Discussion and Conclusions}
+	\label{sec:discuss}
+	In Sections \ref{sec:StarKine} we show that in terms of the stellar kinematic properties, our radio-selected Southern sample are no different to ordinary optically-selected ETGs. Our sample shows a mixture of of regularly- and non-regularly-rotating behaviours, with both classes showing evidence of consistency with observations of the intrinsic shapes of ordinary regular and non-regular rotators. At this stage we observe that two (with a tentative third) galaxies host large KDCs. We also classify our sample galaxies into fast- and slow-rotators and find a consistent fraction ($45\pm13$\%) of slow-rotators to the ordinary ETG samples of the A+M sample, once the difference in the mass distribution between our Southern sample and the A+M sample are taken into account.
+
+	Radio-loud lenticular (S0) galaxies are extremely rare with only a handful of known cases \citep[e.g.][]{Heckman1982, Morganti2011}, presumably due to the associated mass functions of both S0s and radio galaxies: both massive S0s and low-mass radio galaxies are rare, with a similar transition masses from rare to more numerous. NGC 612 is one of those rare cases.
+
+	In terms of absorption line strengths and stellar populations (Section \ref{sec:absorption} and \ref{sec:stellarPop}), we find a remarkably similar gradient to the central Mg\,b verse stellar velocity dispersion relation to that of \citet{Ziegler1997}. Most of the galaxies in our Southern sample show typical ETG behavior: old, metal rich stellar populations, with a few exceptions: NGC 612 and NGC 1316 are both significantly younger than most ETGs and NGC 3557 has a young core. We observe that all 3 KDCs contain old stellar populations and are consistent with being merger remnants. We also show that the KDCs found in Section \ref{sec:StarKine} fit with the age\,--\,size relation found by \citet{Kuntschner2010} (see Section \ref{subsec:popKDC}).
+
+	If molecular (cold) gas is the fuel source that is accreted on to the the central black holes of our Southern sample in order to power the radio jets, unless it is accreted in a highly turbulent fashion, it might be expected that some of that gas might form stars \citep[e.g.][]{Collin1999, Diamond-Stanic2012, LaMassa2013}. If this is the case then a young stellar population might be expected to dominate in the very central (1--2) spaxels. We our best-fitting age maps show no evidence of this. 	
+
+	Section \ref{sec:gas} we show that galaxies in our Southern Sample have ionized gas masses of $10^4$\,--\,$10^6\,\mathrm{M_\odot}$. These are at the upper limit of, and possibly exceed, the typical masses observed in ETGs, although given that our sample contains particularly massive galaxies, high ionized gas masses are not unexpected. 
+
+	The only slow rotator with detected, spatially-extended ionized gas, IC 1459, shows evidence through gas\,--\,star kinematic misalignment that the gas has an external origin, although it is possible that the gas has been re-accreted after it was first ejected during the merger that resulted in the stellar KDC. 
+
+	Of the other 3 galaxies with detected, spatially-extended ionized gas (NGC 612, NGC 1316 and NGC 3100, all fast rotators), we find that one, NGC 3100, again has kinematic evidence of an external gas origin; another, NGC 612, is consistent with an internal origin; while the situation for the last one (NGC 1316) is not clear, although is definitely not in a settled disc. This is in keeping with the findings of \citet{Davis2011a}, who showed that $36\pm5$\% of fast rotators have ionized gas kinematics misaligned with respect to the stellar kinematics, while slow rotators have a flat distribution with respect to their misalignment angles. This indicates that slow rotators are dominated by external sources of gas, while fast rotators can have either internal or external sources. 
+
+	All galaxies with detectable emission lines in our Southern Sample show LINER or Seyfert 2 characteristics. The only Seyfert 2 in our sample is the fast rotator, IC 1531. This is consistent with the results of \citet{Nyland2016}, who showed that all ETGs in the Atlas$^\text{3D}$ sample classified as Seyferts are also fast rotators. We find 9 of the 11 galaxies to be LINERs, 5 of which we conclusively attribute the ionizing photons to the central AGN. The final galaxy, PKS 718-34 has no emission line detections (i.e.\ passive). 
+
+	Overall, we thus find that the warm ISM properties of our Southern Sample galaxies are consistent with those of other jet-mode AGN. These are ordinary ETGs experiencing an active phase, presumably due to the central black holes currently accreting gas in some form. 
+
+	All these observations and findings, are consistent with those of typical massive ETGs. This is consistent with the hypothesis that radio-galaxies are ordinary massive ETGs experiencing a normal but short-lived active phase. 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% \section{Summary}
+% 	\label{sec:sum}
+% 	In the paper we present VIMOS and archival MUSE IFS observations of 11 low-powered radio galaxies. We find the best-fitting stellar kinematics and populations, as well as find the ionized gas spatial distribution, kinematics and dominant ionizing radiation source. We classify the kinematic maps according to the fast/slow rotator classification scheme of \citet{Cappellari2016} and find a consistent fraction of slow rotators for the mass distribution of our sample. 
 
 
 \section*{Acknowledgements}
@@ -780,6 +763,97 @@ Try to keep it short.
 \appendix
 \section{Maps}
 	\label{sec:Maps}
+
+	Here, we present spatially-resolved maps of our Southern Sample of the parameters measured and fitted to the IFS datacubes using the methods described in Section \ref{sec:analysis}. We present each galaxy in turn.
+
+	\subsection{ESO\,443-G24}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{eso443-g024.png}
+			\caption{}
+			\label{fig:eso443}
+		\end{figure*}
+
+	\subsection{IC\,1459}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ic1459.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for IC\,1459}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{IC\,1531}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ic1531.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for IC\,1531}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{IC\,4296}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ic4296.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for IC\,4296}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{NGC\,612}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ngc0612.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,612}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{NGC\,1316}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ngc1316.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,1316}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{NGC\,1399}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ngc1399.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,1399}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{NGC\,3100}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ngc3100.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,3100}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{NGC\,3557}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ngc3557.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,3557}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{NGC\,7075}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{ngc7075.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,7075}
+			% \label{fig:}
+		\end{figure*}
+
+	\subsection{PKS\,718-34}
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\textwidth]{pks0718-34.png}
+			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,718-34}
+			% \label{fig:}
+		\end{figure*}
+
 
 
 
