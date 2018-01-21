@@ -9,12 +9,9 @@ import matplotlib.pyplot as plt # used for plotting
 import cPickle as pickle
 import numpy as np 
 from plot_velfield_nointerp import plot_velfield_nointerp
-from plot_results import add_
-from errors2 import get_dataCubeDirectory
 from prefig import Prefig
 from astropy.io import fits 
 from sauron_colormap import sauron#2 as sauron
-from plot_results import set_lims
 
 
 from Bin import myArray
@@ -26,7 +23,10 @@ class Ds(object):
 		self.xBar = np.array([0.5,1.5,2,40])
 		self.yBar = np.array([0.5,1.5,1,40])
 		self.SNRatio = np.array([0,1,1,2])
-		self.unbinned_flux = np.zeros((40,40))
+		if 'home' in cc.device:
+			self.unbinned_flux = np.zeros((40,40))
+		else:
+			self.unbinned_flux = np.zeros((150,150))
 		self.number_of_bins = 4
 		self.components = {'stellar':comp()}
 		self.flux = np.array([0,1,1,2])
@@ -47,8 +47,17 @@ def plot(galaxy, instrument='vimos', debug=True):
 	# opt = 'kin'
 	overplot={'CO':'c', 'radio':'g'}
 	if instrument=='vimos':
-		Prefig(size=np.array((6, 5))*6)
-		fig, axs = plt.subplots(5, 6)#, sharex=True, sharey=True)
+		from plot_results import add_, set_lims
+		from errors2 import get_dataCubeDirectory
+		ext = 0
+
+		if galaxy in ['ngc0612', 'pks0718-34']:
+			Prefig(size=np.array((6, 4))*6)
+			fig, axs = plt.subplots(4, 6)
+		else:
+			Prefig(size=np.array((6, 5))*6)
+			fig, axs = plt.subplots(5, 6)#, sharex=True, sharey=True)
+
 		plots = [[
 			'D.flux',
 			'',
@@ -109,6 +118,10 @@ def plot(galaxy, instrument='vimos', debug=True):
 			''
 			]]
 	elif instrument == 'muse':
+		from plot_results_muse import add_, set_lims
+		from errors2_muse import get_dataCubeDirectory
+		ext = 1
+
 		Prefig(size=np.array((6, 7))*6)
 		fig, axs = plt.subplots(7, 6)#, sharex=True, sharey=True)
 
@@ -123,28 +136,28 @@ def plot(galaxy, instrument='vimos', debug=True):
 			"D2.absorption_line('H_beta')",
 			"D2.absorption_line('H_beta',uncert=True)[1]",
 			"D2.absorption_line('Fe5015')",
-			"D2.absorption_line('Fe5015',uncert=True)[1]"
+			"D2.absorption_line('Fe5015',uncert=True)[1]",
 			"D2.absorption_line('Mg_b')",
 			"D2.absorption_line('Mg_b',uncert=True)[1]"
 			],[
 			"D2.absorption_line('Fe5270')",
 			"D2.absorption_line('Fe5270',uncert=True)[1]",
 			"D2.absorption_line('Fe5335')",
-			"D2.absorption_line('Fe5335',uncert=True)[1]"
+			"D2.absorption_line('Fe5335',uncert=True)[1]",
 			"D2.absorption_line('Fe5406')",
 			"D2.absorption_line('Fe5406',uncert=True)[1]"
 			],[
 			"D2.absorption_line('Fe5709')",
 			"D2.absorption_line('Fe5709',uncert=True)[1]",
 			"D2.absorption_line('Fe5782')",
-			"D2.absorption_line('Fe5782',uncert=True)[1]"
+			"D2.absorption_line('Fe5782',uncert=True)[1]",
 			"D2.absorption_line('NaD')",
 			"D2.absorption_line('NaD',uncert=True)[1]"
 			],[
 			"D2.absorption_line('TiO1,remove_badpix=True')",
 			"D2.absorption_line('TiO1',uncert=True,remove_badpix=True)[1]",
 			"D2.absorption_line('TiO2,remove_badpix=True')",
-			"D2.absorption_line('TiO2',uncert=True,remove_badpix=True)[1]"
+			"D2.absorption_line('TiO2',uncert=True,remove_badpix=True)[1]",
 			'',
 			''
 			]]
@@ -160,25 +173,37 @@ def plot(galaxy, instrument='vimos', debug=True):
 			r'H$\,\beta$',
 			r'H$\,\beta$ uncertainty',
 			"Fe5015",
-			"Fe5015 uncertainty"
+			"Fe5015 uncertainty",
 			r'Mg$\,$b',
 			r'Mg$\,$b uncertainty'
 			],[
 			'Fe5270',
-			'Fe5270 uncertainty'
+			'Fe5270 uncertainty',
 			'Fe5335',
 			'Fe5335 uncertainty',
 			'Fe5406',
 			'Fe5406 uncertainty'
 			],[
 			'Fe5709',
-			'Fe5709 uncertainty'
+			'Fe5709 uncertainty',
 			'Fe5782',
 			'Fe5782 uncertainty',
+			'NaD',
+			'NaD uncertainty'
+			],[
+			'TiO1',
+			'TiO1 uncertainty',
+			'TiO2',
+			'TiO2 uncertainty',
 			'',
 			''
 			]]
 	out_dir = '%s/Documents/paper/' % (cc.home_dir)
+
+	f = fits.open(get_dataCubeDirectory(galaxy))
+	header = f[ext].header
+	f.close()
+
 
 	if debug: 
 		D = Ds()
@@ -214,20 +239,15 @@ def plot(galaxy, instrument='vimos', debug=True):
 		pickle_file2 = '%s/pickled' % (vin_dir2)
 		pickleFile2 = open("%s/dataObj.pkl" % (pickle_file2), 'rb')
 		D2 = pickle.load(pickleFile2)
-		pickleFile2.close()
-
-	f = fits.open(get_dataCubeDirectory(galaxy))
-	header = f[0].header
-	f.close()
-
-	
-		
+		pickleFile2.close()		
 
 	# Flux
 	for i, row in enumerate(plots):
 		for j, p in enumerate(row):
 			# print i, j, p
-			if p == 'D.flux':
+			if galaxy in ['ngc0612', 'pks0718-34'] and 'Mg_b' in p:
+				break # break out of for-loop
+			elif p == 'D.flux':
 				axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
 					D.xBar, D.yBar, eval(p), header, cmap='gist_yarg', 
 					flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
@@ -252,7 +272,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 						signal_noise=D.SNRatio, signal_noise_target=SN_target_kin, 
 						ax=axs[i,j], lim_labels=True)
 
-				if overplot and p != '':
+				if overplot and p != '' and 'uncert' not in p:
 					for o, color in overplot.iteritems():
 						scale = 'log' if o == 'radio' else 'lin'
 						add_(o, color, axs[i,j], galaxy, nolegend=True, scale=scale)
@@ -307,10 +327,10 @@ def plot(galaxy, instrument='vimos', debug=True):
 			axs[-1,j].ax_dis.set_yticklabels([])
 			axs[-1,j].ax_dis.set_ylabel('')
 
-		if plots[-1][j] != '':
+		if plots[-1][j] != '' or galaxy in ['ngc0612', 'pks0718-34']:
 			axs[-2, j].ax_dis.set_xticklabels([])
 			axs[-2, j].ax_dis.set_xlabel('')
-		if overplot:
+		if overplot and 'unc' not in p:
 			for o, color in overplot.iteritems():
 				scale = 'log' if o == 'radio' else 'lin'
 				add_(o, color, axs[-1,j], galaxy, nolegend=True, scale=scale)
@@ -368,7 +388,8 @@ def plot(galaxy, instrument='vimos', debug=True):
 if __name__=='__main__':
 	# plot('ic1459', instrument='vimos', debug=True)
 	if 'home' in cc.device:
-		for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
+		for galaxy in ['eso443-g024', 'ic1531', 
+			'ngc0612', 'ngc3100', 'ngc3557', 
 			'ngc7075', 'pks0718-34']:
 			plot(galaxy, instrument='vimos', debug=False)
 	elif cc.device == 'uni':
