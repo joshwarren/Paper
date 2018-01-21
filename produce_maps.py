@@ -1,12 +1,17 @@
+## Routine to produce maps in a single grid for the MNRAS paper.
+
+from checkcomp import checkcomp
+cc = checkcomp()
+if cc.remote:
+	import matplotlib # 20160202 JP to stop lack-of X-windows error
+	matplotlib.use('Agg') # 20160202 JP to stop lack-of X-windows error
+import matplotlib.pyplot as plt # used for plotting
 import cPickle as pickle
-import matplotlib.pyplot as plt 
 import numpy as np 
 from plot_velfield_nointerp import plot_velfield_nointerp
 from plot_results import add_
 from errors2 import get_dataCubeDirectory
 from prefig import Prefig
-from checkcomp import checkcomp
-cc = checkcomp()
 from astropy.io import fits 
 from sauron_colormap import sauron#2 as sauron
 from plot_results import set_lims
