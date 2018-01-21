@@ -182,7 +182,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 	
 	print galaxy
 
-	vin_dir = '%s/Data/vimos/analysis' % (cc.base_dir)
+	vin_dir = '%s/Data/%s/analysis' % (cc.base_dir, instrument)
 	data_file =  "%s/galaxies.txt" % (vin_dir)
 	file_headings = np.loadtxt(data_file, dtype=str)[0]
 	col = np.where(file_headings=='SN_kin')[0][0]
@@ -194,9 +194,9 @@ def plot(galaxy, instrument='vimos', debug=True):
 	SN_target_kin=SN_target_kin_gals[i_gal]
 	SN_target_pop=SN_target_pop_gals[i_gal]
 
-	attr, vmin, vmax = np.loadtxt('%s/lims.txt' % (vin_dir), dtype=str, 
-		usecols=(0,1,2), skiprows=1, unpack=True)
-	vmin, vmax = vmin.astype(float), vmax.astype(float)
+	# attr, vmin, vmax = np.loadtxt('%s/lims.txt' % (vin_dir), dtype=str, 
+	# 	usecols=(0,1,2), skiprows=1, unpack=True)
+	# vmin, vmax = vmin.astype(float), vmax.astype(float)
 
 	vin_dir2 = str(vin_dir + '/%s/pop' % (galaxy)) 
 	vin_dir += '/%s/kin' % (galaxy) 
@@ -222,24 +222,27 @@ def plot(galaxy, instrument='vimos', debug=True):
 	for i, row in enumerate(plots):
 		for j, p in enumerate(row):
 			# print i, j, p
-			if p == 'flux':
+			if p == 'D.flux':
 				axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
 					D.xBar, D.yBar, eval(p), header, cmap='gist_yarg', 
 					flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
 					ax=axs[i,j])
 
 			elif p != '':
+				vmin, vmax = set_lims(eval(p), 
+					symmetric = p=="D.components['stellar'].plot['vel']",
+					positive = p!="D.components['stellar'].plot['vel']")
 				if 'D2' in p:
 					axs[i,j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
 						D2.xBar, D2.yBar, eval(p), header,  
-						# vmin=vmin[attr==plots[0]], vmax=vmax[attr==plots[0]], 
+						vmin=vmin, vmax=vmax, 
 						flux_unbinned=D2.unbinned_flux, galaxy=str_plots[i][j],
 						signal_noise=D2.SNRatio, signal_noise_target=SN_target_pop, 
 						ax=axs[i,j], lim_labels=True)
 				else:
 					axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
 						D.xBar, D.yBar, eval(p), header,  
-						# vmin=vmin[attr==plots[0]], vmax=vmax[attr==plots[0]], 
+						vmin=vmin, vmax=vmax, 
 						flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
 						signal_noise=D.SNRatio, signal_noise_target=SN_target_kin, 
 						ax=axs[i,j], lim_labels=True)
@@ -285,10 +288,12 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 	str_plots = ['Age', 'Age uncertainty', 'Metalicity', 'Metalicity uncertainty', 
 		'Alpha enhancement', 'Alpha enhancement\nuncertainty']
+	vmin = [0, 0, -2.25, 0, -0.3, 0]
+	vmax = [15, 2, 0.67, 0.4, 0.5, 0.25]
 	for j, p in enumerate(['age', 'unc_age', 'met', 'unc_met', 'alp', 'unc_alp']):
 		axs[-1, j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
 			D2.xBar, D2.yBar, eval(p), header,  
-			# vmin=0, vmax=15, 
+			vmin=vmin[j], vmax=vmax[j], 
 			# cmap='inferno', 
 			flux_unbinned=D2.unbinned_flux, galaxy=str_plots[j],
 			signal_noise=D2.SNRatio, signal_noise_target=SN_target_pop, 
@@ -357,6 +362,10 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 if __name__=='__main__':
 	# plot('ic1459', instrument='vimos', debug=True)
-	for galaxy in ['eso443-g024', 'ic1459', 'ic1531', 'ic4296', 'ngc0612', 
-		'ngc1399', 'ngc3100', 'ngc3557', 'ngc7075', 'pks0718-34']:
-		plot(galaxy, instrument='vimos', debug=False)
+	if 'home' in cc.device:
+		for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
+			'ngc7075', 'pks0718-34']:
+			plot(galaxy, instrument='vimos', debug=False)
+	elif cc.device == 'uni':
+		for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
+			plot(galaxy, instrument='muse', debug=False)
