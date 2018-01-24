@@ -122,8 +122,8 @@ def plot(galaxy, instrument='vimos', debug=True):
 		from errors2_muse import get_dataCubeDirectory
 		ext = 1
 
-		Prefig(size=np.array((6, 7))*6)
-		fig, axs = plt.subplots(7, 6)#, sharex=True, sharey=True)
+		Prefig(size=np.array((6, 6))*6)
+		fig, axs = plt.subplots(6, 6)#, sharex=True, sharey=True)
 
 		plots = [[
 			'D.flux',
@@ -154,9 +154,9 @@ def plot(galaxy, instrument='vimos', debug=True):
 			"D2.absorption_line('NaD')",
 			"D2.absorption_line('NaD',uncert=True)[1]"
 			],[
-			"D2.absorption_line('TiO1,remove_badpix=True')",
+			"D2.absorption_line('TiO1',remove_badpix=True)",
 			"D2.absorption_line('TiO1',uncert=True,remove_badpix=True)[1]",
-			"D2.absorption_line('TiO2,remove_badpix=True')",
+			"D2.absorption_line('TiO2',remove_badpix=True)",
 			"D2.absorption_line('TiO2',uncert=True,remove_badpix=True)[1]",
 			'',
 			''
