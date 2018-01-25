@@ -44,23 +44,19 @@ class comp(object):
 
 
 def plot(galaxy, instrument='vimos', debug=True):
+	print galaxy, instrument
+
 	# opt = 'kin'
 	overplot={'CO':'c', 'radio':'g'}
 	if instrument=='vimos':
 		from plot_results import add_, set_lims
 		from errors2 import get_dataCubeDirectory
 		ext = 0
-
-		if galaxy in ['ngc0612', 'pks0718-34']:
-			Prefig(size=np.array((6, 4))*6)
-			fig, axs = plt.subplots(4, 6)
-		else:
-			Prefig(size=np.array((6, 5))*6)
-			fig, axs = plt.subplots(5, 6)#, sharex=True, sharey=True)
+		rows = 5
 
 		plots = [[
 			'D.flux',
-			'',
+			"D2.components['[OIII]5007d'].flux",
 			"D.components['stellar'].plot['vel']",
 			"D.components['stellar'].plot['vel'].uncert",
 			"D.components['stellar'].plot['sigma']",
@@ -90,7 +86,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 		str_plots = [[
 			'Flux',
-			'',
+			r'[OIII]$\lambda\lambda$4959,5007 Flux',
 			"Stellar mean velocity",
 			"Stellar mean velocity\nuncertainty",
 			"Stellar velocity dispersion",
@@ -121,13 +117,11 @@ def plot(galaxy, instrument='vimos', debug=True):
 		from plot_results_muse import add_, set_lims
 		from errors2_muse import get_dataCubeDirectory
 		ext = 1
-
-		Prefig(size=np.array((6, 6))*6)
-		fig, axs = plt.subplots(6, 6)#, sharex=True, sharey=True)
-
+		rows = 6
+		
 		plots = [[
 			'D.flux',
-			'',
+			"D2.components['[OIII]5007d'].flux",
 			"D.components['stellar'].plot['vel']",
 			"D.components['stellar'].plot['vel'].uncert",
 			"D.components['stellar'].plot['sigma']",
@@ -164,7 +158,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 		str_plots = [[
 			'Flux',
-			'',
+			r'[OIII]$\lambda\lambda$4959,5007 Flux',
 			"Stellar mean velocity",
 			"Stellar mean velocity\nuncertainty",
 			"Stellar velocity dispersion",
@@ -198,6 +192,30 @@ def plot(galaxy, instrument='vimos', debug=True):
 			'',
 			''
 			]]
+	if galaxy in ['ngc0612', 'pks0718-34']:
+		rows -= 1 # No Mgb
+	if galaxy in ['ic1459', 'ngc0612', 'ngc1316', 'ngc3100']:
+		rows += 1
+		plots.insert(1, [
+			"D2.components['[OIII]5007d'].plot['vel']",
+			"D2.components['[OIII]5007d'].plot['vel'].uncert",
+			"D2.components['[OIII]5007d'].plot['sigma']",
+			"D2.components['[OIII]5007d'].plot['sigma'].uncert",
+			'',
+			''
+			])
+		str_plots.insert(1, [
+			r"[OIII]$\lambda\lambda$4959,5007"+"\nmean velocity",
+			r"[OIII]$\lambda\lambda$4959,5007"+"\nmean velocity uncertainty",
+			r"[OIII]$\lambda\lambda$4959,5007"+"\nvelocity dispersion",
+			r"[OIII]$\lambda\lambda$4959,5007"+"\nvelocity dispersion\nuncertainty",
+			'',
+			''
+			])
+			
+	Prefig(size=np.array((6, rows))*6)
+	fig, axs = plt.subplots(rows, 6)
+	
 	out_dir = '%s/Documents/paper/' % (cc.home_dir)
 
 	f = fits.open(get_dataCubeDirectory(galaxy))
@@ -208,9 +226,6 @@ def plot(galaxy, instrument='vimos', debug=True):
 	if debug: 
 		D = Ds()
 		D2 = Ds()
-
-	
-	print galaxy
 
 	vin_dir = '%s/Data/%s/analysis' % (cc.base_dir, instrument)
 	data_file =  "%s/galaxies.txt" % (vin_dir)
@@ -244,10 +259,10 @@ def plot(galaxy, instrument='vimos', debug=True):
 	# Flux
 	for i, row in enumerate(plots):
 		for j, p in enumerate(row):
-			# print i, j, p
+			# print i, j, p3w=]-=
 			if galaxy in ['ngc0612', 'pks0718-34'] and 'Mg_b' in p:
 				break # break out of for-loop
-			elif p == 'D.flux':
+			elif 'flux' in p:
 				axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
 					D.xBar, D.yBar, eval(p), header, cmap='gist_yarg', 
 					flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
@@ -288,15 +303,15 @@ def plot(galaxy, instrument='vimos', debug=True):
 			else:
 				axs[i,j].remove()
 
-	age = np.zeros(D.number_of_bins)
-	met = np.zeros(D.number_of_bins)
-	alp = np.zeros(D.number_of_bins)
-	unc_age = np.zeros(D.number_of_bins)
-	unc_met = np.zeros(D.number_of_bins)
-	unc_alp = np.zeros(D.number_of_bins)
+	age = np.zeros(D2.number_of_bins)
+	met = np.zeros(D2.number_of_bins)
+	alp = np.zeros(D2.number_of_bins)
+	unc_age = np.zeros(D2.number_of_bins)
+	unc_met = np.zeros(D2.number_of_bins)
+	unc_alp = np.zeros(D2.number_of_bins)
 
 	if not debug:
-		for j in xrange(D.number_of_bins):
+		for j in xrange(D2.number_of_bins):
 			ag, me, al = np.loadtxt('%s/pop/distribution/%i.dat' % (
 				vin_dir2, j), unpack=True)
 
@@ -387,11 +402,17 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 if __name__=='__main__':
 	# plot('ic1459', instrument='vimos', debug=True)
+	# if 'home' in cc.device:
+	# 	for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
+	# 		'ngc7075', 'pks0718-34']:
+	# 		plot(galaxy, instrument='vimos', debug=False)
+	# elif cc.device == 'uni':
+	# 	for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
+	# 		plot(galaxy, instrument='muse', debug=False)
+
 	if 'home' in cc.device:
-		for galaxy in ['eso443-g024', 'ic1531', 
-			'ngc0612', 'ngc3100', 'ngc3557', 
-			'ngc7075', 'pks0718-34']:
+		for galaxy in ['ngc0612', 'ngc3100']:
 			plot(galaxy, instrument='vimos', debug=False)
 	elif cc.device == 'uni':
-		for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
+		for galaxy in ['ic1459', 'ngc1316', 'ngc1399']:
 			plot(galaxy, instrument='muse', debug=False)
