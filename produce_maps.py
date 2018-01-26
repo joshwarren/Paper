@@ -28,19 +28,20 @@ class Ds(object):
 		else:
 			self.unbinned_flux = np.zeros((150,150))
 		self.number_of_bins = 4
-		self.components = {'stellar':comp()}
+		self.components = {'stellar':comp(), '[OIII]5007d':comp()}
 		self.flux = np.array([0,1,1,2])
 
-	def absorption_line(self, p, uncert=False):
+	def absorption_line(self, p, uncert=False, remove_badpix=False):
 		if uncert:
-			return [0,1,1,2], [0,1,1,2]
+			return np.array([0,1,1,2]), np.array([0,1,1,2])
 		else:
-			return [0,1,1,2]
+			return np.array([0,1,1,2])
 
 class comp(object):
 	def __init__(self):
-		self.plot = {'vel':myArray([0,1,1,2], [0,1,1,2]), 
-			'sigma': myArray([0,1,1,2],[0,1,1,2])}
+		self.plot = {'vel':myArray(np.array([0,1,1,2]), np.array([0,1,1,2])), 
+			'sigma': myArray(np.array([0,1,1,2]), np.array([0,1,1,2]))}
+		self.flux = np.array([0,1,1,2])
 
 
 def plot(galaxy, instrument='vimos', debug=True):
@@ -259,7 +260,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 	# Flux
 	for i, row in enumerate(plots):
 		for j, p in enumerate(row):
-			# print i, j, p3w=]-=
+			print i, j, p
 			if galaxy in ['ngc0612', 'pks0718-34'] and 'Mg_b' in p:
 				break # break out of for-loop
 			elif 'flux' in p:
@@ -268,30 +269,10 @@ def plot(galaxy, instrument='vimos', debug=True):
 					flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
 					ax=axs[i,j])
 
-			elif p != '':
-				vmin, vmax = set_lims(eval(p), 
-					symmetric = p=="D.components['stellar'].plot['vel']",
-					positive = p!="D.components['stellar'].plot['vel']")
-				if 'D2' in p:
-					axs[i,j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
-						D2.xBar, D2.yBar, eval(p), header,  
-						vmin=vmin, vmax=vmax, 
-						flux_unbinned=D2.unbinned_flux, galaxy=str_plots[i][j],
-						signal_noise=D2.SNRatio, signal_noise_target=SN_target_pop, 
-						ax=axs[i,j], lim_labels=True)
-				else:
-					axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
-						D.xBar, D.yBar, eval(p), header,  
-						vmin=vmin, vmax=vmax, 
-						flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
-						signal_noise=D.SNRatio, signal_noise_target=SN_target_kin, 
-						ax=axs[i,j], lim_labels=True)
-
 				if overplot and p != '' and 'uncert' not in p:
 					for o, color in overplot.iteritems():
 						scale = 'log' if o == 'radio' else 'lin'
 						add_(o, color, axs[i,j], galaxy, nolegend=True, scale=scale)
-			
 				if i > 0:
 					if plots[i-1][j] != '':
 						axs[i-1,j].ax_dis.set_xticklabels([])
@@ -300,8 +281,41 @@ def plot(galaxy, instrument='vimos', debug=True):
 					if plots[i][j-1] != '':
 						axs[i,j].ax_dis.set_yticklabels([])
 						axs[i,j].ax_dis.set_ylabel('')
+
+			elif p != '':
+				vmin, vmax = set_lims(eval(p), 
+					symmetric = p=="D.components['stellar'].plot['vel']",
+					positive = p!="D.components['stellar'].plot['vel']")
+				if 'D2' in p:
+					axs[i,j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
+						D2.xBar, D2.yBar, eval(p), header, vmin=vmin, vmax=vmax, 
+						flux_unbinned=D2.unbinned_flux, galaxy=str_plots[i][j],
+						signal_noise=D2.SNRatio, signal_noise_target=SN_target_pop, 
+						ax=axs[i,j], lim_labels=True)
+				else:
+					axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
+						D.xBar, D.yBar, eval(p), header, vmin=vmin, vmax=vmax, 
+						flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
+						signal_noise=D.SNRatio, signal_noise_target=SN_target_kin, 
+						ax=axs[i,j], lim_labels=True)
+
+				if overplot and p != '' and 'uncert' not in p:
+					for o, color in overplot.iteritems():
+						scale = 'log' if o == 'radio' else 'lin'
+						add_(o, color, axs[i,j], galaxy, nolegend=True, scale=scale)
+				if i > 0:
+					if plots[i-1][j] != '':
+						axs[i-1,j].ax_dis.set_xticklabels([])
+						axs[i-1,j].ax_dis.set_xlabel('')
+				if j > 0:
+					if plots[i][j-1] != '':
+						axs[i,j].ax_dis.set_yticklabels([])
+						axs[i,j].ax_dis.set_ylabel('')
+			
+				
 			else:
 				axs[i,j].remove()
+
 
 	age = np.zeros(D2.number_of_bins)
 	met = np.zeros(D2.number_of_bins)
@@ -401,18 +415,11 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 
 if __name__=='__main__':
-	# plot('ic1459', instrument='vimos', debug=True)
-	# if 'home' in cc.device:
-	# 	for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
-	# 		'ngc7075', 'pks0718-34']:
-	# 		plot(galaxy, instrument='vimos', debug=False)
-	# elif cc.device == 'uni':
-	# 	for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
-	# 		plot(galaxy, instrument='muse', debug=False)
-
+	# plot('ngc1316', instrument='muse', debug=True)
 	if 'home' in cc.device:
-		for galaxy in ['ngc0612', 'ngc3100']:
+		for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
+			'ngc7075', 'pks0718-34']:
 			plot(galaxy, instrument='vimos', debug=False)
 	elif cc.device == 'uni':
-		for galaxy in ['ic1459', 'ngc1316', 'ngc1399']:
+		for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
 			plot(galaxy, instrument='muse', debug=False)
