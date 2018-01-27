@@ -114,6 +114,36 @@ def plot(galaxy, instrument='vimos', debug=True):
 			'',
 			''
 			]]
+		units = [[
+			'',
+			'',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$'
+			],[
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$'
+			],[
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$'
+			],[
+			r'$\AA$',
+			r'$\AA$',
+			'',
+			'',
+			'',
+			''
+			]]
+
 	elif instrument == 'muse':
 		from plot_results_muse import add_, set_lims
 		from errors2_muse import get_dataCubeDirectory
@@ -193,6 +223,42 @@ def plot(galaxy, instrument='vimos', debug=True):
 			'',
 			''
 			]]
+		units = [[
+			'',
+			'',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$'
+			],[
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$'
+			],[
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$'
+			],[
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$',
+			r'$\AA$'
+			],[
+			'mag',
+			'mag',
+			'mag',
+			'mag',
+			'',
+			''
+			]]
 	if galaxy in ['ngc0612', 'pks0718-34']:
 		rows -= 1 # No Mgb
 	if galaxy in ['ic1459', 'ngc0612', 'ngc1316', 'ngc3100']:
@@ -213,7 +279,15 @@ def plot(galaxy, instrument='vimos', debug=True):
 			'',
 			''
 			])
-			
+		units.insert(1,[
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			r'km s$^{-1}$',
+			'',
+			''
+			])
+
 	Prefig(size=np.array((6, rows))*6)
 	fig, axs = plt.subplots(rows, 6)
 	
@@ -257,17 +331,22 @@ def plot(galaxy, instrument='vimos', debug=True):
 		D2 = pickle.load(pickleFile2)
 		pickleFile2.close()		
 
-	# Flux
 	for i, row in enumerate(plots):
 		for j, p in enumerate(row):
 			print i, j, p
 			if galaxy in ['ngc0612', 'pks0718-34'] and 'Mg_b' in p:
 				break # break out of for-loop
 			elif 'flux' in p:
-				axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
-					D.xBar, D.yBar, eval(p), header, cmap='gist_yarg', 
-					flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
-					ax=axs[i,j])
+				if p == 'D.flux':
+					axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
+						D.xBar, D.yBar, eval(p), header, cmap='gist_yarg', 
+						flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
+						ax=axs[i,j])
+				elif p == "D2.components['[OIII]5007d'].flux":
+					axs[i,j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
+						D2.xBar, D2.yBar, eval(p), header, cmap='gist_yarg', 
+						flux_unbinned=D2.unbinned_flux, galaxy=str_plots[i][j],
+						ax=axs[i,j])
 
 				if overplot and p != '' and 'uncert' not in p:
 					for o, color in overplot.iteritems():
@@ -284,20 +363,22 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 			elif p != '':
 				vmin, vmax = set_lims(eval(p), 
-					symmetric = p=="D.components['stellar'].plot['vel']",
-					positive = p!="D.components['stellar'].plot['vel']")
+					symmetric = 'vel' in p and 'uncert' not in p,
+					positive = not ('vel' in p and 'uncert' not in p))
 				if 'D2' in p:
 					axs[i,j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
 						D2.xBar, D2.yBar, eval(p), header, vmin=vmin, vmax=vmax, 
 						flux_unbinned=D2.unbinned_flux, galaxy=str_plots[i][j],
 						signal_noise=D2.SNRatio, signal_noise_target=SN_target_pop, 
-						ax=axs[i,j], lim_labels=True)
+						ax=axs[i,j], lim_labels=True, 
+						lim_labels_units=units[i][j])
 				else:
 					axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
 						D.xBar, D.yBar, eval(p), header, vmin=vmin, vmax=vmax, 
 						flux_unbinned=D.unbinned_flux, galaxy=str_plots[i][j],
 						signal_noise=D.SNRatio, signal_noise_target=SN_target_kin, 
-						ax=axs[i,j], lim_labels=True)
+						ax=axs[i,j], lim_labels=True,
+						lim_labels_units=units[i][j])
 
 				if overplot and p != '' and 'uncert' not in p:
 					for o, color in overplot.iteritems():
@@ -342,6 +423,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 
 	str_plots = ['Age', 'Age uncertainty', 'Metalicity', 'Metalicity uncertainty', 
 		'Alpha enhancement', 'Alpha enhancement\nuncertainty']
+	units = ['Gyr', 'Gyr', None, None, None, None]
 	vmin = [0, 0, -2.25, 0, -0.3, 0]
 	vmax = [15, 2, 0.67, 0.4, 0.5, 0.25]
 	for j, p in enumerate(['age', 'unc_age', 'met', 'unc_met', 'alp', 'unc_alp']):
@@ -351,7 +433,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 			# cmap='inferno', 
 			flux_unbinned=D2.unbinned_flux, galaxy=str_plots[j],
 			signal_noise=D2.SNRatio, signal_noise_target=SN_target_pop, 
-			ax=axs[-1,j], lim_labels=True)
+			ax=axs[-1,j], lim_labels=True, lim_labels_units=units[j])
 		if j > 0:
 			axs[-1,j].ax_dis.set_yticklabels([])
 			axs[-1,j].ax_dis.set_ylabel('')
