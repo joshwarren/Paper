@@ -27,9 +27,6 @@
 % installations will be fine) or prefer the old Computer Modern fonts, comment
 % out the following line
 \usepackage{newtxtext,newtxmath}
-% Depending on your LaTeX fonts installation, you might get better results with one of these:
-%\usepackage{mathptmx}
-%\usepackage{txfonts}
 
 % Use vector fonts, so it zooms properly in on-screen viewing software
 % Don't change these lines unless you know what you are doing
@@ -46,9 +43,6 @@
 
 \usepackage[flushleft, referable]{threeparttablex} % Adding notes under tables
 \usepackage{mhchem} 	% typeset chemistry symbols
-% \usepackage{multicol} 	% Multi-column entries in tables
-% \usepackage{natbib} % references in text to look like MNRAS/ApJ/A&A
-% \usepackage{multirow} % for multirow command
 \usepackage{array} % For wrapping text in cell in tables with multicolumntype
 
 
@@ -198,9 +192,9 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Data Analysis}
 	\label{sec:analysis}
-	Both VIMOS and MUSE datasets are spatially binned using Voronoi binning\footnote{\label{fn:Cappellari}http://www-astro.physics.ox.ac.uk/\~mxc/software/} \citep{Cappellari2003} and from this point on are treated almost identically, the only difference (other than the different spectral ranges and resolutions) being that the MUSE datacubes are spatially binned to a higher signal-to-noise ratio (S/N). For our purposes, we define the `signal' and `noise' of each spaxel as the median value of its spectrum and noise spectrum, respectively. We require a S/N of 30 for all VIMOS datacubes and 50 for the IC 1459 and IC 4296 MUSE datacubes. The NGC 1316 and NGC 1399 MUSE datacubes were binned to a S/N of 50 for the analysis of the stellar kinematics and 100 for the analysis of the emission line kinematics and stellar populations.
+	Both VIMOS and MUSE datasets are spatially binned using Voronoi binning\footnote{http://www-astro.physics.ox.ac.uk/\~mxc/software/} \citep{Cappellari2003} and from this point on are treated almost identically, the only difference (other than the different spectral ranges and resolutions) being that the MUSE datacubes are spatially binned to a higher signal-to-noise ratio (S/N). For our purposes, we define the `signal' and `noise' of each spaxel as the median value of its spectrum and noise spectrum, respectively. We require a S/N of 30 for all VIMOS datacubes and 50 for the IC 1459 and IC 4296 MUSE datacubes. The NGC 1316 and NGC 1399 MUSE datacubes were binned to a S/N of 50 for the analysis of the stellar kinematics and 100 for the analysis of the emission line kinematics and stellar populations.
 
-	Next we implement a routine to find optimal initial values of the redshift and velocity dispersion for each galaxy, to be used when fitting individual bins, by means of iterative fits to the spatially collapsed (i.e. summed across both spatial dimensions of the datacube) spectrum. We use the penalized-fitting (\textsc{pPXF}) routine\footnotemark[\ref{fn:Cappellari}] of \citet{Cappellari2004} and \citet{Cappellari2016a} with the Medium-resolution Issac Newton Telescope (INT) Library of Empirical Spectra (MILES) library \citep{Sanchez-Blazquez2006, Falcon-Barroso2011a} to find the best-fitting line-of-sight velocity distribution (LOSVD; as parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion). The final mean velocity of a given galaxy, is used as its precise spectroscopic redshift and is given in Table \ref{tab:sample}. Beyond this point, each bin is analysed independently.
+	Next we implement a routine to find optimal initial values of the redshift and velocity dispersion for each galaxy, to be used when fitting individual bins, by means of iterative fits to the spatially collapsed (i.e. summed across both spatial dimensions of the datacube) spectrum. We use the penalized-fitting (\textsc{pPXF}) routine\footnotemark[1] of \citet{Cappellari2004} and \citet{Cappellari2016a} with the Medium-resolution Issac Newton Telescope (INT) Library of Empirical Spectra (MILES) library \citep{Sanchez-Blazquez2006, Falcon-Barroso2011a} to find the best-fitting line-of-sight velocity distribution (LOSVD; as parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion). The final mean velocity of a given galaxy, is used as its precise spectroscopic redshift and is given in Table \ref{tab:sample}. Beyond this point, each bin is analysed independently.
 
 	\subsection{Stellar Kinematics}
 		\label{subsec:starKin}
@@ -276,7 +270,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 		\subsubsection{Kinematic Position Angle}
 			\label{subsubsec:KinPA}
-			The kinematic position angle, $PA_\text{kin}$, is defined as the angle of the axis perpendicular to the apparent angular momentum vector westwards from North. A global value of $PA_\text{kin}$ is found using the \textsc{python} routine \textsc{fit\_kinematic\_pa}\footnotemark[\ref{fn:Cappellari}] which finds $PA_\text{kin}$ of the symmetrised mean velocity map, as described in appendix C of \citet{Krajnovic2006}. %This routine finds a symmetric (about $PA_\text{kin}$) velocity field, by replacing the mean velocity, $V$, in each bin with
+			The kinematic position angle, $PA_\text{kin}$, is defined as the angle of the axis perpendicular to the apparent angular momentum vector westwards from North. A global value of $PA_\text{kin}$ is found using the \textsc{python} routine \textsc{fit\_kinematic\_pa}\footnotemark[1] which finds $PA_\text{kin}$ of the symmetrised mean velocity map, as described in appendix C of \citet{Krajnovic2006}. %This routine finds a symmetric (about $PA_\text{kin}$) velocity field, by replacing the mean velocity, $V$, in each bin with
 			% \begin{equation}
 			% 	V'(x, y) = \frac{V(x,y) + V(x, -y) - V(-x,y) - V(-x,-y))}{4} \,,
 			% \end{equation}
@@ -841,7 +835,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 
 
-\pagebreak
+% \clearpage
 
 \section{Extrapolating VIMOS Data}
 	\label{sec:Decrement}
