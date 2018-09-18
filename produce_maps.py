@@ -6,7 +6,8 @@ if cc.remote:
 	import matplotlib # 20160202 JP to stop lack-of X-windows error
 	matplotlib.use('Agg') # 20160202 JP to stop lack-of X-windows error
 import matplotlib.pyplot as plt # used for plotting
-import cPickle as pickle
+# import cPickle as pickle
+from Bin2 import Data
 import numpy as np 
 from plot_velfield_nointerp import plot_velfield_nointerp
 from prefig import Prefig
@@ -322,18 +323,20 @@ def plot(galaxy, instrument='vimos', debug=True):
 	vin_dir += '/%s/kin' % (galaxy) 
 
 	if not debug:
-		pickle_file = '%s/pickled' % (vin_dir)
-		pickleFile = open("%s/dataObj.pkl" % (pickle_file), 'rb')
-		D = pickle.load(pickleFile)
-		pickleFile.close()
-		pickle_file2 = '%s/pickled' % (vin_dir2)
-		pickleFile2 = open("%s/dataObj.pkl" % (pickle_file2), 'rb')
-		D2 = pickle.load(pickleFile2)
-		pickleFile2.close()		
+		# pickle_file = '%s/pickled' % (vin_dir)
+		# pickleFile = open("%s/dataObj.pkl" % (pickle_file), 'rb')
+		# D = pickle.load(pickleFile)
+		# pickleFile.close()
+		# pickle_file2 = '%s/pickled' % (vin_dir2)
+		# pickleFile2 = open("%s/dataObj.pkl" % (pickle_file2), 'rb')
+		# D2 = pickle.load(pickleFile2)
+		# pickleFile2.close()
+		D = Data(galaxy, instrument=instrument, opt='kin')
+		D2 = Data(galaxy, instrument=instrument, opt='pop')
 
 	for i, row in enumerate(plots):
 		for j, p in enumerate(row):
-			print i, j, p
+			# print i, j, p
 			if galaxy in ['ngc0612', 'pks0718-34'] and 'Mg_b' in p:
 				break # break out of for-loop
 			elif 'flux' in p:
@@ -398,37 +401,38 @@ def plot(galaxy, instrument='vimos', debug=True):
 				axs[i,j].remove()
 
 
-	age = np.zeros(D2.number_of_bins)
-	met = np.zeros(D2.number_of_bins)
-	alp = np.zeros(D2.number_of_bins)
-	unc_age = np.zeros(D2.number_of_bins)
-	unc_met = np.zeros(D2.number_of_bins)
-	unc_alp = np.zeros(D2.number_of_bins)
+	# age = np.zeros(D2.number_of_bins)
+	# met = np.zeros(D2.number_of_bins)
+	# alp = np.zeros(D2.number_of_bins)
+	# unc_age = np.zeros(D2.number_of_bins)
+	# unc_met = np.zeros(D2.number_of_bins)
+	# unc_alp = np.zeros(D2.number_of_bins)
 
-	if not debug:
-		for j in xrange(D2.number_of_bins):
-			ag, me, al = np.loadtxt('%s/pop/distribution/%i.dat' % (
-				vin_dir2, j), unpack=True)
+	# if not debug:
+	# 	for j in xrange(D2.number_of_bins):
+	# 		ag, me, al = np.loadtxt('%s/pop/distribution/%i.dat' % (
+	# 			vin_dir2, j), unpack=True)
 
-			for plot, unc_plot, pop in zip([age,met,alp],
-				[unc_age,unc_met,unc_alp], [ag,me,al]):
+	# 		for plot, unc_plot, pop in zip([age,met,alp],
+	# 			[unc_age,unc_met,unc_alp], [ag,me,al]):
 
-				hist = np.histogram(pop, bins=40)
-				x = (hist[1][0:-1]+hist[1][1:])/2
-				hist = hist[0]
-				plot[j] = x[np.argmax(hist)]
+	# 			hist = np.histogram(pop, bins=40)
+	# 			x = (hist[1][0:-1]+hist[1][1:])/2
+	# 			hist = hist[0]
+	# 			plot[j] = x[np.argmax(hist)]
 
-				gt_fwhm = hist >= np.max(hist)/2
-				unc_plot[j] = np.max(x[gt_fwhm]) - np.min(x[gt_fwhm])
+	# 			gt_fwhm = hist >= np.max(hist)/2
+	# 			unc_plot[j] = np.max(x[gt_fwhm]) - np.min(x[gt_fwhm])
 
 	str_plots = ['Age', 'Age uncertainty', 'Metalicity', 'Metalicity uncertainty', 
 		'Alpha enhancement', 'Alpha enhancement\nuncertainty']
 	units = ['Gyr', 'Gyr', None, None, None, None]
 	vmin = [0, 0, -2.25, 0, -0.3, 0]
 	vmax = [15, 2, 0.67, 0.4, 0.5, 0.25]
-	for j, p in enumerate(['age', 'unc_age', 'met', 'unc_met', 'alp', 'unc_alp']):
+	for j, p in enumerate(['age', 'age.uncert', 'metalicity', 'metalicity.uncert', 
+		'alpha', 'alpha.uncert']):
 		axs[-1, j] = plot_velfield_nointerp(D2.x, D2.y, D2.bin_num, 
-			D2.xBar, D2.yBar, eval(p), header,  
+			D2.xBar, D2.yBar, eval("D2.components['stellar']."+p), header,  
 			vmin=vmin[j], vmax=vmax[j], 
 			# cmap='inferno', 
 			flux_unbinned=D2.unbinned_flux, galaxy=str_plots[j],
@@ -499,9 +503,9 @@ def plot(galaxy, instrument='vimos', debug=True):
 if __name__=='__main__':
 	# plot('ngc1316', instrument='muse', debug=True)
 	if 'home' in cc.device:
-		for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
-			'ngc7075', 'pks0718-34']:
-			plot(galaxy, instrument='vimos', debug=False)
-	elif cc.device == 'uni':
+		# for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
+		# 	'ngc7075', 'pks0718-34']:
+		# 	plot(galaxy, instrument='vimos', debug=False)
+	# elif cc.device == 'uni':
 		for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
 			plot(galaxy, instrument='muse', debug=False)

@@ -41,11 +41,16 @@
 \usepackage{amsmath}	% Advanced maths commands
 \usepackage{amssymb}	% Extra maths symbols
 
-\usepackage[flushleft, referable]{threeparttablex} % Adding notes under tables
-\usepackage{mhchem} 	% typeset chemistry symbols
+% \usepackage[flushleft, referable]{threeparttablex} % Adding notes under tables
+\usepackage[version=4]{mhchem} 	% typeset chemistry symbols
 \usepackage{array} % For wrapping text in cell in tables with multicolumntype
+% \usepackage{pdflscape} % for landscape pages
 
-
+% *****************************************************************
+% THis is my setting to avoid a particular LaTeX error due to links running
+% onto new pages.
+\hypersetup{draft}
+% *****************************************************************
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +108,8 @@ $^{3}$INAF - Istituto di Radioastronomia, Via P. Gobetti 101, 40129 Bologna, Ita
 \begin{abstract}
 The most powerful radio galaxies are well studied with a strong consensus in the literature regarding their formations processes. However they are intrinsically rare objects and not representative of the general population of radio galaxies. Low-powered radio galaxies are comparatively poorly studied with many conflicting viewpoints regarding their origin and the extent of the effect of feedback from them. 
 
-In this paper, we present a complete sample of 11 nearby low-powered radio galaxies, observed with a suite of instruments. This paper focuses on the spatially-resolved stellar kinematics, stellar populations, and ionized gas distribution, kinematics and ionization derived from optical IFS observations, while other observation such as \ce{^{12}CO(2-1)} from Atacama Large Millimeter/sub-millimeter Array (ALMA) and radio continuum from the Very Large Array (VLA) will be presented in future papers, but are overlaid on our maps (cyan and red contours respectively, in Figs \ref{fig:eso443}-\ref{fig:pks718}). We compare the characteristics and properties of our sample to those of ordinary (i.e.\ optically-selected) ETGs using the Atlas$^\text{3D}$ and MASSIVE IFS surveys. These include the fast/slow rotator classification fraction, kinematic substructures, absorption line strength radial gradients, general stellar population properties, ionized gas distribution and kinematics and the dominant source of ionizing photons.
+We present a complete sample of 11 nearby low-powered radio galaxies, observed with a suite of instruments. This paper focuses on the spatially-resolved stellar kinematics, stellar populations, and ionized gas distribution, kinematics and ionization derived from optical IFS observations%, while other observation such as \ce{^{12}CO(2-1)} from Atacama Large Millimetre/sub-millimetre Array (ALMA) and radio continuum from the Very Large Array (VLA) will be presented in future papers
+. We compare the characteristics and properties of our sample to those of ordinary (i.e.\ optically-selected) ETGs using the Atlas$^\text{3D}$ and MASSIVE IFS surveys. These include the fast/slow rotator classification fraction, kinematic substructures, absorption line strength radial gradients, general stellar population properties, ionized gas distribution and kinematics and the dominant source of ionizing photons.
 
 We tentatively find that our radio-selected ETGs contain a higher mass in of ionized gas than expected, but after accounting for the differences in the mass distribution, we find no further differences between the two samples in the characteristics that can be studied with optical IFU data. We suggest that this is consistent with the notion that low-powered radio galaxies are ordinary ETGs experiencing a brief active phase which maintains their low star-formation rates (also known as maintenance or jet-mode AGN). 
 \end{abstract}
@@ -119,7 +125,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Introduction}
 	\label{sec:intro}
-	It is becoming increasingly clear that two different types of active galactic nuclei (AGN) exist, radiative and jet mode AGN \citep[e.g.][]{Antonucci2012, Heckman2014}, raising speculation about differing mechanisms and possibly fuel sources for each. The former is thought to be the powerful engine that initially and rapidly shuts off star formation in massive early-type galaxies (ETGs; e.g. \citealt{Thomas2005, Thomas2010}), either by removing the cold gas from the galaxy entirely, heating it such that it joins the hot X-ray gas often present in massive galaxies \citep[e.g.][]{OSullivan2001}, or rendering it unusable for star formation (such as by stabilising it against collapse; e.g.\ \citealt{Martig2009}). After a single radiative-mode episode, the AGN is thought to subside to become jet-dominated, repeatedly reheating the surrounding interstellar medium (ISM) to counter any cooling that might allow the cold gas reservoir to replenish (and subsequently form stars). 
+	It is becoming increasingly clear that active galactic nuclei (AGN) can be separated into two different types, radiative and jet mode AGN \citep[e.g.][]{Antonucci2012, Heckman2014}, raising speculation about differing mechanisms and possibly fuel sources for each. The former is thought to be the powerful engine that initially and rapidly shuts off star formation in massive early-type galaxies (ETGs; e.g. \citealt{Thomas2005, Thomas2010}), either by removing the cold gas from the galaxy entirely, heating it such that it joins the hot X-ray gas often present in massive galaxies \citep[e.g.][]{OSullivan2001}, or rendering it unusable for star formation (such as by stabilising it against collapse; e.g.\ \citealt{Martig2009}). After a single radiative-mode episode, the AGN is thought to subside to become jet-dominated, repeatedly reheating the surrounding interstellar medium (ISM) to counter any cooling that might allow the cold gas reservoir to replenish (and subsequently form stars). 
 
 	There is a strong consensus within the scientific literature that the most powerful radio galaxies are the result of gas-rich, major mergers causing large amounts of material to fall on to the black hole at the centre of the resulting galaxy, thus producing an immensely powerful AGN which includes a powerful radio jet \citep[e.g.][]{Malin1983, Quillen1992, Lim2000}. However, such galaxies are by construction extremely rare and are not representative of the general radio galaxy population. Most radio galaxies are low-powered, and their basic properties and origins are poorly constrained. One of the most popular suggestions is that they are bona-fide detections of jet-mode AGN.%, a class of AGN thought to maintain the dearth of star formation in early-type galaxies (ETGs), after most of the fuel for star formation has been removed by an earlier event. 
 	These radio galaxies are known to be dusty with dust lanes having a tendency to be perpendicular to the jets \citep[e.g.][]{DeRuiter2002, VerdoesKleijn2005}. They have little ionized gas in the ISM \citep[e.g.][]{Sarzi2005}, but often have significant quantities of hot X-ray gas (e.g. \citealt{Canizares1987}; the cold phase of the ISM of radio galaxies will be examined in Ruffa et.al.\ in prep.). If the low star-formation rates typically seen in massive ETGs are preserved by jet-mode AGN, then all such ETGs must regularly go through similar active phases, and therefore low-powered radio galaxies should be much the same as their radio-quiet (quiescent phase) ETG counterparts. 
@@ -143,17 +149,17 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 			Host galaxy	& Radio source 	& Redshift	& $S_\text{1.4\,GHz}$	& $m_K$ & Dust morphology\\
 						& (PKS) 		& 			& (mJy) 			& (mag)	&\\
 			\hline 
-			ESO 443-G024 & 1258-321 	& 0.01703	& $1387 \pm 45$		& 8.51 & no dust\tnote{a}	\\ 
-			IC 1459 	& 2254-367 		& 0.00565 	& $1280 \pm 45$		& 6.81 & dust lane\tnote{b}	\\
+			ESO 443-G024 & 1258-321 	& 0.01703	& $1387 \pm 45$		& 8.51 & no dust$^{a}$	\\ 
+			IC 1459 	& 2254-367 		& 0.00565 	& $1280 \pm 45$		& 6.81 & dust lane$^{b}$	\\
 			IC 1531 	& 0007-325 		& 0.02553 	& \leavevmode\phantom{0}$388 \pm 12$		& 9.55 & --					\\
-			IC 4296		& 1333-\leavevmode\phantom{0}33 		& 0.01248 	& $1342 \pm 41$		& 7.50 & edge-on disc\tnote{b} \\
-			NGC 612 	& 0131-\leavevmode\phantom{0}36 		& 0.02954 	& \leavevmode\phantom{0}$585 \pm 18$		& 9.58 & dust lane\tnote{c}	\\
-			NGC 1316 	& 0320-\leavevmode\phantom{0}37 & 0.00591 	& \leavevmode\phantom{0}$255 \pm 10$		& 5.59 & dust patches\tnote{b} \\
-			NGC 1399 	& 0336-\leavevmode\phantom{0}35 & 0.00472 	& \leavevmode\phantom{0}$209 \pm \leavevmode\phantom{0}7$	& 6.31 & no dust\tnote{b}	\\
-			NGC 3100 	& 0958-314 		& 0.00879 	& \leavevmode\phantom{0}$530 \pm 16$		& 8.08 & dust lane\tnote{d}	\\
-			NGC 3557 	& 1107-372 		& 0.01016 	& \leavevmode\phantom{0}$484 \pm 16$		& 7.20 & face-on disc\tnote{b}\\
+			IC 4296		& 1333-\leavevmode\phantom{0}33 		& 0.01248 	& $1342 \pm 41$		& 7.50 & edge-on disc$^{b}$ \\
+			NGC 612 	& 0131-\leavevmode\phantom{0}36 		& 0.02954 	& \leavevmode\phantom{0}$585 \pm 18$		& 9.58 & dust lane$^{c}$	\\
+			NGC 1316 	& 0320-\leavevmode\phantom{0}37 & 0.00591 	& \leavevmode\phantom{0}$255 \pm 10$		& 5.59 & dust patches$^{b}$ \\
+			NGC 1399 	& 0336-\leavevmode\phantom{0}35 & 0.00472 	& \leavevmode\phantom{0}$209 \pm \leavevmode\phantom{0}7$	& 6.31 & no dust$^{b}$	\\
+			NGC 3100 	& 0958-314 		& 0.00879 	& \leavevmode\phantom{0}$530 \pm 16$		& 8.08 & dust lane$^{d}$	\\
+			NGC 3557 	& 1107-372 		& 0.01016 	& \leavevmode\phantom{0}$484 \pm 16$		& 7.20 & face-on disc$^{b}$\\
 			NGC 7075 	& 2128-388 		& 0.01819 	& \leavevmode\phantom{0}$837 \pm 28$		& 9.56 & --					\\
-			--			& 0718-\leavevmode\phantom{0}34 		& 0.02897 	& $1119 \pm 41$		& 9.97 & dust patches\tnote{e} \\
+			--			& 0718-\leavevmode\phantom{0}34 		& 0.02897 	& $1119 \pm 41$		& 9.97 & dust patches$^{e}$ \\
 			\hline
 			\hline
 		\end{tabular}
@@ -171,7 +177,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Observing strategy and Data Reduction}
 	\label{sec:obs}
-	The sample was observed with VIMOS, mounted on the VLT in Paranal \citep{LeFevre2003}. All observations were taken with a spatial sampling of $0\farcs67$, using the high-resolution blue grism yielding a wavelength range of 3700-5520\,\AA\ with a spectral resolution of 1440 and sampling of 0.71\,\AA\,$\mathrm{pix^{-1}}$. Each object was observed with a total integration time of $\approx 100$\,min on-source, equally spread over three observing blocks (OBs). Each OB also contained all the necessary observation for standard IFS data reduction. 
+	The sample has been observed with a suit of instruments spanning the radio to optical wavelengths (archival images from the \textit{Chandra space telescope} are also available for some of the sample). This paper focuses on the optical IFS observations made with VIMOS, mounted on the VLT in Paranal \citep{LeFevre2003}. All observations were taken with a spatial sampling of $0\farcs67$, using the high-resolution blue grism yielding a wavelength range of 3700-5520\,\AA\ with a spectral resolution of 1440 and sampling of 0.71\,\AA\,$\mathrm{pix^{-1}}$. Each object was observed with a total integration time of $\approx 100$\,min on-source, equally spread over three observing blocks (OBs). Each OB also contained all the necessary observation for standard IFS data reduction. 
 
 	VIMOS has several well-known though poorly-understood technical issues. These include several low transmission (bad) fibres, strong flexure, contamination from adjacent spectra on the CCD (cross-talk) and large differences in sensitivity across its 4 quadrants. To address these issues, we adopted a data-reduction pipeline produced using \textsc{Py3D}, a suite of programs based on the \textsc{python} versions of those developed for the Calar Alto Legacy Integral Field spectroscopy Area survey \citep[CALIFA;][]{Sanchez2012, Husemann2013} but later updated for VIMOS by \citet{Husemann2014}. \textsc{Py3D} applies all standard IFS data-reductions steps: bias subtraction, spectrum identification, flatfielding and wavelength calibration. In addition, the data was flux calibrated using publicly available observations of the spectro-photometric standard star Feige 110 provided by the European Southern Observatory (ESO). All steps include methods designed to account for the bad fibres, flexure and cross-talk within VIMOS. 
 
@@ -192,17 +198,19 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Data Analysis}
 	\label{sec:analysis}
-	Both VIMOS and MUSE datasets are spatially binned using Voronoi binning\footnote{http://www-astro.physics.ox.ac.uk/\~mxc/software/} \citep{Cappellari2003} and from this point on are treated almost identically, the only difference (other than the different spectral ranges and resolutions) being that the MUSE datacubes are spatially binned to a higher signal-to-noise ratio (S/N). For our purposes, we define the `signal' and `noise' of each spaxel as the median value of its spectrum and noise spectrum, respectively. We require a S/N of 30 for all VIMOS datacubes and 50 for the IC 1459 and IC 4296 MUSE datacubes. The NGC 1316 and NGC 1399 MUSE datacubes were binned to a S/N of 50 for the analysis of the stellar kinematics and 100 for the analysis of the emission line kinematics and stellar populations.
+	Both VIMOS and MUSE datasets are spatially binned using Voronoi binning\footnote{http://www-astro.physics.ox.ac.uk/~mxc/software/} \citep{Cappellari2003} and from this point on are treated almost identically, the only difference (other than the different spectral ranges and resolutions) being that the MUSE datacubes are spatially binned to a higher signal-to-noise ratio (S/N). For our purposes, we define the `signal' and `noise' of each spaxel as the median value of its spectrum and noise spectrum, respectively. We require a S/N of 30 for all VIMOS datacubes and 50 for the IC 1459 and IC 4296 MUSE datacubes. The NGC 1316 and NGC 1399 MUSE datacubes were binned to a S/N of 50 for the analysis of the stellar kinematics and 100 for the analysis of the emission line kinematics and stellar populations.
 
-	Next we implement a routine to find optimal initial values of the redshift and velocity dispersion for each galaxy, to be used when fitting individual bins, by means of iterative fits to the spatially collapsed (i.e. summed across both spatial dimensions of the datacube) spectrum. We use the penalized-fitting (\textsc{pPXF}) routine\footnotemark[1] of \citet{Cappellari2004} and \citet{Cappellari2016a} with the Medium-resolution Issac Newton Telescope (INT) Library of Empirical Spectra (MILES) library \citep{Sanchez-Blazquez2006, Falcon-Barroso2011a} to find the best-fitting line-of-sight velocity distribution (LOSVD; as parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion). The final mean velocity of a given galaxy, is used as its precise spectroscopic redshift and is given in Table \ref{tab:sample}. Beyond this point, each bin is analysed independently.
+	Next we implement a routine to find optimal initial values of the redshift and velocity dispersion for each galaxy, to be used when fitting individual bins, by means of iterative fits to the spatially collapsed (i.e. summed across both spatial dimensions of the datacube) spectrum. We use the penalized-fitting (\textsc{pPXF}) routine\footnotemark[1] of \citet{Cappellari2004} and \citet{Cappellari2016a} with the Medium-resolution Isaac Newton Telescope (INT) Library of Empirical Spectra (MILES) library \citep{Sanchez-Blazquez2006, Falcon-Barroso2011a} to find the best-fitting line-of-sight stellar velocity distribution (LOSVD; as parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion). The final mean velocity of a given galaxy, is used as its precise spectroscopic redshift and is given in Table \ref{tab:sample}. Beyond this point, each bin is analysed independently.
+
+	It was noted that for the MUSE observations of NGC 1316, the NaD absorption feature (which as generally attributed to absorption from the ISM and is thus affected by the kinematics of the ISM) was significantly effecting the quality of the stellar best-fitting spectrum. For this reason, the wavelength range of NGC 1316 spectra was limited to $<5800 \, \AA$ whilst fitting for the stellar spectra only.
 
 	\subsection{Stellar Kinematics}
 		\label{subsec:starKin}
-		Each bin is fit independently, again using \textsc{pPXF} with the MILES library. For the fit, regions around potential emission lines (listed in Section \ref{subsec:EmissionLines}) are masked, and a fourth order polynomial additive continuum correction is used. A Monte--Carlo (MC) estimate of the uncertainties is used. 
+		Each bin is fit independently, again using \textsc{pPXF} with the MILES library. For the fit, regions around potential emission lines (listed in Section \ref{subsec:EmissionLines}) are masked, and a fourth order polynomial additive continuum correction is used. The residuals between the best-fitting spectrum and the input spectrum are smoothed in wavelength using a weighted, moving average. This is then summed in quadrature with the noise spectrum (as propagated through the data reduction pipeline) to produce a combined `residual noise' spectrum. A Monte--Carlo (MC) method is used to propagate this residual noise to give to give the quoted uncertainties. 
 
 	\subsection{Ionized Gas Distribution and Kinematics}
 		\label{subsec:EmissionLines}
-		In this analysis we consider the following emission lines and doublets: [\ion{O}{ii}]$\lambda\lambda$3726,3729, H$\delta$, H$\gamma$, H$\beta$, [\ion{O}{iii}]$\lambda\lambda$4969,5007, [\ion{N}{I}]$\lambda\lambda$5199,5202, [\ion{O}{i}]$\lambda\lambda$6300,6363, [\ion{N}{ii}]$\lambda\lambda$6548,6583, H$\alpha$ and [\ion{S}{ii}]$\lambda\lambda$6716,6731. We fit the fluxes and kinematics for the emission lines using Gaussian templates, independently fitting the emission lines of the ISM, with a single LOSVDs (again parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion), from the stellar kinematics. In the cases of the [\ion{O}{iii}], [\ion{O}{i}] and [\ion{N}{ii}] doublets, the two components of the doublets are fit with a fixed flux ratio of 3:1. The [\ion{N}{i}] doublet has a fixed ratio of 3:2 \citep{Safier1992}. The two components of the [\ion{O}{ii}] and [\ion{S}{ii}] doublets are fit independently. To minimize template mismatch, whereby emission lines are erroneously fitted to the edges of badly modeled and thus subtracted absorption features, we follow the method set out in \citet{Sarzi2005}. In this method the stellar component is first fitted as above with masked potential emission line regions, followed by the unmasking and fitting of the [\ion{O}{iii}] doublet which sets the kinematics for all the emission lines and finally the amplitude of the remaining emission lines is fitted.
+		In this analysis we consider the following emission lines and doublets: H$\gamma$, H$\beta$, [\ion{O}{iii}]$\lambda\lambda$4969,5007, [\ion{N}{I}]$\lambda\lambda$5199,5202, [\ion{O}{i}]$\lambda\lambda$6300,6363, [\ion{N}{ii}]$\lambda\lambda$6548,6583, H$\alpha$ and [\ion{S}{ii}]$\lambda\lambda$6716,6731. We fit the fluxes and kinematics for the emission lines using Gaussian templates, independently fitting the emission lines of the ISM, with a single LOSVDs (again parametrised by the Gaussian parameters $v$, the mean velocity and $\sigma$, the velocity dispersion), from the stellar kinematics. In the cases of the [\ion{O}{iii}], [\ion{O}{i}] and [\ion{N}{ii}] doublets, the two components of the doublets are fit with a fixed flux ratio of 3:1. The [\ion{N}{i}] doublet has a fixed ratio of 3:2 \citep{Safier1992}. The two components of the [\ion{O}{ii}] and [\ion{S}{ii}] doublets are fit independently. To minimize template mismatch, whereby emission lines are erroneously fitted to the edges of badly modelled and thus subtracted absorption features, we follow the method set out in \citet{Sarzi2005}. In this method the stellar component is first fitted as above with masked potential emission line regions, followed by the unmasking and fitting of the [\ion{O}{iii}] doublet which sets the kinematics for all the emission lines and finally the amplitude of the remaining emission lines is fitted.
 
 		% \begin{table}
 	 % 		% \centering
@@ -249,7 +257,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 		\subsubsection{Correcting for Stellar Velocity Dispersion}
 			\label{subsubsec:EmissionFit}
-			We correct for the effect of the different velocity dispersions of the stars which varyingly spread absorption features such that differing fractions of the absorption is outside of the central bandpasses. To do this, we create a stellar best-fitting spectrum which is \textit{not} convolved with the best-fitting LOSVD. A given index, $I$, is then measured for both this `unconvolved' spectrum ($I^\text{unc}$) and the convolved best-fitting spectrum ($I^\text{conv}$), and the ratio of these two indices is used as a multiplicative correction factor for the index measured ($I^\text{obs}$), such that the corrected index ($I^\text{corr}$) is given by
+			We correct for the effect of the different velocity dispersions of the stars which varyingly spread absorption features such that differing fractions of the absorption are outside of the central bandpasses. To do this, we create a stellar best-fitting spectrum which is \textit{not} convolved with the best-fitting LOSVD. Note that for NGC 1316, indices at wavelengths longer than 5800 \AA\ are calculated using the extrapolated best-fitting \textit{pPXF} fit. A given index, $I$, is then measured for both this `unconvolved' spectrum ($I^\text{unc}$) and the convolved best-fitting spectrum ($I^\text{conv}$), and the ratio of these two indices is used as a multiplicative correction factor for the index measured ($I^\text{obs}$), such that the corrected index ($I^\text{corr}$) is given by
 			\begin{equation}
 				I^\text{corr} \equiv \frac{I^\text{unc}}{I^\text{conv}} I^\text{obs} \, .
 			\end{equation}
@@ -257,7 +265,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 	\subsubsection{Best-fitting Stellar Populations}
 		\label{subsubsec:stellarPop}
-		In each bin, using the measured absorption line strengths, we identify the best-fitting single stellar population (SSP) model from the models of \citeauthor{Thomas2010} (\citeyear{Thomas2010}; hereafter \citetalias{Thomas2010}) using \textsc{emcee}, a \textsc{python}, affine-invariant Markov chain Monte--Carlo (MCMC) fitting package \citep{Foreman-Mackey2013}. The \citetalias{Thomas2010} models are chosen because they are based on high-resolution, flux-calibrated spectra and therefore not requiring absorption line strength measurement to be in the Lick/IDS system.
+		In each bin, using the measured absorption line strengths, we identify the best-fitting single stellar population (SSP) model from an interpolated grid of models using \textsc{emcee}, a \textsc{python}, affine-invariant Markov chain Monte--Carlo (MCMC) fitting package \citep{Foreman-Mackey2013}. This grid is created by linearly interpolating between the models of \citeauthor{Thomas2010} (\citeyear{Thomas2010}; hereafter \citetalias{Thomas2010}). The \citetalias{Thomas2010} models are chosen because they are based on high-resolution, flux-calibrated spectra and therefore not requiring absorption line strength measurement to be in the Lick/IDS system.
 
 	\subsection{Other Parameters}
 		\subsubsection{Ellipticity}
@@ -266,7 +274,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 			as found by the \textsc{idl} routine \textsc{kinemetry}\footnote{http://davor.krajnovic.org/idl/} by \citet{Krajnovic2006}, which finds the best-fitting ellipses at a range of evenly spaced semi-major axes. %This is achieved by performing harmonic expansion of maps along ellipses with a given semi-major axis and, when used for even moments (e.g.\ surface brightness, velocity dispersion, h$_4$ etc.), minimizing the amplitude of the first and second harmonics. 
 			The results include the ellipticity, $\epsilon$ and position angle, $PA_\text{phot}$ of the best-fitting ellipse for each semi-major axis. The fit is repeated for increasing semi-major axis until $<$75\% of the ellipse is not contained within the field of view.
 
-			In reality, the field of view does not always contain 1 $R_\text{e}$. Where this is the case, we follow the method by \citet{Emsellem2007}, where $R_\text{m}$ is redefined as $R_\text{m} \equiv \sqrt{A_\text{s}/\pi}$, where $A_\text{s}$ is the area of the ellipse contained within the field of view. For a given galaxy, we fit ellipses as described above, up to $R_\text{m} = R_\text{max}$, where $A_\text{s}$ reaches a maximum difference if 15\% to the area of the fitted ellipse, $A_\text{ellipse}$. The value $\epsilon_\text{e}$, the ellipticity at 1 $R_\text{e}$ or $R_\text{max}$, whichever is smallest, is given in Col.\,3 of Table \ref{tab:classify}. 
+			In reality, the field of view does not always contain 1 $R_\text{e}$. Where this is the case, we follow the method by \citet{Emsellem2007}, where $R_\text{m}$ is redefined as $R_\text{m} \equiv \sqrt{A_\text{s}/\pi}$, where $A_\text{s}$ is the area of the ellipse contained within the field of view. For a given galaxy, we fit ellipses as described above, up to $R_\text{m} = R_\text{max}$, where $A_\text{s}$ reaches a maximum difference of 15\% to the area of the fitted ellipse, $A_\text{ellipse}$. The value $\epsilon_\text{e}$, the ellipticity at 1 $R_\text{e}$ or $R_\text{max}$, whichever is smallest, is given in Col.\,3 of Table \ref{tab:classify}. 
 
 		\subsubsection{Kinematic Position Angle}
 			\label{subsubsec:KinPA}
@@ -287,7 +295,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Stellar Kinematics}
 	\label{sec:StarKine}
-	Using the methods above, we produce stellar kinematic maps for all datacubes (shown in Section \ref{sec:Maps}). Here, we use these maps to classify each galaxy according to the Atlas$^\text{3D}$ regular/non-regular rotator and fast/slow rotator classification schemes of \citet{Krajnovic2006} and \citet{Cappellari2016}, respectively, as well as the qualitative kinematic classes of \citet{Krajnovic2011}. We use the criteria described in the referenced literature for each of these classification, with the results shown in Table \ref{tab:classify}.
+	Using the methods above, we produce stellar kinematic maps for all datacubes (shown in Section \ref{sec:maps}). Here, we use these maps to classify each galaxy according to the Atlas$^\text{3D}$ regular/non-regular rotator and fast/slow rotator classification schemes of \citet{Krajnovic2006} and \citet{Cappellari2016}, respectively, as well as the qualitative kinematic classes of \citet{Krajnovic2011}. We use the criteria described in the referenced literature for each of these classification, with the results shown in Table \ref{tab:classify}.
 
 	\begin{table*}
 		\centering
@@ -310,7 +318,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 			NGC 3100 	& 0.354 & 0.24 & \leavevmode\phantom{0}$-8\pm\leavevmode\phantom{0}2$ & FR &\leavevmode\phantom{N}RR & -- & e \\
 			NGC 3557 	& 0.312 & 0.20 & \leavevmode\phantom{$-$}$16\pm\leavevmode\phantom{0}5$ & FR &\leavevmode\phantom{N}RR & -- & e\\
 			NGC 7075 	& 0.068 & 0.04 & \leavevmode\phantom{$-$}$36\pm50$ & SR & NRR & -- & b \\
-			PKS 718-34  & 0.159 & 0.17 & \leavevmode\phantom{$-$}$15\pm25$ & FR & NRR & KDC\tnote{a} & b\\
+			PKS 718-34  & 0.159 & 0.17 & \leavevmode\phantom{$-$}$15\pm25$ & FR & NRR & KDC$^{a}$ & b\\
 			\hline
 			\hline
 			\multicolumn{8}{L{.7\linewidth}}{$^{a}$Tentative classification. A higher S/N in the outer regions of the field of view is required for confirmation.}
@@ -326,7 +334,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 	\subsection{Regular/Non-regular Rotators}
 		\label{subsec:RR}
-		We find 4/11, or $(36\pm15)$\%, of our sample galaxies are regular rotators. This compares to 82\% of the Atlas$^\text{3D}$ sample being classified as regular rotators \citep{Krajnovic2011}. However the likely-hood of a given galaxy being a regular rotator is highly mass dependent with the likely-hood decreasing with increasing mass. Thus since our Southern sample are all extremely massive galaxies, we expect to find a higher fraction of non-regular rotators than the Atlas$^\text{3D}$ survey.
+		We find 4/11, or $(36\pm15)$\%, of our sample galaxies are regular rotators. This compares to 82\% of the Atlas$^\text{3D}$ sample being classified as regular rotators \citep{Krajnovic2011}. However the likelihood of a given galaxy being a regular rotator is highly mass dependent with the likelihood decreasing with increasing mass. Thus since our Southern sample are all extremely massive galaxies, we expect to find a higher fraction of non-regular rotators than the Atlas$^\text{3D}$ survey.
 	
 
 	\subsection{Fast/Slow Rotators}
@@ -341,7 +349,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 		In order to account for the difference in mass distribution, we find the expected fraction of slow rotators in the Southern sample, $f'$, corrected to the mass distribution of the A+M sample, as
 		\begin{equation}
-			f' = \sum_{i=0}^N N^\text{SS}_i f^\text{AM}_i \, , 
+			f' = \frac{\sum_{i=0}^N N^\mathrm{SS}_i f^\mathrm{AM}_i}{\sum_{i=0}^N N^\mathrm{SS}} \, , 
 		\end{equation}
 		where $N^\text{SS}_i$ is the number of Southern sample galaxies in the $i^\text{th}$ mass bin, $N^\text{AM}_i$ is the fraction of slow rotators in the $i^\text{th}$ mass bin in the A+M sample and $N$ is the total number of mass bins. In our case we use the $K$-band absolute magnitude ($M_K$) as a proxy for stellar mass, with bins of 0.5 mag. This gives an expected fraction of $f' = 0.64 \pm 0.06$, just consistent with our finding of $(45\pm13)$\% of the Southern sample galaxies being slow rotators. Again the large uncertainty reflects the low number statistics of the Southern sample. There is, therefore, no discernible difference in the fraction of galaxies that are slow-rotators between our radio-selected Southern sample and the optically-selected A+M sample, once differences in the mass distributions are taken into account. 
 
@@ -364,7 +372,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Absorption Line Strengths}
 	\label{sec:absorption}
-	Using the methods described in Section \ref{subsec:absorption} we produce maps of the absorption line strength indices for each galaxy (shown in Appendix \ref{sec:Maps}). Here we measure the Mg\,--\,velocity dispersion relation and compare our absorption line strength measurements to the literature. 
+	Using the methods described in Section \ref{subsec:absorption} we produce maps of the absorption line strength indices for each galaxy (shown in Appendix \ref{sec:maps}). Here we measure the Mg\,--\,velocity dispersion relation and compare our absorption line strength measurements to the literature. 
 
 	\subsection{Mg\,--\,$\sigma$ relation}
 		\label{subsec:Mgsigma}
@@ -372,12 +380,12 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 		Part of the red continuum band of the Mg$_2$ index is outside of the spectral range of VIMOS, but \citet{Ziegler1997} show there is an approximately linear relationship between Mg\,b and Mg$_2$, with a gradient of 14.3--15.5\,mag\,\AA$^{-1}$\ depending on metallicity. We thus use Mg\,b as a proxy for Mg$_2$. 
 
-		Using an aperture with a radius of 2\arcsec\ on each datacube, we measure $\sigma_0$ and Mg\,b at a spectral resolution of 8.4\,\AA\ full-width half-maximum (FWHM), chosen such that the transformation functions of \citet{Vazdekis2010} can be used to change the literature measurements from the Lick/IDS system to the LIS. The results are shown in Fig.\,\ref{fig:globalMg} with the best-fitting linear relationship (found using \textsc{lts\_linefit}\footnotemark[\ref{Cappellari}] by \citealt{Cappellari2013}) shown by the solid black line. This has a gradient of $2.3 \pm 0.5 \,\mathrm{\text{\AA}\,dex^{-1}}$) and intrinsic scatter of $0.13 \pm 0.10 \,$\AA. %Individual measurements for each galaxy are given in table \ref{tab:globalMg}.
-		This is in very good agreement with the gradient found by \citet{Ziegler1997} for a sample of elliptical galaxies within Virgo and Coma using data from \citet{Dressler1987} of $2.5\,\mathrm{\text{\AA}\,dex^{-1}}$ (blue dotted line in Fig.\,\ref{fig:globalMg}), with an intrinsic scatter of 0.16\,\AA\ for galaxies with $\log \sigma_0 \geqslant 2.3$\,dex.
+		Using an aperture with a radius of 2\arcsec\ on each datacube, we measure $\sigma_0$ and Mg\,b at a spectral resolution of 8.4\,\AA\ full-width half-maximum (FWHM), chosen such that the transformation functions of \citet{Vazdekis2010} can be used to change the literature measurements from the Lick/IDS system to the LIS. The results are shown in Fig.\,\ref{fig:globalMg} with the best-fitting linear relationship (found using \textsc{lts\_linefit} %\footnotemark[\ref{Cappellari}]
+		by \citealt{Cappellari2013}) shown by the solid black line. This has a gradient of $3.3 \pm 1.0 \,\mathrm{\text{\AA}\,dex^{-1}}$. It was noticed that NGC 1316 is a possible outlier. Removing NGC 1316 from the fit gives a gradient of $2.5 \pm 0.7 \,\mathrm{\AA\,dex^{-1}}$ (green dashed line in Fig.\,\ref{fig:globalMg}). Both fits are in very good agreement with the gradient found by \citet{Ziegler1997} for a sample of elliptical galaxies within Virgo and Coma using data from \citet{Dressler1987} of $2.5\,\mathrm{\text{\AA}\,dex^{-1}}$ (blue dotted line in Fig.\,\ref{fig:globalMg}), with an intrinsic scatter of 0.16\,\AA\ for galaxies with $\log \sigma_0 \geqslant 2.3$\,dex.
 
 		\begin{figure}
 			\includegraphics[width=\columnwidth]{Mg_sigma.png}
-			\caption[Global Mg\,b\,--\,$\sigma$]{The Mg\,b\,--\,velocity dispersion relation using a 2\arcsec\ aperture. We find a similar gradient to our best-fitting (solid) as that found by \citet[; dotted line]{Ziegler1997}.}
+			\caption[Global Mg\,b\,--\,$\sigma$]{The Mg\,b\,--\,velocity dispersion relation using a 2\arcsec aperture. We find a similar gradient to our best-fitting (solid black) line as that found by \citet[; blue dotted line]{Ziegler1997}, while removing NGC 1316 from the fit (green dashed) results in an extremely good agreement with \citet{Ziegler1997}.}
 			\label{fig:globalMg}
 		\end{figure}
 
@@ -391,7 +399,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 		\begin{table}
 			\centering
 		% \begin{threeparttable}
-			\caption{Comparisons of measured absorption line indices to the literature. Comparisons to \citet{Rampazzo2005} are sampled at 7 radial apertures for each galaxy: 1.5, 2.5 and 10.0 arcsec and R$_e$/10, R$_e$/8, R$_e$/4 and R$_e$/2. Col.\,1: Index. Col.\,2: Number of galaxies in comparison. Col.\,3: Offset equals the mean of the measurements from the literature subtract our measurements. Col.\,4: Dispersion equals the standard deviation of the measurements from the literature subtract our measurements.}
+			\caption{Comparisons of measured absorption line indices to the literature. Comparisons to \citet{Rampazzo2005} are sampled at 7 radial apertures for each galaxy: 1.5, 2.5 and 10.0\arcsec\ and R$_e$/10, R$_e$/8, R$_e$/4 and R$_e$/2. Col.\,1: Index. Col.\,2: Number of galaxies in comparison. Col.\,3: Offset equals the mean of the measurements from the literature subtract our measurements. Col.\,4: Dispersion equals the standard deviation of the measurements from the literature subtract our measurements.}
 			\label{tab:litAbsorption}
 			% \begin{tabular*}{0.8\textwidth}{@{\extracolsep{\fill}}l r r r}
 			\begin{tabular}{l r r r}
@@ -459,52 +467,56 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 		We find a very large offset for the G4300 index with respect to the results of \citet{Rampazzo2005}. This index is extremely sensitive to the stellar velocity dispersion correction and we measure an average difference in the stellar velocity dispersion to that measured by \citet{Rampazzo2005} of $21\,\mathrm{km\,s^{-1}}$. This may be enough to account for the difference in the measurements.
 
-		We also observe that the offset in the Fe5015 index is also quite large in comparisons with \citet{Rampazzo2005} and \citet{Vazdekis2010}. In the case of the comparison with \citet{Rampazzo2005} we suggest that the difference is due to differences in method for accounting for the [\ion{O}{iii}] emission lines, however the origin of the offset is less clear in case of the comparison with \citet{Vazdekis2010}. 
+		We also observe that the offset in the Fe5015 index is also quite large in comparisons with \citet{Rampazzo2005} and \citet{Vazdekis2010}. In the case of the comparison with \citet{Rampazzo2005} we suggest that the difference is due to differences in method for accounting for the [\ion{O}{iii}] emission doublet, however the origin of the offset is less clear in case of the comparison with \citet{Vazdekis2010}. 
 
 		Other than G4300 and Fe5015, the comparisons show fairly consistent agreement with literature measurements although the dispersion of the comparisons are fairly large. We suggest that the translation between Lick and LIS systems may be the source of this spread.
 
 \section{Stellar Populations}
 	\label{sec:stellarPop}
-	We have assumed that a given spectrum from our Southern sample can be well approximated by a SSP. We use the method described in Section \ref{subsubsec:stellarPop} to produce maps of the most-likely SSP characteristics: age ($t$), metallicity ($Z/H$) and alpha-element enhancement ($\alpha$/Fe) from the absorption line strength maps (see Appendix \ref{sec:Maps}).
+	We have assumed that a given spectrum from our Southern sample can be well approximated by a SSP. We use the method described in Section \ref{subsubsec:stellarPop} to produce maps of the most-likely SSP characteristics: age ($t$), metallicity ($Z/H$) and alpha-element enhancement ($\alpha$/Fe) from the absorption line strength maps (see Appendix \ref{sec:maps}).
 
-	In general, our sample galaxies show old, metal rich and alpha enhanced SSPs; qualities which ETGs are well known for. The exceptions are NGC 612 and NGC 1316. NGC 1316 shows a very young stellar population (our fit of $t \approx 2$\,Gyr agrees with that of \citealt{Kuntschner2000}, but is conflicting with the older and less metal rich stellar population of \citealt{Koleva2011} who found $t=4.5 \pm 0.3 \,\mathrm{Gyr}$ and $\mathrm{[Fe/H]}=0.12 \pm 0.01 \,\mathrm{dex}$ for an aperture covering the central 0.1 kpc). We also find NGC 612 to have a young stellar population of $t\approx 4\,\mathrm{Gyr}$. NGC 3557 is notable for containing a significantly younger ($t\approx 4$\,Gyr) core of about 10\arcsec\ diameter and NGC 3100 has a branch of young stars ($\approx 4$\,Gyr) along the southeast branch of the molecular gas (cyan contours in Fig \ref{fig:ngc3100}).
+	In general, our sample galaxies show old, metal rich and alpha enhanced SSPs; qualities which ETGs are well known for. The exception is NGC 612 and NGC 1316. NGC 1316 shows a very young stellar population (our fit of $t \approx 2$\,Gyr agrees with that of \citealt{Kuntschner2000}, but is conflicting with the older and less metal rich stellar population of \citealt{Koleva2011} who found $t=4.5 \pm 0.3 \,\mathrm{Gyr}$ and $\mathrm{[Fe/H]}=0.12 \pm 0.01 \,\mathrm{dex}$ for an aperture covering the central 0.1 kpc). We also find NGC 612 to have a young stellar population of $t\approx 4\,\mathrm{Gyr}$. NGC 3557 is notable for containing a significantly younger ($t\approx 4$\,Gyr) core of about 10\arcsec\ diameter and NGC 3100 has a branch of young stars ($\approx 4$\,Gyr) along the south-east branch of the molecular gas (white contours in Fig \ref{fig:ngc3100}).
 
 	\subsection{Radial Gradients in Stellar Populations}
 		\label{subsec:popGrad}
 
-		\citet{Koleva2011} showed that while individual galaxies can have a wide range of radial gradients of age and metallicity, the mean gradient (within a mass bin) is approximately constant across a large mass range. They assume a linear relationship between $\log t$ or [Fe/H] and $\log (R/\mathrm{R_e})$. We repeat this fit with our Southern Sample with the results shown in Table \ref{tab:popGrad}. 
+		\citet{Koleva2011} showed that while individual galaxies can have a wide range of radial gradients of age and metallicity, the mean gradient (within a mass bin) is approximately constant across a large mass range. They assume a linear relationship between $\log t$ or [Fe/H] and $\log (R/\mathrm{R_e})$. We repeat this fit with our Southern Sample with the results shown in Table \ref{tab:derivedProp}. 
 
-		\begin{table}
+		\begin{table*}
 			\centering
-			\caption{The radial gradients of the most-likely SSP models. Both gradients are dimensionless.}
-			\label{tab:popGrad}
-			\begin{tabular}{l c c}
+			\caption{Derived properties of the Southern Sample. Col.\,1: Galaxy. Col.\,2--3: Radial gradient of the age of most-likely SSP model. Col.\,4--5: Radial gradient of the metallicity of most-likely SSP model. Col.\,6--7: \ion{H}{ii} mass derived from the H$\beta$ (assuming a Balmer decrement of 2.85) or H$\alpha$ line in the VIMOS or MUSE data, respectively. Col.\,8: Balmer decrement measured from the MUSE data. Col.\,9: Main source of ionizing radiation (see Section \ref{subsec:Diagnostics} for a description of the different classes). -- indicates no data.}
+			\label{tab:derivedProp}
+			\begin{tabular}{l c c c c c c c c}
 				\hline
 				\hline 
-				Galaxy 	& $\Delta_\text{log age}$ & $\Delta_\text{[Fe/H]}$ \\ 
-					% & dex\,arcsec$^{-1}$ & dex\,arcsec$^{-1}$ \\
+				Galaxy 	& \multicolumn{2}{c}{$\Delta_\text{log t}$} & \multicolumn{2}{c}{$\Delta_\text{[Fe/H]}$} & \multicolumn{2}{c}{\ion{H}{ii} Mass} & Balmer & LINER/ \\
+						& VIMOS & MUSE & VIMOS & MUSE & VIMOS$^{a}$ & MUSE & Decrement & Seyfert \\
+						& & & & & ($\log\mathrm{M_\odot}$) & ($\log\mathrm{M_\odot}$) & \\
+					\hline
+					ESO 443-G024 & $0.019 \pm 0.013$ & -- & $-0.01 \pm 0.02$ & -- & $5.02 \pm 0.01$ & -- & -- & LINER \\
+					IC 1459 	& $0.005 \pm 0.015$ & $0.003 \pm 0.002$ & $-0.02 \pm 0.02$ & $0.00 \pm 0.06$ & $5.21 \pm 0.01$ & $5.50 \pm 0.01$ & $4.54 \pm 0.12$ & LINER-AGN \\
+					IC 1531 	& $0.012 \pm 0.015$ & -- & $0.01 \pm 0.02$ & -- & $5.09 \pm 0.01$ & -- & -- & Seyfert 2\\
+					IC 4296		& $0.012 \pm 0.010$ & $0.000 \pm 0.002$ & $-0.03 \pm 0.01$ & $0.04 \pm 0.08$ & $5.43 \pm 0.01$	& $< 4.48$ 	& $^{b}$ & LINER-AGN \\
+					NGC 612 	& $0.068 \pm 0.060$ & -- & $-0.11 \pm 0.02$ & -- & $6.00 \pm 0.01$ 	& -- 		& -- & LINER-AGN \\
+					NGC 1316 	& -- & $0.001 \pm 0.002$ & -- &$0.05 \pm 0.03$ & -- 				& $ 5.29 \pm 0.01$ & $3.52 \pm 0.11$ & LINER-AGN \\
+					NGC 1399 	& $0.019 \pm 0.005$ & $0.001 \pm 0.002$ & $-0.02 \pm 0.03$ & $0.10 \pm 0.09$ & $< 3.86$ 			& $ 4.54 \pm 0.01$ & $< 21.4$ $^{c}$ & LINER \\
+					NGC 3100 	& $0.000 \pm 0.010$ & -- & $-0.06 \pm 0.01$ & -- & $5.26 \pm 0.01$	& -- 		& -- & LINER-AGN \\
+					NGC 3557 	& $0.048 \pm 0.039$ & -- & $-0.05 \pm 0.05$ & -- & $4.61 \pm 0.02$ 	& -- 		& -- & LINER \\
+					NGC 7075 	& $0.007 \pm 0.011$ & -- & $-0.07 \pm 0.02$ & -- & $4.68 \pm 0.01$	& -- 		& -- & LINER \\
+					PKS 718-34  & $0.002 \pm 0.009$ & -- & $-0.17 \pm 0.03$ & -- & $< 5.08$	 		& -- 		& -- & Passive \\
 				\hline
-				ESO 443-G024 & $0.019 \pm 0.013$ & $-0.01 \pm 0.02$ \\
-				IC 1459 	& $0.003 \pm 0.002$ & $0.00 \pm 0.06$ \\
-				IC 1531 	& $0.012 \pm 0.015$ & $0.01 \pm 0.02$ \\
-				IC 4296		& $0.000 \pm 0.002$ & $0.04 \pm 0.08$ \\
-				NGC 612 	& $0.068 \pm 0.060$ & $-0.11 \pm 0.02$ \\
-				NGC 1316 	& $0.001 \pm 0.002$ & $0.05 \pm 0.03$ \\
-				NGC 1399 	& $0.001 \pm 0.002$ & $0.10 \pm 0.09$ \\
-				NGC 3100 	& $0.000 \pm 0.010$ & $-0.06 \pm 0.01$ \\
-				NGC 3557 	& $0.048 \pm 0.039$ & $-0.05 \pm 0.05$ \\
-				NGC 7075 	& $0.007 \pm 0.011$ & $-0.07 \pm 0.02$ \\
-				PKS 718-34  & $0.002 \pm 0.009$ & $-0.17 \pm 0.03$ \\
 				\hline
-				\hline
+				\multicolumn{9}{L{.95\linewidth}}{$^{a}$The VIMOS flux calibration and thus the derived gas masses are only approximate (see Section \ref{sec:obs} for more detail on the flux calibration).} \\
+				\multicolumn{9}{L{.95\linewidth}}{$^{b}$Both H$\alpha$ and H$\beta$ are not detected with A/N $>2.5$, so no information can be gained.} \\
+				\multicolumn{9}{L{.95\linewidth}}{$^{c}$H$\beta$ is not detected with A/N $> 2.5$, so the fit is unreliable. Instead the limits for a 2.5 A/N detection are shown.}
 			\end{tabular}
-		\end{table}
+		\end{table*}
 
-		We find average gradients of $\Delta_\text{log age} = 0.014\pm0.007$ and $\Delta_\text{[Fe/H]} = -0.03\pm0.01$. This is consistent with \citet{Koleva2011} who, for elliptical galaxies found average gradients of $0.06\pm0.09$ and $-0.26\pm0.08$ for the age and metallicity gradients, respectively. For lenticular galaxies (S0s) they find flatter corresponding gradients of $0.01\pm0.11$ and $-0.12\pm0.13$. 
+		We find average gradients of $\Delta_\text{log t} = 0.014\pm0.007$ and $\Delta_\text{[Fe/H]} = -0.03\pm0.01$. This is consistent with \citet{Koleva2011} who, for elliptical galaxies found average gradients of $0.06\pm0.09$ and $-0.26\pm0.08$ for the age and metallicity gradients, respectively. For S0s they find flatter corresponding gradients of $0.01\pm0.11$ and $-0.12\pm0.13$. 
 
 	\subsection{Kinematically-Decoupled Cores}
 		\label{subsec:popKDC}
-		\citet{Kuntschner2010} found that KDCs exist in two classes: they are either small with various stellar ages or typically larger but containing an old stellar population. The size of the KDC is defined as the radius of the region surrounding the KDC where the superposition of the two components (the KDC and the host galaxy) results in a local minimum in the mean velocity. The age of the most-likely SSP model for the spatially integrated spectrum within an aperture 1\arcsec\ on the centre of the galaxy is taken as the KDC's age.
+		\citet{Kuntschner2010} found that KDCs can be separated two classes: they are either small with various stellar ages or typically larger but containing an old stellar population. The size of the KDC is defined as the radius of the region surrounding the KDC where the superposition of the two components (the KDC and the host galaxy) results in a local minimum in the mean velocity. The age of the most-likely SSP model for the spatially integrated spectrum within an aperture 1\arcsec\ on the centre of the galaxy is taken as the KDC's age.
 
 		The small KDCs are too small to be spatially resolved by our data, and thus are not considered here. The larger, old KDCs are typically embedded in slow rotators. They have no upper limit on the age of their stellar populations suggesting that the stars within the KDC dominate in total mass as well as surface brightness. Thus, they do not fade into their host galaxies as they age unlike the small KDCs \citep{Kuntschner2010}. \citet{Bois2011} showed major mergers may well result in such large KDCs if the initial spin axis of the progenitor galaxy with the lowest bulge-to-disc ratio (later-type) is anti-parallel to the orbital angular momentum vector. 
 
@@ -512,58 +524,20 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 		\begin{figure}
 			\includegraphics[width=\columnwidth]{KDC_size_age.png}
-			\caption[KDC dichotomy]{The KDC size\,--\,age relation. KDCs exist in two classes: old and embedded in a slow rotator or small and embedded in a fast rotator. Observations with VIMOS are in red, MUSE in blue and SAURON from \citet{Kuntschner2010} in black and gray for fast and slow rotators respectively.}
+			\caption[KDC dichotomy]{The KDC size\,--\,age relation. KDCs can be separated two classes: old and embedded in a slow rotator or small and embedded in a fast rotator.VIMOS observations are are in red, MUSE in blue and SAURON from \citet{Kuntschner2010} in black and grey for fast and slow rotators respectively.}
 			\label{fig:KDC}
 		\end{figure}
 
 \section{Ionized Gas Distribution, Kinematics and Ionization}
 	\label{sec:gas}
-	Using the methods described in Section \ref{subsubsec:EmissionFit}, we find the best-fitting line-of-sight velocity distribution (LOSVD; assumed to be Gaussian and parametrised by the mean velocity and velocity dispersion only) of the emission lines in each bin. Images of the Southern Sample galaxies in the [\ion{O}{iii}]$\lambda\lambda$4957,5007 doublet are shown in Appendix \ref{sec:Maps} (we choose to show [\ion{O}{iii}] as detections of all emission lines require a detection of [\ion{O}{iii}] first, see Section \ref{subsubsec:EmissionFit}). 
+	Using the methods described in Section \ref{subsubsec:EmissionFit}, we find the best-fitting line-of-sight velocity distribution (LOSVD; assumed to be Gaussian and parametrised by the mean velocity and velocity dispersion only) of the emission lines in each bin. Images of the Southern Sample galaxies in the [\ion{O}{iii}]$\lambda\lambda$4957,5007 doublet are shown in Appendix \ref{sec:maps} (we choose to show [\ion{O}{iii}] as detections of all emission lines require a detection of [\ion{O}{iii}] first, see Section \ref{subsubsec:EmissionFit}). 
 
-	Only 4 galaxies of the Southern Sample have emission lines detected outside of their central region (IC 1459, NGC 612, NGC 1316 and NGC 3100). Of the remaining 7 galaxies, NGC 1399 and PKS 718-34 have no detection of H$\beta$ in their spatially-resolved map (although we do detect H$\beta$ in the spatially-integrated spectrum of NGC 1399; see Table \ref{tab:gasMass}), while the other 5 galaxies are only detected in their centre. All other emission lines have similar distributions, but with different fluxes.
+	Only 4 galaxies of the Southern Sample have emission lines detected outside of their central region (IC 1459, NGC 612, NGC 1316 and NGC 3100). Of the remaining 7 galaxies, NGC 1399 and PKS 718-34 have no detection of H$\beta$ in their spatially-resolved map (although we do detect H$\beta$ in the spatially-integrated spectrum of NGC 1399; see Table \ref{tab:derivedProp}), while the other 5 galaxies are only detected in their centre. All other emission lines have similar distributions, but with different fluxes.
 
-	As can be seen from the maps in Appendix \ref{sec:Maps}, both NGC 612 and NGC 3100 have significant off-centre clouds of ionized gas. The latter is spatial coincident with both the radio jet and the gap in the CO ring, while former seems to no link with either the radio jet (a massive scale jet extending several $\sim 200$\,kpc to the east and west of the galaxy centre) or the CO. 
+	As can be seen from the maps in Appendix \ref{sec:maps}, both NGC 612 and NGC 3100 have significant off-centre clouds of ionized gas. The latter is spatial coincident with both the radio jet and the gap in the CO ring, while former seems to no link with either the radio jet (a massive jet extending $\sim 200$\,kpc to the east and west of the galaxy centre) or the CO. 
 
 
-	\begin{table*}
-		\centering
-	% \begin{threeparttable}
-		\caption{Gas masses of the Southern Sample galaxies. Col.\,1: Galaxy. Col.\,2: \ion{H}{ii} mass derived from the H$\beta$ line in the VIMOS data, assuming a Balmer decrement of 2.85. Col.\,3: \ion{H}{ii} mass derived from the H$\alpha$ line in the MUSE data. Col.\,4: Balmer decrement measured from the MUSE data. Col.\,5: Main source of ionizing radiation (see Section \ref{subsec:Diagnostics} for a description of the different classes). -- means we have no data.}
-		\label{tab:gasMass}
-		% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r r r l}
-		\begin{tabular}{l c c c c}
-			\hline
-			\hline
-			Galaxy & \multicolumn{2}{c}{\ion{H}{ii} Mass} & Balmer & LINER/ \\
-			& VIMOS\tnote{a} & MUSE & Decrement & Seyfert \\
-			& ($\log\mathrm{M_\odot}$) & ($\log\mathrm{M_\odot}$) & \\
-			\hline
-			ESO 443-G024 & $5.02 \pm 0.01$ 	& --  		& -- & LINER \\
-			IC 1459 	& $5.21 \pm 0.01$	& $5.50 \pm 0.01$ & $4.54 \pm 0.12$ & LINER-AGN\\
-			IC 1531 	& $5.09 \pm 0.01$	& -- 		& -- & Seyfert 2\\
-			IC 4296		& $5.43 \pm 0.01$	& $< 4.48$ 	& \tnote{b} & LINER-AGN \\
-			NGC 612 	& $6.00 \pm 0.01$ 	& -- 		& -- & LINER-AGN \\
-			NGC 1316 	& -- 				& $ 5.29 \pm 0.01$ & $3.52 \pm 0.11$ & LINER-AGN \\
-			NGC 1399 	& $< 3.86$ 			& $ 4.54 \pm 0.01$ & $< 21.4$\tnote{c} & LINER \\
-			NGC 3100 	& $5.26 \pm 0.01$	& -- 		& -- & LINER-AGN \\
-			NGC 3557 	& $4.61 \pm 0.02$ 	& -- 		& -- & LINER \\
-			NGC 7075 	& $4.68 \pm 0.01$	& -- 		& -- & LINER \\
-			PKS 718-34  & $< 5.08$	 		& -- 		& -- & Passive \\
-			\hline
-			\hline
-			\multicolumn{5}{L{.7\linewidth}}{$^{a}$The VIMOS flux calibration and thus the derived gas masses are only approximate (see Section \ref{sec:obs} for more detail on the flux calibration).} \\
-			\multicolumn{5}{L{.7\linewidth}}{$^{b}$Both H$\alpha$ and H$\beta$ are not detected with A/N $>2.5$, so no information can be gained.} \\
-			\multicolumn{5}{L{.7\linewidth}}{$^{c}$H$\beta$ is not detected with A/N $> 2.5$, so the fit is unreliable (hence an upper limit).}
-		\end{tabular}
-	% 	\begin{tablenotes}
-	% 	\footnotesize
-	% 	\note Col.\,1: Galaxy. Col.\,2: \ion{H}{ii} mass derived from the H$\beta$ line in the VIMOS data, assuming a Balmer decrement of 2.85. Col.\,3: \ion{H}{ii} mass derived from the H$\alpha$ line in the MUSE data. Col.\,4: Balmer decrement measured from the MUSE data. Col.\,5: Main source of ionizing radiation (see Section \ref{subsec:Diagnostics} for a description of the different classes). -- means we have no data.
-	% 	\item [a] The VIMOS flux calibration and thus the derived gas masses are only approximate (see Section \ref{subsec:VIMOSreduction} for more detail on the flux calibration).
-	% 	\item [b] Both H$\alpha$ and H$\beta$ are not detected with A/N $>2.5$, so no information can be gained.
-	% 	\item [c] H$\beta$ is not detected with A/N $> 2.5$, so the fit is unreliable (hence an upper limit). 
-	% 	\end{tablenotes}
-	% \end{threeparttable}
-	\end{table*}
+	
 
 
 
@@ -572,37 +546,29 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 	\begin{equation}
 		\left(\frac{M_\text{\ion{H}{ii}}}{M_\odot}\right) = 280 \left(\frac{D}{10\, \mathrm{Mpc}}\right)^2 \left(\frac{F(\mathrm{H\alpha})}{10^{-14} \, \mathrm{erg \, s^{-1} \, cm^{-2}}}\right) \left(\frac{10^3 \, \mathrm{cm^{-3}}}{n_\mathrm{e}}\right) \, ,
 	\end{equation}
-	where $M_\text{\ion{H}{ii}}$ is the total mass of \ion{H}{ii} in the galaxy, $D$ is the galaxy distance, and $F(\mathrm{H\alpha})$ is the H$\alpha$ flux measured from the spectrum created by summing spatially all spaxels within an aperture of $\frac{R_\mathrm{e}}{2}$ (chosen to exclude noisy outer regions of the observations, but still includes the bulk of the gas in system with significant spatially-extended gas). This method assumes an electron density $n_\mathrm{e} = 100 \, \mathrm{cm^{-3}}$, a temperature of $10^4$ K and case-B recombination (electrons above 13.6\,eV are not reabsorbed; e.g.\ \citealt[p.\,74]{Osterbrock1974}). Like \citet{Sarzi2005}, we only claim a detection if the amplitude-to-noise ratio (A/N) is $>4$ for [\ion{O}{iii}] and $>2.5$ for H$\beta$ or H$\alpha$. When these conditions are not met, upper limits are calculated using the $1\sigma$ noise level (see Section \ref{subsubsec:EmissionFit}).
+	where $M_\text{\ion{H}{ii}}$ is the total mass of \ion{H}{ii} in the galaxy, $D$ is the galaxy distance, and $F(\mathrm{H\alpha})$ is the H$\alpha$ flux measured from the spectrum created by summing spatially all spaxels within an aperture of $\frac{R_\mathrm{e}}{2}$ (chosen to exclude noisy outer regions of the observations, but still includes the bulk of the gas in system with significant spatially-extended gas). This method assumes an electron density $n_\mathrm{e} = 100 \, \mathrm{cm^{-3}}$, a temperature of $10^4$ K and case-B recombination. Like \citet{Sarzi2005}, we only claim a detection if the amplitude-to-noise ratio (A/N) is $>4$ for [\ion{O}{iii}] and $>2.5$ for H$\beta$ or H$\alpha$ lines for VIMOS and MUSE data, respectively. When these conditions are not met, upper limits are calculated using the using the 2.5 A/N level, assuming the gas has the same velocity dispersion as the stellar component.
 
-	Our calculated gas masses are given Table \ref{tab:gasMass} and are at the upper limit of, and possibly exceed, the typical masses observed in ETGs. Given that our sample contains particularly massive galaxies, high ionized gas masses are not unexpected, however.
+	Our calculated gas masses are given Table \ref{tab:derivedProp} and are at the upper limit of, and possibly exceed, the typical masses observed in ETGs. Given that our sample contains particularly massive galaxies, high ionized gas masses are not unexpected, however.
 
 	\subsection{Ionized Gas Kinematics}
 		\label{subsec:GasKin}
-		Map of the best-fitting kinematics (mean velocity and velocity dispersion), as found with the methods described in Section \ref{subsubsec:EmissionFit} for the 4 galaxies (IC 1459, NGC 612, NGC 1316 and NGC 3100) with detected spatially-extended emission lines are shown in Appendix \ref{sec:Maps}. Due to that fact that, unlike stars, gas is dissipational, it is to be expected that given sufficient time, the ISM will always settle into a disc. These maps show that the warm component of the ISM (the ionized gas) of the Southern sample galaxies varies from largely settled discs in IC 1459 and NGC 612 to more disordered kinematics of NGC 3100 and a possible inflow in NGC 1316.
+		Map of the best-fitting kinematics (mean velocity and velocity dispersion), as found with the methods described in Section \ref{subsubsec:EmissionFit} for the 4 galaxies (IC 1459, NGC 612, NGC 1316 and NGC 3100) with detected spatially-extended emission lines are shown in Appendix \ref{sec:maps}. Due to that fact that, unlike stars, gas is dissipational, it is to be expected that given sufficient time, the ISM will always settle into a disc. These maps show that the warm component of the ISM (the ionized gas) of the Southern sample galaxies varies from largely settled discs in IC 1459 and NGC 612 to more disordered kinematics of NGC 3100 and a possible inflow in NGC 1316.
 
-		It is immediately clear when comparing the stellar mean velocity maps to the ionized gas mean velocity maps that where gas is detected, its angular momentum is not often aligned with that of the stars. A misalignment between the kinematics of the stars and gas suggests an external origin for the gas (e.g.\ accretion or wet merger). However it should be noted that the converses is not necessarily true: aligned kinematics is consistent with an internal origin (e.g.\ stellar-mass loss), but it does \emph{not} require it \citep[e.g.][]{Davis2011a}. 
+		It is immediately clear when comparing the stellar mean velocity maps to the ionized gas mean velocity maps that where gas is detected, its angular momentum is often not aligned with that of the stars. A misalignment between the kinematics of the stars and gas suggests an external origin for the gas (e.g.\ accretion or wet merger). However it should be noted that the converse is not necessarily true: aligned kinematics is consistent with an internal origin (e.g.\ stellar-mass loss), but it does \emph{not} require it \citep[e.g.][]{Davis2011a}. 
 
 		We now comment on each galaxy in turn.
 
 		\textbf{IC 1459} has ionized gas counter-rotating with respect to the stellar KDC, and also rotating independently from the rest of the galaxy. \citet{Franx1988} claim that the rotation of the gas is aligned with that of the stars outside of the KDC, however we observe the outer stellar kinematics to be non-rotating. As the stellar disc did not survive the merger even that created the KDC, it is unlikely that the gas in IC 1459 progenitor galaxy survived. The lost gas may, however, have been re-accreted. Alternatively, the ISM may have yet another external origin. 
 
-		\textbf{NGC 612} has well aligned stellar and gaseous kinematics. The misalignment between the position angle of the stellar and gas kinematics (using the method described in Section \ref{subsubsec:KinPA}) is just $1\fdg0\pm0\fdg7$, consistent with an internal origin for the gas. This adds to the evidence that NGC 612 has not undergone a major merger (major mergers exhaust galaxies of their gas and destroy a stellar disc) and suggests that, the fueling and powering of the radio jet must be a purely secular process. 
+		\textbf{NGC 612} has well aligned stellar and gaseous kinematics. The misalignment between the position angle of the stellar and gas kinematics (using the method described in Section \ref{subsubsec:KinPA}) is just $1\fdg0\pm0\fdg7$, consistent with an internal origin for the gas. This adds to the evidence that NGC 612 has not undergone a recent major merger (major mergers exhaust galaxies of their gas and destroy a stellar disc) and suggests that, the fuelling and powering of the radio jet could be a purely secular process. 
 
 
-		\textbf{NGC 1316} is a complex object. Since there are redshifted emission lines with respect to the rest frame of the galaxy on both sides of the galaxy, the gas is not in a settled disc and that there must be some inflow/outflows. 
-		% We used a fitting routine based on the method of \citet{Swinbank2012}, \citet{Stott2016} and Tiley et.al.\ (in prep.) to fit an exponential disc (middle panel of Fig.\ \ref{fig:Inflow}) to the ionized gas mean velocity map (left panel), with the residuals shown in the right panel of Fig.\ \ref{fig:Inflow}. This shows a large residual on the southwest side of the galaxy, which we interpret as an inflow towards the nucleus, almost perpendicular to the radio jet. However, there are still significant residuals in other parts of the galaxy, suggesting that the model may not be a good representation of the reality of the galaxy, thus other interpretations are possible, and better quality data (longer exposure times) are required to add certainty to this interpretation. Nevertheless, it is clear that the gas in not in a settled disc. 
-		Without filling in some of the regions were we do not detect emission lines through additional observations, it is impossible to judge the state or even existence of a disc. 
+		\textbf{NGC 1316} is a complex object. Since there are redshifted emission lines with respect to the rest frame of the galaxy on both sides of the galaxy, the gas is not in a settled disc and that there must be some inflow/outflows. From visual inspection of the velocity field for the gas (Fig.\,\ref{fig:MUSE_Gaskine}) it is clear that a simple exponential disc model will not be well fitted to the data. We suggest that that the large velocity peak on the south-west side of the galaxy could be an inflow towards the nucleus, almost perpendicular to the radio jet, however we acknowledge that other interpretations are possible. Better quality data (longer exposure times) and more sophisticated models are required to add certainty to this interpretation. Nevertheless, it is clear that the gas in not in a settled disc. 
+		
+		% Without filling in some of the regions were we do not detect emission lines through additional observations, it is impossible to judge the state or even existence of a disc. 
 
 
-		% \begin{figure}
-		% 	\centering
-		% 	\includegraphics[width=\textwidth]{ngc1316_inflow.png}
-		% 	\caption[Inflows in NGC 1316]{Ionized gas inflows in NGC 1316. Left: [\ion{O}{iii}] mean velocity map. Middle: best-fitting model. Right: Residual map = mean velocity - model. A large region, redshifted with respect to the galaxy, can be seen in the southwest which we interpret as an inflow. Contours are as in Fig.\ \ref{fig:VIMOS_OIII}.}
-		% 	\label{fig:Inflow}
-		% \end{figure}
-
-
-		\textbf{NGC 3100} has an interesting ISM morphology. The \ce{^{12}CO(2-1)} contours (shown in cyan in all maps) show a broken ring with the radio jet passing through the gaps in the ring (Ruffa et\,al., in prep.). We observe the ionized gas to be brightest in the gaps of this ring which we interpret as additional excitation of the gas due to shocks from the impact of the jet. The simplest comment that we can make of the ionized gas kinematics is that it is completely different than that of the stars. Secondly, that the centre of rotation of the gas appears to be offset from the centre of the galaxy (as defined by the stellar surface brightness) by several arcseconds to the west. 
+		\textbf{NGC 3100} has an interesting ISM morphology. The \ce{^{12}CO(2-1)} contours (shown in white in all maps) show a broken ring with the radio jet passing through the gaps in the ring (Ruffa et\,al., in prep.). We observe the ionized gas to be brightest in the gaps of this ring which we interpret as additional excitation of the gas due to shocks from the impact of the jet. The simplest comment that we can make of the ionized gas kinematics is that it is completely different than that of the stars. Secondly, that the centre of rotation of the gas appears to be offset from the centre of the galaxy (as defined by the stellar surface brightness) by several arcseconds to the west. 
 
 		\subsubsection{Kinematic Misalignments}
 			\citet{Davis2011a} showed that $36\pm5$\% of fast rotators have ionized gas kinematics misaligned with respect to the stellar kinematics, while slow rotators have a flat distribution with respect to their misalignment angles \citep[see fig.\ 4]{Davis2011a}. This indicates that slow rotators are dominated by external sources of gas, while fast rotators can have either internal or external sources. This is consistent with our observations of the Southern Sample: the only slow rotator with detected ionized gas is IC 1459, which has significantly kinematically-misaligned gas, while of the 3 fast rotators, only 1 (NGC 3100) is definitely misaligned, while NGC 612 is consistent with an internal gas origin and NGC 1316 is unclear. %, although the best-fitting exponential disc model (see Fig.\ \ref{fig:Inflow}) is definitely misaligned to the stellar kinematics.
@@ -610,13 +576,13 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 	\subsection{Ionization Sources}
 		\label{subsec:Diagnostics}
-		Determining the sources of ionizing radiation in galaxies using emission line ratios, such as Baldwin\,--\,Phillips\,--\,Terlevich (BPT) plots (\citealt{Baldwin1981}; revised by \citealt{Kewley2001, Kewley2006} and \citealt{Kauffmann2003a}), has become an increasingly widespread exercise. That said, there are several important caveats. Firstly, great care must be taken when applying each diagnostic; much of the literature misinterprets the resulting classifications. Secondly, in the absence of spatially-resolved spectra, low-ionization nuclear emission-line region (LINER) classifications have often been taken as a marker for jet-mode AGN. However, several recent surveys have shown that many of these may not be bona fide AGN \citep[e.g.][]{Sarzi2005, Sarzi2010, Singh2013, Belfiore2016a}. In these cases, the emission may not even originate exclusively from the centres of the galaxies, the location of the putative AGN. This led to the creation of the low-ionization emission-line region (LIER) classification, with the same criteria as LINERs, but not necessarily restricted to the nuclear regions.
+		Determining the sources of ionizing radiation in galaxies using emission line ratios, such as Baldwin\,--\,Phillips\,--\,Terlevich (BPT) plots (\citealt{Baldwin1981}; revised by \citealt{Kewley2001, Kewley2006} and \citealt{Kauffmann2003a}), has become an increasingly widespread exercise. That said, there are several important caveats. Firstly, great care must be taken when applying each diagnostic; much of the literature misinterprets the resulting classifications. Secondly, in the absence of spatially-resolved spectra, low-ionization nuclear emission-line region (LINER) classifications have often been taken as a marker for jet-mode AGN. However, several recent surveys have shown that many of these may not be bona-fide AGN \citep[e.g.][]{Sarzi2005, Sarzi2010, Singh2013, Belfiore2016a}. In these cases, the emission may not even originate exclusively from the centres of the galaxies, the location of the putative AGN. This led to the creation of the low-ionization emission-line region (LIER) classification, with the same criteria as LINERs, but not necessarily restricted to the nuclear regions.
 
 		The problem with classifying ETGs by their emission lines is that they often have very little ionized gas and weak ionizing radiation fields, so that it is often difficult to detect emission lines from their ISM. Furthermore, the BPT plots require a larger spectral range than many IFS deliver. This has given rise to a number of other, analogous, classifying plots, that we take advantage of here. A description of our ionization source classifying process follows below. 
 
 		Firstly, we preferentially use the BPT plots for the galaxies observed with MUSE (MUSE has the required spectral range). This allows us to classify galaxies into star-forming, LINER/LIER or Seyfert 2 classes. For the emission-line fluxes derived from the VIMOS datacubes, we use the [\ion{N}{i}]/H$\beta$ versus [\ion{O}{iii}]/H$\beta$ plot of \citet[hereafter the SAURON plot]{Sarzi2010}. Unlike the BPT plots, \citet{Sarzi2010} do not define classification boundaries. Using Eq.\,\ref{eq:N_dec} we translate the [\ion{N}{ii}]/H$\alpha$ BPT plot classification boundaries of \citet{Kewley2001} and \citet{Kauffmann2003a} to the [\ion{N}{i}]/H$\beta$ SAURON plot. This allows us to classify galaxies into star-forming or LINER/Seyfert 2 classes. We also use the so-called WHaN2 plot (H$\alpha$ equivalent width versus [\ion{N}{ii}]/H$\alpha$) from \citet{CidFernandes2011}. Using Eqs.\,\ref{eq:EqW_dec} and \ref{eq:N_dec}, we transform the boundary lines into a H$\beta$ equivalent width versus [\ion{N}{i}]/H$\beta$ (WHbN1) plot for the VIMOS data. This allows us to classify galaxies into star-forming, strong AGN (Seyfert 2), weak AGN (LINER) or retired classes. 
 
-		To check if the LINER classifications are due to a central radiation source (such as an AGN) or extended sources (such as weak star formation or post-asymptotic giant branch stars; pAGB stars), we examine the H$\alpha$ and H$\beta$ flux radial profiles of our galaxies with extended detected ionized gas (see Section \ref{subsubsec:Hb}). Finally we use the mass\,--\,excitation (MEx) plot of \cite{Nyland2016}, using parameters derived from the spatially-integrated spectra within an aperture of radius 3\arcsec\ thus only probing the central region of the galaxies (see Section \ref{subsubsec:MEx}). This allows us to classify the remaining galaxies into star-forming, Seyfert 2, LINER, transition or passive classes, and subdivide LINER galaxies into those whose LINER characteristics are attributable to a central AGN (labeled as LINER-AGN in Table \ref{tab:gasMass}) and those whose LINER characteristics are not. We expand on the final two steps in the sections below. 
+		To check if the LINER classifications are due to a central radiation source (such as an AGN) or extended sources (such as weak star formation or post-asymptotic giant branch stars; pAGB stars), we examine the H$\alpha$ and H$\beta$ flux radial profiles of our galaxies with extended detected ionized gas (see Section \ref{subsubsec:Hb}). Finally we use the mass\,--\,excitation (MEx) plot of \cite{Nyland2016}, using parameters derived from the spatially-integrated spectra within an aperture of radius 3\arcsec\ thus only probing the central region of the galaxies (see Section \ref{subsubsec:MEx}). This allows us to classify the remaining galaxies into star-forming, Seyfert 2, LINER, transition or passive classes, and subdivide LINER galaxies into those whose LINER characteristics are attributable to a central AGN (labelled as LINER-AGN in Table \ref{tab:derivedProp}) and those whose LINER characteristics are not. We expand on the final two steps in the sections below. 
 
 
 
@@ -643,7 +609,7 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 		% 	\begin{figure}
 		% 		\centering
 		% 		\includegraphics[width=0.5\textwidth]{chapter5/vimos/ngc3100_NI_Hb.png}
-		% 		\caption[NGC 3100 \bracket{\ion{N}{i}}/H$\beta$ line ratio map]{The [\ion{N}{i}]/H$\beta$ line ratio map of NGC 3100, showing the hardest ionization field is in gap in the CO ring (cyan contours), spatially coincident with the radio jet (green contours). Surface brightness contours are in black.}
+		% 		\caption[NGC 3100 \bracket{\ion{N}{i}}/H$\beta$ line ratio map]{The [\ion{N}{i}]/H$\beta$ line ratio map of NGC 3100, showing the hardest ionization field is in gap in the CO ring (white contours), spatially coincident with the radio jet (green contours). Surface brightness contours are in black.}
 		% 		\label{fig:ngc3100_NI_Hb}
 		% 	\end{figure}
 	 
@@ -674,18 +640,17 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 			\begin{figure}
 				\centering
 				\includegraphics[width=0.73\columnwidth]{Halpha_profile.png}
-				\caption{H$\alpha$ flux radial profiles derived from the MUSE datacubes. Solid red lines show $F(\mathrm{H\alpha}) \propto r^{-2}$.}
+				\caption{H$\alpha$ flux radial profiles derived from the MUSE datacubes. Solid red lines show $F(\mathrm{H\alpha}) \propto r^{-2}$ convolved with a Gaussian function of width equal to the mean seeing taken from the fits file headers. This accounts for the point-spread function (PSF) of the observations.\label{fig:Ha_profile_MUSE}}
 				\label{fig:Ha_profile_MUSE}
 			\end{figure}
 
 			\begin{figure}
 				\centering
 				\includegraphics[width=\columnwidth]{Hbeta_profile.png}
-				\caption{H$\beta$ flux radial profiles derived from the VIMOS datacubes. Solid red lines show $F(\mathrm{H\beta}) \propto r^{-2}$.}
-				\label{fig:Hb_profile_VIMOS}
+				\caption{H$\beta$ flux radial profiles derived from the VIMOS datacubes. Solid red lines show $F(\mathrm{H\beta}) \propto r^{-2}$ convolved with a Gaussian function of width equal to the mean seeing (see Table \ref{tab:observations}). This accounts for the PSF of the observations. \label{fig:Hb_profile_VIMOS}}
 			\end{figure}
 			
-			As discussed above, many galaxies classified as LINERs are in fact LIERs \citep[see e.g.][]{Sarzi2005, Sarzi2010, Singh2013, Belfiore2016}, i.e.\ the source of the ionizing radiation is not concentrated in the nuclear regions of the galaxies. To check if the ionizing radiation is entirely due to an AGN throughout the host galaxy, we plot the H$\alpha$ and H$\beta$ flux radial profiles for the MUSE and VIMOS data in Figs.\,\ref{fig:Ha_profile_MUSE} and \ref{fig:Hb_profile_VIMOS}, respectively. A point source, such as an AGN, will result in a profile having a $r^{-2}$ shape, where $r$ is the distance of the bin from the galaxy centre. A shallower profile points to a spatially-extended source, presumably non-circumnuclear stellar processes such as star formation or radiation from pAGB stars, as the dominant cause of the ionization in the outer parts of the galaxy (i.e.\ LIER rather than LINER). All the galaxies with spatially-extended Balmer emission in our Southern Sample revel a central point source as the dominant source of the ionizing photons. The H$\beta$ profile of NGC 612 has a larger scatter suggesting that stellar processes also have some impact (likely radiation from pAGB stars, as these galaxies are ETGs and therefore likely have low star-formation rates).
+			As discussed above, many galaxies classified as LINERs are in fact LIERs \citep[see e.g.][]{Sarzi2005, Sarzi2010, Singh2013, Belfiore2016}, i.e.\ the source of the ionizing radiation is not concentrated in the nuclear regions of the galaxies. To check if the ionizing radiation is entirely due to an AGN throughout the host galaxy, we plot the H$\alpha$ and H$\beta$ flux radial profiles for the MUSE and VIMOS data in Figs.\,\ref{fig:Ha_profile_MUSE} and \ref{fig:Hb_profile_VIMOS}, respectively. A point source, such as an AGN, will result in a profile having a $r^{-2}$ shape, where $r$ is the distance of the bin from the galaxy centre. A shallower profile points to a spatially-extended source, presumably non-circumnuclear stellar processes such as star formation or radiation from pAGB stars, as the dominant cause of the ionization in the outer parts of the galaxy (i.e.\ LIER rather than LINER). All the galaxies with spatially-extended Balmer emission in our Southern Sample reveal a central point source as the dominant source of the ionizing photons. The H$\beta$ profile of NGC 612 has a larger scatter suggesting that stellar processes also have some impact (likely radiation from pAGB stars, as these galaxies are ETGs and therefore likely have low star-formation rates).
 
 			
 
@@ -702,13 +667,13 @@ galaxies: kinematics and dynamics -- galaxies: abundances -- galaxies: active --
 
 \section{Discussion and Conclusions}
 	\label{sec:discuss}
-	In Section \ref{sec:StarKine} we show that in terms of the stellar kinematic properties, our radio-selected Southern sample are no different to ordinary optically-selected ETGs. Our sample shows a mixture of of regularly- and non-regularly-rotating behaviours, with both classes showing evidence of consistency with observations of the intrinsic shapes of ordinary regular and non-regular rotators. At this stage we observe that two (with a tentative third) galaxies host large KDCs. We also classify our sample galaxies into fast- and slow-rotators and find a consistent fraction ($45\pm13$\%) of slow-rotators to the ordinary ETG samples of the A+M sample, once the difference in the mass distribution between our Southern sample and the A+M sample are taken into account.
+	In Section \ref{sec:StarKine} we show that in terms of the stellar kinematic properties, our radio-selected Southern sample are no different to ordinary optically-selected ETGs. Our sample shows a mixture of the regularly- and non-regularly-rotating behaviours, with both classes showing evidence of consistency with observations of the intrinsic shapes of ordinary regular and non-regular rotators. At this stage we observe that two (with a tentative third) galaxies host large KDCs. We also classify our sample galaxies into fast- and slow-rotators and find a consistent fraction ($45\pm13$\%) of slow-rotators to the ordinary ETG samples of the A+M sample, once the difference in the mass distribution between our Southern sample and the A+M sample are taken into account.
 
 	Radio-loud S0s are extremely rare with only a handful of known cases \citep[e.g.][]{Heckman1982, Morganti2011}, presumably due to the associated mass functions of both S0s and radio galaxies: both massive S0s and low-mass radio galaxies are rare, with a similar transition masses from rare to more numerous. NGC 612 is one of those rare cases.
 
-	In terms of absorption line strengths and stellar populations (Sections \ref{sec:absorption} and \ref{sec:stellarPop}), we find a remarkably similar gradient to the central Mg\,b verse stellar velocity dispersion relation to that of \citet{Ziegler1997}. Most of the galaxies in our Southern sample show typical ETG behavior: old, metal-rich stellar populations, with a few exceptions: NGC 612 and NGC 1316 are both significantly younger than most ETGs and NGC 3557 has a young core. We observe that all 3 KDCs contain old stellar populations and are consistent with being merger remnants. We also show that the KDCs found in Section \ref{sec:StarKine} fit with the age\,--\,size relation found by \citet{Kuntschner2010} (see Section \ref{subsec:popKDC}) for KDCs in optically-selected ETGs.
+	In terms of absorption line strengths and stellar populations (Sections \ref{sec:absorption} and \ref{sec:stellarPop}), we find a remarkably similar gradient to the central Mg\,b verse stellar velocity dispersion relation to that of \citet{Ziegler1997}. Most of the galaxies in our Southern sample show typical ETG behaviour: old, metal-rich stellar populations, with a few exceptions: NGC 612 and NGC 1316 are both significantly younger than most ETGs and NGC 3557 has a young core. We observe that all 3 KDCs contain old stellar populations and are consistent with being merger remnants. We also show that the KDCs found in Section \ref{sec:StarKine} fit with the age\,--\,size relation found by \citet{Kuntschner2010} (see Section \ref{subsec:popKDC}) for KDCs in optically-selected ETGs.
 
-	If molecular (cold) gas is the fuel source that is accreted on to the the central black holes of our Southern sample in order to power the radio jets, unless it is accreted in a highly turbulent fashion, it might be expected that some of that gas might form stars \citep[e.g.][]{Collin1999, Diamond-Stanic2012, LaMassa2013}. If this is the case then a young stellar population might be expected to dominate in the very central (1--2) spaxels. We our best-fitting age maps (bottom-left panel of Figs \ref{fig:eso443}-\ref{fig:pks718}) show no evidence of this. 	
+	If molecular (cold) gas is the fuel source that is accreted on to the central black holes of our Southern sample in order to power the radio jets, unless it is accreted in a highly turbulent fashion, it might be expected that some of that gas might form stars within the accretion disc \citep[e.g.][]{Collin1999, Diamond-Stanic2012, LaMassa2013}. If this were the case, and these young stellar populations are bright enough to dominate, they should stand out in the very central (1--2) spaxels. Having said that, detection of such a population may prove difficult due to masking by the AGN continuum, the presence of dust (see Table \ref{tab:sample} for a description of the dust morphologies of our sample) and the rapid rate a young stellar population fades. Indeed, our best-fitting age maps show no evidence of a young central stellar population. This is consistent with results by other authors such as \citet{GonzalezDelgado2004} and \citet{Sarzi2005b} with \textit{Hubble Space Telescope} (\textit{HST}) spectra and \citet{CidFernandes2004} with ground based spectra. Furthermore, in section \ref{subsec:Diagnostics}, we show that there is no evidence of an ionizing source with a potential which is consistent with ongoing star formation. 
 
 	In Section \ref{sec:gas} we show that galaxies in our Southern Sample have ionized gas masses of $10^4$\,--\,$10^6\,\mathrm{M_\odot}$. These are at the upper limit of, and possibly exceed, the typical masses observed in ETGs, although given that our sample contains particularly massive galaxies, high ionized gas masses are not unexpected. 
 
@@ -740,104 +705,6 @@ JW acknowledges funding from the Science and Technology Facilities Council Grant
 %%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
 
 \appendix
-\section{Maps}
-	\label{sec:Maps}
-
-	Here, we present spatially-resolved maps of our Southern Sample of the parameters measured and fitted to the IFS datacubes using the methods described in Section \ref{sec:analysis}. We present each galaxy in turn.
-
-	\subsection{ESO\,443-G24}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{eso443-g024.png}
-			\caption{Spatially-resolved map of measurements derived from VIMOS observations for ESO\,433-G24. The measurement is given in the top-left of each panel and the colour-scale limits are given in the bottom-right. The surface brightness (isophotes) are shown as black contours in all maps, while the \ce{^{12}CO(2-1)} contours from ALMA are in cyan and radio continuum contours from the VLA are in green. The radio band displayed depends on the data available in the archive and which images had a similar resolution and scales.}
-			\label{fig:eso443}
-		\end{figure*}
-
-	\subsection{IC\,1459}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ic1459.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for IC\,1459 and derived from MUSE observations.}
-			\label{fig:ic1459}
-		\end{figure*}
-
-	\subsection{IC\,1531}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ic1531.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for IC\,1531.}
-			\label{fig:ic1531}
-		\end{figure*}
-
-	\subsection{IC\,4296}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ic4296.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for IC\,4296 and derived from MUSE observations.}
-			\label{fig:ic4296}
-		\end{figure*}
-
-	\subsection{NGC\,612}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ngc0612.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,612.}
-			\label{fig:ngc612}
-		\end{figure*}
-
-	\subsection{NGC\,1316}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ngc1316.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,1316 and derived from MUSE observations.}
-			\label{fig:ngc1316}
-		\end{figure*}
-
-	\subsection{NGC\,1399}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ngc1399.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,1399 and derived from MUSE observations.}
-			\label{fig:ngc1399}
-		\end{figure*}
-
-	\subsection{NGC\,3100}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ngc3100.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,3100.}
-			\label{fig:ngc3100}
-		\end{figure*}
-
-	\subsection{NGC\,3557}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ngc3557.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,3557.}
-			\label{fig:ngc3557}
-		\end{figure*}
-
-	\subsection{NGC\,7075}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{ngc7075.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,7075.}
-			\label{fig:ngc7075}
-		\end{figure*}
-
-	\subsection{PKS\,718-34}
-		\begin{figure*}
-			\centering
-			\includegraphics[width=\textwidth]{pks0718-34.png}
-			\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,718-34.}
-			\label{fig:pks718}
-		\end{figure*}
-
-
-
-
-% \clearpage
-
 \section{Extrapolating VIMOS Data}
 	\label{sec:Decrement}
 	\begin{figure}
@@ -859,12 +726,13 @@ JW acknowledges funding from the Science and Technology Facilities Council Grant
 
 	If we assume that different ionization states of a given atomic species occur in the same spatial location, then shielding is not important or at least is linear in its effect on the emission-line ratios. Given that the different states are then produced under the same conditions, it is natural to expect a simple relationship between their emission line fluxes, similar to the Balmer decrement. We exploit such relationships to transform classification boundaries from diagnostic plots which use emission lines outside of the spectral range of VIMOS to diagnostics which can be measured with our VIMOS data e.g.\ transform from the classic BPT [\ion{N}{ii}]/H$\alpha$ versus [\ion{O}{iii}]/H$\beta$ to [\ion{N}{i}]/H$\beta$ versus [\ion{O}{iii}]/H$\beta$ diagnostic plot (hereafter the SAURON diagnostic plot) of \citet{Sarzi2010}. We achieve this by finding a best-fitting relationship between the relevant measurements taken in each bin of the galaxies for which we have the relevant detections in our MUSE data (due to the lack of detectable emission line in the observations of IC 4296 and NGC 1399, we therefore use the observations of IC 1459 and NGC 1316). This relationship is then applied to the diagnostic boundary lines in the relevant plots below. We emphasize that these are purely empirical relationships and thus differ substantially from the Balmer decrement with its strong theoretical basis (although these relationships include the effect of the Balmer decrement). 
 
-	The two transformations that we use are from [\ion{N}{ii}]/H$\alpha$ to [\ion{N}{i}]/H$\beta$ line ratios and from the H$\alpha$ to the H$\beta$ equivalent widths. In both cases we fit a linear relationship $y = Ax + B$ using the least-trimmed squares routine, \textsc{lts\_linefit}\footnote{http://www-astro.physics.ox.ac.uk/\~mxc/software/\#lts} of \citet{Cappellari2013} due to its robust handling of the uncertainties along both axes. These are shown in Figs.\ \ref{fig:ratio_relation} and \ref{fig:EqW_relation}, where we find
+	The two transformations that we use are from [\ion{N}{ii}]/H$\alpha$ to [\ion{N}{i}]/H$\beta$ line ratios and from the H$\alpha$ to the H$\beta$ equivalent widths. In both cases we fit a linear relationship $y = Ax + B$ using the least-trimmed squares routine, \textsc{lts\_linefit}\footnote{http://www-astro.physics.ox.ac.uk/\~mxc/software/\#lts}% \label{Cappellari}}
+	 of \citet{Cappellari2013} due to its robust handling of the uncertainties along both axes. These are shown in Figs.\ \ref{fig:ratio_relation} and \ref{fig:EqW_relation}, where we find
 	\begin{equation}
 		\frac{[\text{\ion{N}{ii}}]}{H\alpha} = \, (0.38 \pm 0.02) \frac{[\text{\ion{N}{i}}]}{H\beta} + (1.80 \pm 0.02)
 	\end{equation}
 	and	
-	\begin{equation}}
+	\begin{equation}
 		\mathrm{EW}(H\alpha) = \, (2.92 \pm 0.03) \mathrm{EW}(H\beta) - (0.16 \pm 0.02) \, ,
 			\label{eq:EqW_dec}
 	\end{equation}
@@ -877,6 +745,97 @@ JW acknowledges funding from the Science and Technology Facilities Council Grant
 		\end{cases}
 		\label{eq:N_dec}
 	\end{equation}
+
+
+% \begin{landscape}
+\section{Maps}
+	\label{sec:maps}
+
+	Here, we present spatially-resolved maps of our Southern Sample of the parameters measured and fitted to the IFS datacubes using the methods described in Section \ref{sec:analysis}. We present each galaxy in turn.
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{eso443-g024.png}
+		\caption{Spatially-resolved map of measurements derived from VIMOS observations for ESO\,433-G24. The measurement is given in the top-left of each panel and the colour-scale limits are given in the bottom-right. The surface brightness (isophotes) are shown as black contours in all maps, while the \ce{^{12}CO(2-1)} contours from ALMA are in white and radio continuum contours from the VLA are in green. The radio band displayed depends on the data available in the archive and which images had a similar resolution and scales.}
+		\label{fig:eso443}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ic1459.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for IC\,1459 and derived from MUSE observations.}
+		\label{fig:ic1459}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ic1531.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for IC\,1531.}
+		\label{fig:ic1531}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ic4296.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for IC\,4296 and derived from MUSE observations.}
+		\label{fig:ic4296}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ngc0612.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,612.}
+		\label{fig:ngc612}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ngc1316.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,1316 and derived from MUSE observations.}
+		\label{fig:ngc1316}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ngc1399.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,1399 and derived from MUSE observations.}
+		\label{fig:ngc1399}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ngc3100.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,3100.}
+		\label{fig:ngc3100}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ngc3557.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,3557.}
+		\label{fig:ngc3557}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{ngc7075.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,7075.}
+		\label{fig:ngc7075}
+	\end{figure*}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{pks0718-34.png}
+		\caption{As Fig.\,\ref{fig:eso443}, but for NGC\,718-34.}
+		\label{fig:pks718}
+	\end{figure*}
+
+% \end{landscape}
+
+
+% \clearpage
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
