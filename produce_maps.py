@@ -339,6 +339,8 @@ def plot(galaxy, instrument='vimos', debug=True):
 			# print i, j, p
 			if galaxy in ['ngc0612', 'pks0718-34'] and 'Mg_b' in p:
 				break # break out of for-loop
+			elif galaxy in ['ngc1399', 'pks0718-34'] and 'OIII' in p:
+				axs[i,j].remove()
 			elif 'flux' in p:
 				if p == 'D.flux':
 					axs[i,j] = plot_velfield_nointerp(D.x, D.y, D.bin_num, 
@@ -356,11 +358,11 @@ def plot(galaxy, instrument='vimos', debug=True):
 						scale = 'log' if o == 'radio' else 'lin'
 						add_(o, color, axs[i,j], galaxy, nolegend=True, scale=scale)
 				if i > 0:
-					if plots[i-1][j] != '':
+					if plots[i-1][j] != '' and hasattr(axs[i-1,j], 'ax_dis'):
 						axs[i-1,j].ax_dis.set_xticklabels([])
 						axs[i-1,j].ax_dis.set_xlabel('')
 				if j > 0:
-					if plots[i][j-1] != '':
+					if plots[i][j-1] != '' and hasattr(axs[i,j-1], 'ax_dis'):
 						axs[i,j].ax_dis.set_yticklabels([])
 						axs[i,j].ax_dis.set_ylabel('')
 
@@ -388,11 +390,11 @@ def plot(galaxy, instrument='vimos', debug=True):
 						scale = 'log' if o == 'radio' else 'lin'
 						add_(o, color, axs[i,j], galaxy, nolegend=True, scale=scale)
 				if i > 0:
-					if plots[i-1][j] != '':
+					if plots[i-1][j] != '' and hasattr(axs[i-1,j], 'ax_dis'):
 						axs[i-1,j].ax_dis.set_xticklabels([])
 						axs[i-1,j].ax_dis.set_xlabel('')
 				if j > 0:
-					if plots[i][j-1] != '':
+					if plots[i][j-1] != '' and hasattr(axs[i,j-1], 'ax_dis'):
 						axs[i,j].ax_dis.set_yticklabels([])
 						axs[i,j].ax_dis.set_ylabel('')
 			
@@ -450,7 +452,9 @@ def plot(galaxy, instrument='vimos', debug=True):
 				scale = 'log' if o == 'radio' else 'lin'
 				add_(o, color, axs[-1,j], galaxy, nolegend=True, scale=scale)
 
-	for a in axs.flatten():
+	for i, a in enumerate(axs.flatten()):
+		# if galaxy in ['ngc1399', 'pks0718-34'] and i==1:
+		# 	break
 		if hasattr(a, 'ax_dis'):
 			a.ax_dis.tick_params(top=True, bottom=True, left=True, 
 				right=True, direction='in', which='major', length=20,
@@ -507,5 +511,6 @@ if __name__=='__main__':
 		# 	'ngc7075', 'pks0718-34']:
 		# 	plot(galaxy, instrument='vimos', debug=False)
 	# elif cc.device == 'uni':
-		for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
-			plot(galaxy, instrument='muse', debug=False)
+		# for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
+		# 	plot(galaxy, instrument='muse', debug=False)
+		plot('ngc1399', instrument='muse', debug=False)
