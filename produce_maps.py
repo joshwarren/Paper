@@ -426,7 +426,7 @@ def plot(galaxy, instrument='vimos', debug=True):
 	# 			gt_fwhm = hist >= np.max(hist)/2
 	# 			unc_plot[j] = np.max(x[gt_fwhm]) - np.min(x[gt_fwhm])
 
-	str_plots = ['Age', 'Age uncertainty', 'Metalicity', 'Metalicity uncertainty', 
+	str_plots = ['Age', 'Age uncertainty', 'Metallicity', 'Metallicity uncertainty', 
 		'Alpha enhancement', 'Alpha enhancement\nuncertainty']
 	units = ['Gyr', 'Gyr', None, None, None, None]
 	vmin = [0, 0, -2.25, 0, -0.3, 0]
@@ -507,10 +507,10 @@ def plot(galaxy, instrument='vimos', debug=True):
 if __name__=='__main__':
 	# plot('ngc1316', instrument='muse', debug=True)
 	if 'home' in cc.device:
-		# for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
-		# 	'ngc7075', 'pks0718-34']:
-		# 	plot(galaxy, instrument='vimos', debug=False)
+		for galaxy in ['eso443-g024', 'ic1531', 'ngc0612', 'ngc3100', 'ngc3557', 
+			'ngc7075', 'pks0718-34']:
+			plot(galaxy, instrument='vimos', debug=False)
 	# elif cc.device == 'uni':
-		# for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
-		# 	plot(galaxy, instrument='muse', debug=False)
-		plot('ngc1399', instrument='muse', debug=False)
+		for galaxy in ['ic1459', 'ic4296', 'ngc1316', 'ngc1399']:
+			plot(galaxy, instrument='muse', debug=False)
+		# plot('ngc1399', instrument='muse', debug=False)
