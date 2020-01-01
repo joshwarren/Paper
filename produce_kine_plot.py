@@ -33,7 +33,7 @@ def plot(galaxies, str_galaxies, file_name, instrument, debug=False):
 	overplot={'CO':'w', 'radio':'g'}
 	Prefig(size=np.array((4, len(galaxies)))*7)
 	fig, axs = plt.subplots(len(galaxies), 4)#, sharex=True, sharey=True)
-	out_dir = '%s/Documents/thesis/chapter5/%s' % (cc.home_dir, instrument)
+	out_dir = '%s/Documents/paper/%s' % (cc.home_dir, instrument)
 
 	for i, galaxy in enumerate(galaxies):
 		if debug:
@@ -228,12 +228,12 @@ def plot(galaxies, str_galaxies, file_name, instrument, debug=False):
 			va='center', ha='center')
 
 
-	# if debug:
-	# 	fig.savefig('%s/%s.png' % (out_dir, 'test'), bbox_inches='tight',
-	# 		dpi=240)
-	# else:
-	# 	fig.savefig('%s/%s.png' % (out_dir, file_name), bbox_inches='tight',
-	# 		dpi=240)
+	if debug:
+		fig.savefig('%s/%s.png' % (out_dir, 'test'), bbox_inches='tight',
+			dpi=240)
+	else:
+		fig.savefig('%s/%s.png' % (out_dir, file_name), bbox_inches='tight',
+			dpi=240)
 
 	plt.close('all')
 
@@ -268,8 +268,8 @@ def ngc3100_NI_Hb():
 	ax.ax_dis.tick_params(top=True, bottom=True, left=True, right=True, 
 		direction='in', which='minor', length=10, width=3)
 
-	# fig.savefig('%s/Documents/thesis/chapter5/vimos/ngc3100_NI_Hb.png' % (
-	# 	cc.home_dir), dpi=300, bbox_inches='tight')
+	fig.savefig('%s/Documents/paper/vimos/ngc3100_NI_Hb.png' % (
+		cc.home_dir), dpi=300, bbox_inches='tight')
 
 
 def ngc1316_inflow():
@@ -351,8 +351,8 @@ def ngc1316_inflow():
 	fig.text(ax_loc.x1+0.08, 0.5, r'Mean velocity (km s$^{-1}$)', 
 		rotation=270, verticalalignment='center')
 	
-	# fig.savefig('%s/Documents/thesis/chapter5/ngc1316_inflow.png' % (
-	# 	cc.home_dir), dpi=300, bbox_inches='tight')
+	fig.savefig('%s/Documents/paper/ngc1316_inflow.png' % (
+		cc.home_dir), dpi=300, bbox_inches='tight')
 
 
 
@@ -513,9 +513,9 @@ def BPT():
 		a.set_xticklabels([])
 
 
-	saveTo = '%s/Documents/thesis/chapter5/BPT.png' % (cc.home_dir)		
+	saveTo = '%s/Documents/paper/BPT.png' % (cc.home_dir)		
 	fig.subplots_adjust(wspace=0,hspace=0)
-	# fig.savefig(saveTo, dpi=240)
+	fig.savefig(saveTo, dpi=240)
 	plt.close()
 
 
@@ -590,8 +590,8 @@ def SAURON():
 	ax.set_ylim([-1.5, 1.5])
 
 
-	# fig.savefig('%s/Documents/thesis/chapter5/SAURON.png' % (cc.home_dir), dpi=240,
-		# bbox_inches='tight')
+	fig.savefig('%s/Documents/paper/SAURON.png' % (cc.home_dir), dpi=240,
+		bbox_inches='tight')
 
 
 
@@ -655,7 +655,7 @@ def WHbN1():
 	ax.text(-0.95, 0.1, 'Weak AGN')
 	ax.text(-1.65, -0.2,'Retired Galaxies')
 
-	# fig.savefig('%s/Documents/thesis/chapter5/WHbN1.png' % (cc.home_dir), dpi=240)
+	fig.savefig('%s/Documents/paper/WHbN1.png' % (cc.home_dir), dpi=240)
 
 
 def ic4296_WHaN2():
@@ -720,13 +720,13 @@ def ic4296_WHaN2():
 	ax.text(-0.3, 0.65, 'Weak AGN')
 	ax.text(-0.95, 0.3,'Retired Galaxies')
 
-	# fig.savefig('%s/Documents/thesis/chapter5/WHaN2.png' % (cc.home_dir), dpi=240)
+	fig.savefig('%s/Documents/paper/WHaN2.png' % (cc.home_dir), dpi=240)
 
 
 
 def H_profile(instrument='vimos'):
 	from matplotlib import ticker
-	# print '**************Need to correctly set seeing************'
+	print '**************Need to correctly set seeing************'
 
 
 	if instrument=='vimos':
@@ -804,7 +804,7 @@ def H_profile(instrument='vimos'):
 			ax[i].plot(x[x>=0], y[x>=0], zorder=10, color='r')
 			ax[i].set_xlim(lim)
 
-			ax[i].text(0.93*lim[1], 0.7, str_galaxies[i], ha='right', fontsize=24)
+			ax[i].text(0.93*lim[1], 0.7, str_galaxies[i], ha='right')
 
 			ax[i].set_ylim([-0.02, 1.1])
 
@@ -816,7 +816,6 @@ def H_profile(instrument='vimos'):
 			for axis in [ax[i].xaxis, ax[i].yaxis]:
 				axis.set_major_formatter(
 					ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
-			ax[i].minorticks_on()
 
 	if instrument == 'vimos':
 		ax[0].set_ylabel(r'H$\,\beta$ normalised flux')
@@ -826,30 +825,29 @@ def H_profile(instrument='vimos'):
 		a.set_xlabel('Radius (arcsec)')
 
 	fig.subplots_adjust(wspace=0,hspace=0)
-
-	fig.savefig('%s/Documents/paper/%s_profile.png' % (
-		cc.home_dir, line), dpi=240, bbox_inches='tight')
+	fig.savefig('%s/Documents/paper/%s/%s_profile.png' % (
+		cc.home_dir, instrument, line), dpi=240)
 	plt.close('all')
 	
 
 
 
 if __name__=='__main__':
-	if 'home' in cc.device:
-		H_profile(instrument='vimos')
+	# if 'home' in cc.device:
+		# H_profile(instrument='vimos')
 
 	# ngc3100_NI_Hb()
 
-		# WHbN1()
+	WHbN1()
 		
-		# SAURON()
+	SAURON()
 
 	# plot(['ic1459', 'ngc0612', 'ngc3100'], 
 	# 	['IC 1459', 'NGC 612', 'NGC 3100'], 'kin', 'vimos')
 	# elif cc.device == 'uni':
 		# ic4296_WHaN2()
 
-	H_profile(instrument='muse')
+	# H_profile(instrument='muse')
 
 	# ngc1316_inflow()
 
