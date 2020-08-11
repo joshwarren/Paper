@@ -735,6 +735,7 @@ def H_profile(instrument='vimos'):
 		cols = (4, 5)
 		line = 'Hbeta'
 		res = 0.67 # arcsec/pix
+
 	elif instrument=='muse':
 		galaxies = np.array(['ic1459', 'ngc1316'])
 		str_galaxies = np.array(['IC 1459', 'NGC 1316'])
@@ -795,7 +796,10 @@ def H_profile(instrument='vimos'):
 			o = np.argsort(r)
 
 			lim = ax[i].get_xlim()
-			x = np.arange(-seeing_sigma, lim[1], 0.001)
+			ax[i].set_xlim(0, min(lim[1], 22))
+			lim = ax[i].get_xlim()
+
+			x = np.arange(-seeing_sigma, lim[1], 0.01)
 
 			y = 1/x**2
 			y = ndimage.gaussian_filter1d(y, seeing_sigma) # convolve with seeing
@@ -806,7 +810,7 @@ def H_profile(instrument='vimos'):
 
 			ax[i].text(0.93*lim[1], 0.7, str_galaxies[i], ha='right')
 
-			ax[i].set_ylim([-0.02, 1.1])
+			ax[i].set_ylim([0.001, 1.1])
 
 			ax[i].set_yscale('log')
 			ax[i].tick_params(which='major', direction='in', length=10, 
@@ -817,6 +821,8 @@ def H_profile(instrument='vimos'):
 				axis.set_major_formatter(
 					ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
+
+
 	if instrument == 'vimos':
 		ax[0].set_ylabel(r'H$\,\beta$ normalised flux')
 	if instrument == 'muse':
@@ -825,8 +831,8 @@ def H_profile(instrument='vimos'):
 		a.set_xlabel('Radius (arcsec)')
 
 	fig.subplots_adjust(wspace=0,hspace=0)
-	fig.savefig('%s/Documents/paper/%s/%s_profile.png' % (
-		cc.home_dir, instrument, line), dpi=240)
+	fig.savefig('%s/Documents/paper/%s_profile.png' % (
+		cc.home_dir, line), dpi=240)
 	plt.close('all')
 	
 
@@ -834,13 +840,13 @@ def H_profile(instrument='vimos'):
 
 if __name__=='__main__':
 	# if 'home' in cc.device:
-		# H_profile(instrument='vimos')
+	H_profile(instrument='vimos')
 
 	# ngc3100_NI_Hb()
 
-	WHbN1()
+	# WHbN1()
 		
-	SAURON()
+	# SAURON()
 
 	# plot(['ic1459', 'ngc0612', 'ngc3100'], 
 	# 	['IC 1459', 'NGC 612', 'NGC 3100'], 'kin', 'vimos')

@@ -293,7 +293,7 @@ fluxes, so this is not a volume-limited sample.
     \parbox[t]{0.7\textwidth}{\footnotesize\textit{Notes:} Col.~1:
       galaxy name. Col.~2: radio source name from the Parkes Southern
       Radio Source Catalogue (PKS). We hereafter refer to the last
-      galaxy by its PKS name only. Col.~3: redshift \added{(uncertainty in redshift is $> 0.00001$)}. Col.~4: National
+      galaxy by its PKS name only. Col.~3: redshift \added{(uncertainty in redshift is $< 0.00001$)}. Col.~4: National
       Radio Astronomy Observatory (NRAO) VLA Sky Survey (NVSS)
       $1.4$~GHz flux density \citep{Condon1998}. Col.~5: Two Micron
       All Sky Survey (2MASS) $K$-band apparent magnitude (with
@@ -605,7 +605,7 @@ following sections.
 \label{subsubsec:stellarPop}
 
 In each bin, using the measured absorption line strengths, we identify
-the best-fitting single stellar population (SSP) model from an
+the best-fitting \added{luminosity-weighted} single stellar population (SSP) model from an
 interpolated grid of models using \textsc{emcee}, a \textsc{python}
 affine-invariant Markov-chain Monte-Carlo (MCMC) fitting package
 \citep{Foreman-Mackey2013}. This grid is created by linearly
@@ -810,7 +810,7 @@ rotators. {\bf (Again, better to also quote the uncertainties on those
   two fractions. I doubt the decimal place is meaningful in either of
   them.)} As in the regular-/non-regular-rotator classification scheme
 (Section~\ref{subsec:RR-NRR}), slow rotators are more likely to be
-found in higher mass galaxies, and the three samples
+found in higher mass galaxies \added{(see lower panel of Fig.~\ref{fig:SRmassFraction})}, and the three samples
 (Atlas$^\text{3D}$, MASSIVE and our Southern Sample) have very
 different mass distributions (see the upper panel of
 Fig.~\ref{fig:SRmassFraction}).
@@ -1140,16 +1140,16 @@ We find a very large offset between the G4300 index measurements of
 \citet{Rampazzo2005} and ours. This index is however extremely
 sensitive to the stellar velocity dispersion correction, and we
 measure an average difference of the stellar velocity dispersions
-measured by \citet{Rampazzo2005} and us of $21$~km~s$^{-1}$. This may
-be enough to account for the offset of the measurements. {\bf (Why not
+measured by \citet{Rampazzo2005} and us of $21$~km~s$^{-1}$. 
+\removed{This may be enough to account for the offset of the measurements.} {\bf (Why not
   check this by changing the stellar velocity dispersions used in your
-  corrections to those of \citealt{Rampazzo2005}? Check.)}
+  corrections to those of \citealt{Rampazzo2005}? Check. JW: I can't get anywhere close the values of Rampazzo for G4300. Once the conversion to LIS is included, I have to double the stellar velocity dispersion, before I get can get similar results! I'm not sure what to do about this.)}
 
-The offsets of our Fe5015 index measurements are also relatively large
+\removed{The offsets of our Fe5015 index measurements are also relatively large
 when compared to the measurements of \citet{Rampazzo2005} and
 \citet{Vazdekis2010}. The origin of this offset is unclear for the
 latter, but for the former it may be due to differences in the way the
-[\ion{O}{iii}] doublet emission is accounted for. {\bf (In both cases,
+[\ion{O}{iii}] doublet emission is accounted for.} {\bf (In both cases,
   the offsets are smaller than $3\sigma$, in the sense that the stated
   offset is less than $3$ times the stated dispersion. The offsets are
   thus not really significant... is this discussion therefore really
@@ -1159,16 +1159,17 @@ latter, but for the former it may be due to differences in the way the
   must be introduced/addressed to justify which offsets you choose to
   discuss.)}
 
-Indices other than G4300 and Fe5015 generally have literature
+\removed{Indices other than G4300 and Fe5015 generally have literature
 measurements that are fairly consistent with ours, although the
 dispersions of the measurements are fairly large (perhaps due to the
-transformations from Lick to LIS system indices).
-
+transformations from Lick to LIS system indices).}
 {\bf (A number of the offsets listed in the table actually {\em are}
   significant (i.e.\ $>3\sigma$). In particular, a majority of the
   offsets with the \citealt{Ogando2008} measurements are
   significant. Why are these measurements so inconsistent? I think
   this should be discussed.)}
+
+\added{For many indices \citet{Ogando2008} found significantly stronger measurements to us.} {\bf JW: I need help with this part, I don't know how to explain why they might be different - all I can say is that are.}
 
 \section{Stellar Populations}
 \label{sec:stellarPop}
@@ -1185,9 +1186,9 @@ transformations from Lick to LIS system indices).
 Assuming that the individual spectra from our Southern Sample galaxies
 can be well approximated by a SSP, we use the methods and the
 absorption line strength maps described in
-Section~\ref{subsec:absorption} to produce maps of the most-likely SSP
+Section~\ref{subsec:absorption} to produce maps of the most-likely \added{luminosity-weighted} SSP
 parameters (see Appendix~\ref{sec:maps}): age ($t$), metallicity
-($Z/H$) and alpha-element enhancement ($\alpha$/Fe). {\bf (You must
+\removed{($Z/H$)}\added{($[M/H]$)} and alpha-element enhancement ($\alpha$/Fe). {\bf (You must
   specify here (and presumably also in
   Section~\ref{subsubsec:stellarPop}) whether the stellar population
   parameters are mass- or luminosity-weighted.)}
@@ -1200,20 +1201,20 @@ parameters (see Appendix~\ref{sec:maps}): age ($t$), metallicity
   and be consistent.)}
 
 In general, our Southern Sample galaxies show old, metal-rich and
-alpha-enhanced SSPs, characteristics that are common in ETGs {\bf (Add
+alpha-enhanced SSPs, characteristics that are common in ETGs \added{\citep[e.g.][]{Worthey1992}}{\bf (Add
   a classic reference here.)} The exceptions are NGC~612 and
 NGC~1316. NGC~1316 has a very young stellar population (our fit of
 $t\approx2$~Gyr is consistent with that of \citealt{Kuntschner2000},
 but is conflicting with the older and less metal-rich estimate of
 \citealt{Koleva2011}, who found $t=4.5\pm0.3$~Gyr and
-$\mathrm{[Fe/H]}=0.12\pm0.01$ for an aperture covering the central
-$0.1$~kpc). {\bf (Is that a circular or square aperture? If circular,
+\removed{$\mathrm{[Fe/H]}=0.12\pm0.01$}\added{$\mathrm{[M/H]}=0.12\pm0.01$} \removed{for an aperture covering the central
+$0.1$~kpc)}`added{using a long slit with width $1\arcsec$ and length $0.1$~kpc)}. {\bf (Is that a circular or square aperture? If circular,
   is $0.1$~kpc the radius or diameter? Clarify.)} We also find NGC~612
 to have an extended young stellar population of
 $t\approx4$~Gyr. Otherwise, NGC~3557 is notable for containing a
 significantly younger ($t\approx4$~Gyr) core of $\approx10\arcsec$ in
-diameter, and NGC~3100 has a branch of young stars ($t\approx4$\,Gyr)
-along the south-east branch of the molecular gas (\removed{white} 
+diameter, and NGC~3100 has a branch of young stars ($t\approx4$\,Gyr) \added{with very high metallicity projecting southwards from below the eastern}
+\removed{along the south-east} branch of the molecular gas (\removed{white} 
 \added{cyan} contours in
 Fig.~\ref{fig:ngc3100}). {\bf (I do not see the age feature you refer
   to in the NGC3100 maps, and the CO is distributed North-East to
@@ -1231,7 +1232,7 @@ Fig.~\ref{fig:ngc3100}). {\bf (I do not see the age feature you refer
 gradients of age and metallicity across galaxy populations, the mean
 gradients are approximately constant across a large mass range. To
 probe this they assumed a linear relationship between $\log(t)$ or
-[Fe/H] and $\log(R/R_\text{e})$, i.e.\ as is common the gradients
+\removed{[Fe/H]}\added{[M/H]} and $\log(R/R_\text{e})$, i.e.\ as is common the gradients
 considered are logarithmic radial gradients. We repeated these fits
 with our Southern Sample galaxies, and the results are listed in
 Table~\ref{tab:derivedProp}.
@@ -1244,7 +1245,7 @@ Table~\ref{tab:derivedProp}.
     \begin{tabular*}{0.95\textwidth}{@{\extracolsep{\fill}}l c c c c c c c c}
       \hline
       \hline 
-      Galaxy & \multicolumn{2}{c}{$\Delta\log(t)$} & \multicolumn{2}{c}{$\Delta\text{[Fe/H]}$} & \multicolumn{2}{c}{$\log(M_\text{\ion{H}{ii}}/\mathrm{M_\odot})$} & Balmer Dec. & Ionisation\\
+      Galaxy & \multicolumn{2}{c}{$\Delta\log(t)$} & \multicolumn{2}{c}{\removed{$\Delta\text{[Fe/H]}$}\added{$\Delta\text{[M/H]}$}} & \multicolumn{2}{c}{$\log(M_\text{\ion{H}{ii}}/\mathrm{M_\odot})$} & Balmer Dec. & Ionisation\\
              & VIMOS & MUSE & VIMOS & MUSE & VIMOS$^\text{a}$ & MUSE & & \\
       \hline
       ESO~443-G024 & $0.019\pm0.013$ & -- & $-0.01\pm0.02$ & -- & $5.02\pm0.01$ & -- & -- & LINER \\
@@ -1285,7 +1286,7 @@ Table~\ref{tab:derivedProp}.
   
 We find average logarithmic radial gradients of
 $\Delta\log(t)=0.014\pm0.007$ and
-$\Delta\text{[Fe/H]}=-0.03\pm0.01$. These are consistent with the
+\removed{$\Delta\text{[Fe/H]}=-0.03\pm0.01$}\added{$\Delta\text{[M/H]}=-0.03\pm0.01$}. These are consistent with the
 results of \citet{Koleva2011}, who found average gradients of
 respectively $0.06\pm0.09$ and $-0.26\pm0.08$ for elliptical galaxies,
 and respectively $0.01\pm0.11$ and $-0.12\pm0.13$ (i.e.\ flatter) for
@@ -1860,12 +1861,12 @@ once differences in the mass distributions of our Southern Sample and
 the A+M sample were taken into account, we found a fraction of
 slow-rotators ($45\pm13\%$) consistent with that of ordinary ETGs.
 
-Radio-loud S0 galaxies are extremely rare, with only a handful of
+\removed{Radio-loud S0 galaxies are extremely rare, with only a handful of
 known cases \citep[e.g.][]{Heckman1982, Morganti2011}. This is
 presumably due to the mass functions of S0s and radio galaxies,
 massive S0s and low-mass radio galaxies both being rare, with similar
 transition masses from rare to more numerous. NGC~612 is one of those
-rare cases. {\bf (You are not discussing here any of your own results,
+rare cases.} {\bf (You are not discussing here any of your own results,
   just rehashing old knowledge, so unless you have something else to
   say about NGC~612 (from your own work), I would suggest to remove
   this paragraph entirely (and/or certainly move it somewhere else
