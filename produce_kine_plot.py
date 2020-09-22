@@ -726,7 +726,6 @@ def ic4296_WHaN2():
 
 def H_profile(instrument='vimos'):
 	from matplotlib import ticker
-	print '**************Need to correctly set seeing************'
 
 
 	if instrument=='vimos':
@@ -743,7 +742,17 @@ def H_profile(instrument='vimos'):
 		line = 'Halpha'
 		res = 0.2 # arcsec/pix
 
-	Prefig(size=np.array((len(galaxies), 1))*7)
+	Prefig(size=np.array((len(galaxies), 0.43*len(galaxies)))*7)
+
+	# if instrument=='vimos':
+		# plt.rc('axes', labelsize='x-large') # facecolor='w'
+		# plt.rc('xtick.major', size=10, width=2)
+		# plt.rc('xtick.minor', size=10, width=2)
+		# plt.rc('ytick.major', size=10, width=2)
+		# plt.rc('ytick.minor', size=10, width=2)
+	plt.rc('font', size=10*len(galaxies))
+
+
 	fig, ax = plt.subplots(1, len(galaxies), sharey=True)
 
 	analysis_dir = "%s/Data/%s/analysis" % (cc.base_dir, instrument)
@@ -756,31 +765,36 @@ def H_profile(instrument='vimos'):
 
 	for i, galaxy in enumerate(galaxies):
 		print 'H profile:', galaxy
-		D = Data(galaxy, instrument=instrument, opt='pop')
+		if galaxy == 'ngc1316':
+			D = Data(galaxy, instrument=instrument, opt='pop_test', overide=True)
+		else:
+			D = Data(galaxy, instrument=instrument, opt='pop')
 
-		if galaxy=='ic1459' and instrument=='vimos':
-			seeing_sigma = np.mean([0.82,0.84,1.20,1.26,1.10,1.27]) * 2.5
-			norm_r = 2.5
-			norm_y = 0.04
-		elif galaxy=='ngc0612':
-			seeing_sigma = np.mean([0.72,0.78,1.45,1.46,1.08,1.11]) * 2.5
-			norm_r = 2.5
-			norm_y = 0.2
-		elif galaxy=='ngc3100':
-			seeing_sigma = np.mean([0.76,0.82,0.75,0.82,1.16,1.20]) * 2.5
-			norm_r = 2
-			norm_y = 0.15
+
+		if instrument=='vimos':
+			if galaxy=='ic1459':
+				seeing_sigma = np.mean([0.82,0.84,1.20,1.26,1.10,1.27]) * 2.5
+				norm_r = 2.4
+				norm_y = 0.1
+			elif galaxy=='ngc0612':
+				seeing_sigma = np.mean([0.72,0.78,1.45,1.46,1.08,1.11]) * 2.5
+				norm_r = 5
+				norm_y = 0.2
+			elif galaxy=='ngc3100':
+				seeing_sigma = np.mean([0.76,0.82,0.75,0.82,1.16,1.20]) * 2.5
+				norm_r = 2.9
+				norm_y = 0.2
 		elif instrument=='muse':
 			from errors2_muse import get_dataCubeDirectory
 			f=fits.open(get_dataCubeDirectory(galaxy))
 			seeing_sigma = np.mean([f[0].header['ESO TEL AMBI FWHM START'],
 				f[0].header['ESO TEL AMBI FWHM START']]) * 2.5
 			if galaxy=='ic1459':
-				norm_r = 5
-				norm_y = 0.005
+				norm_r = 1.7
+				norm_y = 0.1
 			elif galaxy=='ngc1316':
-				norm_r = 5
-				norm_y = 0.015
+				norm_r = 3
+				norm_y = 0.1
 
 		i_gal = np.where(galaxy_gals==galaxy)[0][0]
 		center = (x_cent_gals[i_gal], y_cent_gals[i_gal])
@@ -810,7 +824,7 @@ def H_profile(instrument='vimos'):
 
 			ax[i].text(0.93*lim[1], 0.7, str_galaxies[i], ha='right')
 
-			ax[i].set_ylim([0.001, 1.1])
+			ax[i].set_ylim([0.01, 1.1])
 
 			ax[i].set_yscale('log')
 			ax[i].tick_params(which='major', direction='in', length=10, 
@@ -832,7 +846,7 @@ def H_profile(instrument='vimos'):
 
 	fig.subplots_adjust(wspace=0,hspace=0)
 	fig.savefig('%s/Documents/paper/%s_profile.png' % (
-		cc.home_dir, line), dpi=240)
+		cc.home_dir, line), dpi=240, bbox_inches='tight')
 	plt.close('all')
 	
 
@@ -840,7 +854,7 @@ def H_profile(instrument='vimos'):
 
 if __name__=='__main__':
 	# if 'home' in cc.device:
-	H_profile(instrument='vimos')
+	# H_profile(instrument='vimos')
 
 	# ngc3100_NI_Hb()
 
@@ -853,7 +867,7 @@ if __name__=='__main__':
 	# elif cc.device == 'uni':
 		# ic4296_WHaN2()
 
-	# H_profile(instrument='muse')
+	H_profile(instrument='muse')
 
 	# ngc1316_inflow()
 
